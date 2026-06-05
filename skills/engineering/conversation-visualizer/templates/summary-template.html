@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Conversation Decision Brief</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Dark Mode (Default) */
+      --bg-primary: #090d16;
+      --bg-secondary: #121824;
+      --bg-tertiary: #1b2336;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #10b981;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #7c3aed 50%, #db2777 100%);
+      --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      --glass-bg: rgba(18, 24, 36, 0.85);
+      --glass-backdrop: blur(16px);
+      
+      --topic-resolved: rgba(16, 185, 129, 0.15);
+      --topic-resolved-text: #34d399;
+      --topic-ongoing: rgba(245, 158, 11, 0.15);
+      --topic-ongoing-text: #fbbf24;
+      --topic-postponed: rgba(100, 116, 139, 0.15);
+      --topic-postponed-text: #94a3b8;
+
+      --priority-high: rgba(239, 68, 68, 0.15);
+      --priority-high-text: #f87171;
+      --priority-medium: rgba(245, 158, 11, 0.15);
+      --priority-medium-text: #fbbf24;
+      --priority-low: rgba(59, 130, 246, 0.15);
+      --priority-low-text: #60a5fa;
+    }
+
+    [data-theme="light"] {
+      /* Light Mode */
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --accent-primary: #2563eb;
+      --accent-secondary: #059669;
+      --accent-warning: #d97706;
+      --accent-danger: #dc2626;
+      --accent-gradient: linear-gradient(135deg, #2563eb 0%, #6d28d9 50%, #be185d 100%);
+      --card-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.12);
+      --glass-bg: rgba(255, 255, 255, 0.9);
+      --glass-backdrop: blur(16px);
+      
+      --topic-resolved: rgba(5, 150, 105, 0.1);
+      --topic-resolved-text: #047857;
+      --topic-ongoing: rgba(217, 119, 6, 0.1);
+      --topic-ongoing-text: #b45309;
+      --topic-postponed: rgba(100, 116, 139, 0.1);
+      --topic-postponed-text: #475569;
+
+      --priority-high: rgba(220, 38, 38, 0.1);
+      --priority-high-text: #b91c1c;
+      --priority-medium: rgba(217, 119, 6, 0.1);
+      --priority-medium-text: #b45309;
+      --priority-low: rgba(37, 99, 235, 0.1);
+      --priority-low-text: #1d4ed8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-backdrop);
+      -webkit-backdrop-filter: var(--glass-backdrop);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--accent-gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+
+    .title-group h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .title-group p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .theme-toggle-btn {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--border-color);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Summary Card / Overview Header */
+    .hero-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.25rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0) 70%);
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .hero-summary {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    /* Tab Navigation */
+    .tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .tab-link {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.85rem 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tab-link:hover {
+      color: var(--text-primary);
+    }
+    .tab-link.active {
+      color: var(--accent-primary);
+    }
+    .tab-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent-gradient);
+      border-radius: 9999px;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+    .tab-panel.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .metric-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      box-shadow: var(--card-shadow);
+    }
+    .metric-card h3 {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    .metric-card .value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    /* Content Cards and Lists */
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .item-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .item-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .item-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+    /* Statuses */
+    .item-badge.resolved { background: var(--topic-resolved); color: var(--topic-resolved-text); }
+    .item-badge.ongoing { background: var(--topic-ongoing); color: var(--topic-ongoing-text); }
+    .item-badge.postponed { background: var(--topic-postponed); color: var(--topic-postponed-text); }
+    /* Priorities */
+    .item-badge.high { background: var(--priority-high); color: var(--priority-high-text); }
+    .item-badge.medium { background: var(--priority-medium); color: var(--priority-medium-text); }
+    .item-badge.low { background: var(--priority-low); color: var(--priority-low-text); }
+
+    .item-body {
+      font-size: 0.925rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    /* Decision Log styling */
+    .decision-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .decision-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: relative;
+    }
+    .decision-card::before {
+      content: 'DECISION';
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .decision-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      padding-right: 5rem;
+    }
+
+    .decision-reason-box {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .decision-reason-box h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+    .decision-reason {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Action Board view */
+    .action-table-container {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .action-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .action-table th, .action-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    .action-table th {
+      background: rgba(0, 0, 0, 0.15);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .action-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .action-task-cell {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .owner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-tertiary);
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Simple Grid for Layout splits */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.75rem;
+    }
+    @media (max-width: 768px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .qa-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .qa-item {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .qa-item::before {
+      content: '❓';
+      flex-shrink: 0;
+    }
+    .qa-item.conflict::before {
+      content: '⚠️';
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">D</div>
+      <div class="title-group">
+        <h1 id="header-title">AI Decision Brief</h1>
+        <p>Structured Knowledge & Actions</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="theme-toggle-btn" id="theme-toggle">
+        <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <span id="theme-text">Light Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Header -->
+    <div class="hero-card">
+      <h2 class="hero-title" id="brief-title">Loading Decision Brief...</h2>
+      <p class="hero-summary" id="brief-summary"></p>
+    </div>
+
+    <!-- Tabs Menu -->
+    <div class="tabs-nav">
+      <button class="tab-link active" data-tab="overview">
+        📋 Overview
+      </button>
+      <button class="tab-link" data-tab="decisions">
+        ⚖️ Decision Log
+      </button>
+      <button class="tab-link" data-tab="actions">
+        ✅ Action Items
+      </button>
+    </div>
+
+    <!-- Tab Panels -->
+    <!-- PANEL 1: OVERVIEW -->
+    <div class="tab-panel active" id="panel-overview">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <h3>Topics discussed</h3>
+          <div class="value" id="metric-topics">0</div>
+        </div>
+        <div class="metric-card">
+          <h3>Key Decisions</h3>
+          <div class="value" id="metric-decisions">0</div>
+        </div>
+        <div class="metric-card">
+          <h3>Open Tasks</h3>
+          <div class="value" id="metric-tasks">0</div>
+        </div>
+        <div class="metric-card">
+          <h3>Unresolved items</h3>
+          <div class="value" id="metric-open-questions">0</div>
+        </div>
+      </div>
+
+      <div class="split-layout">
+        <div>
+          <h3 class="section-title">💡 Discussed Topics</h3>
+          <div class="list-container" id="topics-list">
+            <!-- topics generated dynamically -->
+          </div>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div>
+            <h3 class="section-title">❓ Open Questions</h3>
+            <div class="qa-box" id="open-questions-box">
+              <!-- open questions -->
+            </div>
+          </div>
+          
+          <div id="unresolved-conflicts-section" style="display: none;">
+            <h3 class="section-title">⚠️ Unresolved Conflicts</h3>
+            <div class="qa-box" id="conflicts-box" style="border-color: rgba(239, 68, 68, 0.2);">
+              <!-- conflicts -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 2: DECISIONS -->
+    <div class="tab-panel" id="panel-decisions">
+      <h3 class="section-title">⚖️ Technical & Design Decisions</h3>
+      <div class="decision-grid" id="decisions-container">
+        <!-- decisions generated dynamically -->
+      </div>
+    </div>
+
+    <!-- PANEL 3: ACTIONS -->
+    <div class="tab-panel" id="panel-actions">
+      <h3 class="section-title">✅ Action Items Board</h3>
+      <div class="action-table-container">
+        <table class="action-table">
+          <thead>
+            <tr>
+              <th>Task Description</th>
+              <th>Assignee</th>
+              <th>Priority</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody id="actions-table-body">
+            <!-- actions generated dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>AI Decision Brief &bull; Moon AI Skills ecosystem</p>
+  </footer>
+
+  <script>
+    // Injected by rendering script
+    const briefData = __CONVERSATION_LOGS_PLACEHOLDER__;
+
+    // Theme Toggle
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    const themeText = document.getElementById("theme-text");
+    themeToggle.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      if (newTheme === "light") {
+        themeText.textContent = "Dark Mode";
+        themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+      } else {
+        themeText.textContent = "Light Mode";
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        `;
+      }
+    });
+
+    // Tab Links
+    document.querySelectorAll(".tab-link").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-link").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        
+        btn.classList.add("active");
+        const panelId = `panel-${btn.getAttribute("data-tab")}`;
+        document.getElementById(panelId).classList.add("active");
+      });
+    });
+
+    // XSS Escape Helper
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Populate data safely
+    function initializeBrief() {
+      // 1. Text elements
+      document.title = `${briefData.title} - Decision Brief`;
+      document.getElementById("header-title").textContent = briefData.title;
+      document.getElementById("brief-title").textContent = briefData.title;
+      document.getElementById("brief-summary").textContent = briefData.summary;
+
+      // 2. Metrics
+      document.getElementById("metric-topics").textContent = briefData.topics.length;
+      document.getElementById("metric-decisions").textContent = briefData.decisions.length;
+      document.getElementById("metric-tasks").textContent = briefData.actionItems.length;
+      
+      const unresolvedCount = briefData.openQuestions.length + (briefData.unresolvedConflicts ? briefData.unresolvedConflicts.length : 0);
+      document.getElementById("metric-open-questions").textContent = unresolvedCount;
+
+      // 3. Topics
+      const topicsList = document.getElementById("topics-list");
+      topicsList.innerHTML = '';
+      briefData.topics.forEach(t => {
+        const card = document.createElement("div");
+        card.className = "item-card";
+        
+        const header = document.createElement("div");
+        header.className = "item-header";
+        
+        const name = document.createElement("span");
+        name.className = "item-name";
+        name.textContent = t.name;
+        
+        const badge = document.createElement("span");
+        const status = t.status || 'resolved';
+        badge.className = `item-badge ${status}`;
+        badge.textContent = status;
+        
+        header.appendChild(name);
+        header.appendChild(badge);
+        
+        const body = document.createElement("div");
+        body.className = "item-body";
+        body.textContent = t.insight;
+        
+        card.appendChild(header);
+        card.appendChild(body);
+        topicsList.appendChild(card);
+      });
+
+      // 4. Open Questions
+      const oqBox = document.getElementById("open-questions-box");
+      oqBox.innerHTML = '';
+      if (briefData.openQuestions.length === 0) {
+        const placeholder = document.createElement("div");
+        placeholder.style.color = "var(--text-muted)";
+        placeholder.style.fontSize = "0.9rem";
+        placeholder.textContent = "No open questions remaining.";
+        oqBox.appendChild(placeholder);
+      } else {
+        briefData.openQuestions.forEach(q => {
+          const item = document.createElement("div");
+          item.className = "qa-item";
+          item.textContent = q;
+          oqBox.appendChild(item);
+        });
+      }
+
+      // 5. Unresolved Conflicts
+      const conflictsSection = document.getElementById("unresolved-conflicts-section");
+      const conflictsBox = document.getElementById("conflicts-box");
+      conflictsBox.innerHTML = '';
+      if (briefData.unresolvedConflicts && briefData.unresolvedConflicts.length > 0) {
+        conflictsSection.style.display = "block";
+        briefData.unresolvedConflicts.forEach(c => {
+          const item = document.createElement("div");
+          item.className = "qa-item conflict";
+          item.textContent = c;
+          conflictsBox.appendChild(item);
+        });
+      } else {
+        conflictsSection.style.display = "none";
+      }
+
+      // 6. Decisions
+      const decisionsContainer = document.getElementById("decisions-container");
+      decisionsContainer.innerHTML = '';
+      if (briefData.decisions.length === 0) {
+        decisionsContainer.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding: 2rem;">No decisions recorded yet.</div>';
+      } else {
+        briefData.decisions.forEach(d => {
+          const card = document.createElement("div");
+          card.className = "decision-card";
+          
+          const title = document.createElement("div");
+          title.className = "decision-text";
+          title.textContent = d.decision;
+          
+          const rBox = document.createElement("div");
+          rBox.className = "decision-reason-box";
+          
+          const rTitle = document.createElement("h4");
+          rTitle.textContent = "Rationale / Trade-off";
+          
+          const rText = document.createElement("div");
+          rText.className = "decision-reason";
+          rText.textContent = d.reason;
+          
+          rBox.appendChild(rTitle);
+          rBox.appendChild(rText);
+          
+          card.appendChild(title);
+          card.appendChild(rBox);
+          
+          if (d.status) {
+            const statusSpan = document.createElement("div");
+            statusSpan.style.marginTop = "0.5rem";
+            statusSpan.style.fontSize = "0.75rem";
+            statusSpan.style.fontWeight = "600";
+            statusSpan.style.color = "var(--text-muted)";
+            statusSpan.textContent = `Status: ${d.status.toUpperCase()}`;
+            card.appendChild(statusSpan);
+          }
+          
+          decisionsContainer.appendChild(card);
+        });
+      }
+
+      // 7. Action Items
+      const tableBody = document.getElementById("actions-table-body");
+      tableBody.innerHTML = '';
+      if (briefData.actionItems.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 4;
+        cell.style.textAlign = "center";
+        cell.style.color = "var(--text-muted)";
+        cell.textContent = "No action items identified.";
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+      } else {
+        briefData.actionItems.forEach(item => {
+          const row = document.createElement("tr");
+          
+          const taskCell = document.createElement("td");
+          taskCell.className = "action-task-cell";
+          taskCell.textContent = item.task;
+          
+          const ownerCell = document.createElement("td");
+          const oBadge = document.createElement("span");
+          oBadge.className = "owner-badge";
+          oBadge.textContent = item.owner || 'unassigned';
+          ownerCell.appendChild(oBadge);
+          
+          const priorityCell = document.createElement("td");
+          const pBadge = document.createElement("span");
+          const pLevel = (item.priority || 'medium').toLowerCase();
+          pBadge.className = `item-badge ${pLevel}`;
+          pBadge.textContent = pLevel;
+          priorityCell.appendChild(pBadge);
+          
+          const dueCell = document.createElement("td");
+          dueCell.style.color = "var(--text-secondary)";
+          dueCell.textContent = item.dueDate || '—';
+          
+          row.appendChild(taskCell);
+          row.appendChild(ownerCell);
+          row.appendChild(priorityCell);
+          row.appendChild(dueCell);
+          
+          tableBody.appendChild(row);
+        });
+      }
+    }
+
+    initializeBrief();
+  </script>
+</body>
+</html>

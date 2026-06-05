@@ -1,0 +1,77 @@
+{
+  "title": "Q3 Enterprise Sales Strategy Review",
+  "summary": "Sales leadership met to review pipeline health, discuss pricing adjustments for the enterprise tier, and align on key account strategies. The team identified 3 at-risk accounts and agreed to implement a new discount approval workflow.",
+  "topics": [
+    {
+      "name": "Pipeline Health",
+      "insight": "Q3 pipeline is at 78% of target. Mid-market segment overperforming (+15%) while enterprise segment is lagging (-22%). Need focused outreach on enterprise leads.",
+      "status": "ongoing"
+    },
+    {
+      "name": "Enterprise Pricing Model",
+      "insight": "Current per-seat pricing creates friction for large deployments (500+ seats). Volume tiers with annual commitment discounts reduce sales cycle length by 30%.",
+      "status": "resolved"
+    },
+    {
+      "name": "Competitive Positioning",
+      "insight": "Two new competitors entered the market with freemium models. Our differentiator remains compliance certifications (SOC2, HIPAA) which competitors lack.",
+      "status": "ongoing"
+    },
+    {
+      "name": "Customer Churn Analysis",
+      "insight": "Churn rate spiked to 8.2% in Q2. Root cause: poor onboarding experience for teams >50 users. Need dedicated onboarding specialists for enterprise accounts.",
+      "status": "resolved"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Introduce 3-tier enterprise pricing: Starter (50-200 seats), Growth (200-1000 seats), Scale (1000+ seats).",
+      "reason": "Simplifies quoting, allows reps to close deals without custom pricing approval for standard tiers. Reduces approval cycle from 5 days to same-day.",
+      "status": "approved"
+    },
+    {
+      "decision": "Require VP approval for discounts exceeding 20% off list price.",
+      "reason": "Prevents margin erosion. Historical data shows deals with >20% discount have 40% lower renewal rates.",
+      "status": "approved"
+    },
+    {
+      "decision": "Launch dedicated onboarding program for accounts with 100+ seats.",
+      "reason": "Directly addresses Q2 churn spike. Estimated 3-month payback period based on reduced churn projections.",
+      "status": "proposed"
+    }
+  ],
+  "actionItems": [
+    {
+      "task": "Publish updated enterprise pricing tiers to sales playbook and CRM",
+      "owner": "revenue-ops",
+      "priority": "high",
+      "dueDate": "2026-06-15"
+    },
+    {
+      "task": "Schedule executive business reviews with 3 at-risk enterprise accounts",
+      "owner": "account-director",
+      "priority": "high",
+      "dueDate": "2026-06-10"
+    },
+    {
+      "task": "Draft proposal for enterprise onboarding specialist role and present to leadership",
+      "owner": "cs-manager",
+      "priority": "medium",
+      "dueDate": "2026-06-20"
+    },
+    {
+      "task": "Update discount approval workflow in Salesforce",
+      "owner": "sales-ops",
+      "priority": "medium",
+      "dueDate": "2026-06-18"
+    }
+  ],
+  "openQuestions": [
+    "Should we offer multi-year commitment discounts (2-year: 10%, 3-year: 15%) or keep annual-only?",
+    "How do we handle existing customers on legacy pricing when new tiers launch?",
+    "Is there budget to hire 2 onboarding specialists in Q3 or should we wait for Q4?"
+  ],
+  "unresolvedConflicts": [
+    "Sales leadership wants aggressive discounting to win market share; Finance wants to maintain gross margin above 72%."
+  ]
+}

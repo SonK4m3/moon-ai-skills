@@ -5,3 +5,5 @@
 .kiro
 .antigravity
 .codex
+**/node_modules
+**/fixtures/output

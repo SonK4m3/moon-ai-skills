@@ -1,0 +1,14 @@
+{
+  "title": "Brief Status Check — No Actionable Items",
+  "summary": "A short check-in session where the team confirmed current progress is on track. No new decisions were made and no action items were assigned.",
+  "topics": [
+    {
+      "name": "Sprint Progress",
+      "insight": "All 8 stories in the current sprint are either in progress or in code review. No blockers reported.",
+      "status": "resolved"
+    }
+  ],
+  "decisions": [],
+  "actionItems": [],
+  "openQuestions": []
+}

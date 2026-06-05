@@ -1,0 +1,13 @@
+{
+  "name": "moon-ai-skills",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cv:validate": "tsx skills/engineering/conversation-visualizer/scripts/validate-summary.ts",
+    "cv:render": "tsx skills/engineering/conversation-visualizer/scripts/render-html.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

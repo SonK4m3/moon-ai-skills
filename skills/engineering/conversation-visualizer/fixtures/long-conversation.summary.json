@@ -1,0 +1,213 @@
+{
+  "title": "Full Platform Migration: Monolith to Microservices Architecture",
+  "summary": "An extended planning session covering the complete migration strategy from a Rails monolith to a microservices architecture using Kubernetes. The team discussed service boundaries, data migration, deployment strategy, testing, monitoring, team structure, and rollback planning across a 6-month timeline.",
+  "topics": [
+    {
+      "name": "Service Boundary Definition",
+      "insight": "Identified 12 bounded contexts using Domain-Driven Design. Top candidates for extraction: User Auth, Billing, Notifications, Content Management, and Analytics.",
+      "status": "resolved"
+    },
+    {
+      "name": "Database Migration Strategy",
+      "insight": "Each microservice gets its own PostgreSQL database. Use Change Data Capture (CDC) with Debezium during the transition period to keep monolith and service databases in sync.",
+      "status": "resolved"
+    },
+    {
+      "name": "API Gateway Selection",
+      "insight": "Compared Kong, Traefik, and AWS API Gateway. Kong selected for its plugin ecosystem and on-premise deployment flexibility.",
+      "status": "resolved"
+    },
+    {
+      "name": "Inter-Service Communication",
+      "insight": "Synchronous calls via gRPC for latency-critical paths. Async events via Apache Kafka for eventual consistency workflows like notifications and analytics.",
+      "status": "resolved"
+    },
+    {
+      "name": "Container Orchestration",
+      "insight": "Kubernetes on EKS chosen over ECS for better multi-cloud portability. Helm charts for deployment configuration.",
+      "status": "resolved"
+    },
+    {
+      "name": "Service Mesh",
+      "insight": "Istio evaluated but deferred due to operational complexity. Will start with basic Kubernetes networking and revisit when services exceed 15.",
+      "status": "postponed"
+    },
+    {
+      "name": "Observability Stack",
+      "insight": "Prometheus + Grafana for metrics, Jaeger for distributed tracing, ELK stack for centralized logging. OpenTelemetry SDK for instrumentation.",
+      "status": "ongoing"
+    },
+    {
+      "name": "CI/CD Pipeline Redesign",
+      "insight": "Move from single monolith pipeline to per-service pipelines. GitHub Actions with shared workflow templates to reduce duplication.",
+      "status": "ongoing"
+    },
+    {
+      "name": "Team Topology",
+      "insight": "Shift from feature teams to service-owning teams. Each team owns 2-3 services with full lifecycle responsibility (you build it, you run it).",
+      "status": "ongoing"
+    },
+    {
+      "name": "Security Model",
+      "insight": "Zero-trust network model. Service-to-service authentication via mTLS. JWT tokens with short-lived access tokens (15min) and refresh token rotation.",
+      "status": "ongoing"
+    },
+    {
+      "name": "Data Consistency Patterns",
+      "insight": "Saga pattern for distributed transactions (e.g., order placement). Outbox pattern to ensure reliable event publishing from database writes.",
+      "status": "resolved"
+    },
+    {
+      "name": "Rollback Strategy",
+      "insight": "Blue-green deployments for critical services. Canary releases with 5% traffic split for non-critical services. Feature flags via LaunchDarkly for gradual rollouts.",
+      "status": "resolved"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "Extract User Auth service first as the migration pilot.",
+      "reason": "Auth has the clearest domain boundary and fewest cross-cutting dependencies. Success here builds confidence and establishes patterns for subsequent extractions.",
+      "status": "approved"
+    },
+    {
+      "decision": "Use gRPC for synchronous inter-service communication instead of REST.",
+      "reason": "gRPC provides strong typing via Protocol Buffers, HTTP/2 multiplexing, and ~7x better serialization performance than JSON/REST for internal APIs.",
+      "status": "approved"
+    },
+    {
+      "decision": "Adopt Strangler Fig pattern for gradual migration.",
+      "reason": "Allows running monolith and microservices simultaneously. New features built in services, existing features migrated incrementally. Zero big-bang risk.",
+      "status": "approved"
+    },
+    {
+      "decision": "PostgreSQL per service with Debezium CDC for transition sync.",
+      "reason": "Database-per-service is essential for independent deployability. Debezium provides real-time CDC without application code changes in the monolith.",
+      "status": "approved"
+    },
+    {
+      "decision": "Defer service mesh (Istio) until service count exceeds 15.",
+      "reason": "Istio adds significant operational overhead (sidecar proxies, control plane). Current scale (5-8 services in Year 1) doesn't justify the complexity.",
+      "status": "approved"
+    },
+    {
+      "decision": "Implement Saga pattern for cross-service transactions, starting with the order flow.",
+      "reason": "Distributed transactions (2PC) don't scale. Sagas with compensating transactions handle failures gracefully and align with event-driven architecture.",
+      "status": "approved"
+    },
+    {
+      "decision": "Use OpenTelemetry as the unified instrumentation standard.",
+      "reason": "Vendor-neutral, supports traces/metrics/logs, and avoids lock-in to any specific observability backend. Large ecosystem of auto-instrumentation libraries.",
+      "status": "approved"
+    },
+    {
+      "decision": "Enforce API contracts with Protocol Buffer schemas stored in a shared schema registry.",
+      "reason": "Prevents breaking changes between services. Schema registry enables automated compatibility checking in CI pipelines.",
+      "status": "proposed"
+    }
+  ],
+  "actionItems": [
+    {
+      "task": "Set up EKS cluster with Terraform and configure base networking",
+      "owner": "platform-team",
+      "priority": "high",
+      "dueDate": "2026-06-15"
+    },
+    {
+      "task": "Define Protocol Buffer schemas for User Auth service API",
+      "owner": "backend-lead",
+      "priority": "high",
+      "dueDate": "2026-06-12"
+    },
+    {
+      "task": "Configure Debezium CDC connector for users table in monolith DB",
+      "owner": "data-engineer",
+      "priority": "high",
+      "dueDate": "2026-06-18"
+    },
+    {
+      "task": "Create GitHub Actions workflow template for microservice CI/CD",
+      "owner": "devops-engineer",
+      "priority": "high",
+      "dueDate": "2026-06-14"
+    },
+    {
+      "task": "Extract User Auth domain code from Rails monolith into standalone Go service",
+      "owner": "auth-team",
+      "priority": "high",
+      "dueDate": "2026-07-01"
+    },
+    {
+      "task": "Deploy Prometheus + Grafana monitoring stack on EKS",
+      "owner": "platform-team",
+      "priority": "medium",
+      "dueDate": "2026-06-20"
+    },
+    {
+      "task": "Set up Jaeger for distributed tracing and integrate with Auth service",
+      "owner": "platform-team",
+      "priority": "medium",
+      "dueDate": "2026-06-25"
+    },
+    {
+      "task": "Write migration runbook documenting rollback procedures for Auth service cutover",
+      "owner": "tech-lead",
+      "priority": "medium",
+      "dueDate": "2026-06-22"
+    },
+    {
+      "task": "Set up Kong API Gateway with routing rules for Auth endpoints",
+      "owner": "backend-lead",
+      "priority": "medium",
+      "dueDate": "2026-06-20"
+    },
+    {
+      "task": "Configure LaunchDarkly feature flags for Auth service traffic switching",
+      "owner": "frontend-lead",
+      "priority": "medium",
+      "dueDate": "2026-06-28"
+    },
+    {
+      "task": "Design team topology proposal: map engineers to service-owning squads",
+      "owner": "engineering-manager",
+      "priority": "medium",
+      "dueDate": "2026-06-30"
+    },
+    {
+      "task": "Research and document Kafka topic naming conventions and partition strategy",
+      "owner": "data-engineer",
+      "priority": "low",
+      "dueDate": "2026-07-05"
+    },
+    {
+      "task": "Evaluate ELK vs Loki for centralized logging and present recommendation",
+      "owner": "devops-engineer",
+      "priority": "low",
+      "dueDate": "2026-07-10"
+    },
+    {
+      "task": "Create architecture decision records (ADRs) for all approved decisions",
+      "owner": "tech-lead",
+      "priority": "low",
+      "dueDate": "2026-07-15"
+    },
+    {
+      "task": "Plan load testing strategy for Auth service under projected peak traffic",
+      "owner": "qa-lead",
+      "priority": "low",
+      "dueDate": "2026-07-10"
+    }
+  ],
+  "openQuestions": [
+    "Should we use a shared PostgreSQL cluster with logical databases or fully separate RDS instances per service?",
+    "How do we handle schema migrations across services without downtime?",
+    "What is the SLA target for inter-service gRPC calls? 50ms p99?",
+    "Should we build a shared Go library for common concerns (auth middleware, logging, tracing) or keep services fully independent?",
+    "How do we manage secrets across services — Vault, AWS Secrets Manager, or sealed secrets in Kubernetes?",
+    "What is the testing strategy for Saga workflows that span multiple services?"
+  ],
+  "unresolvedConflicts": [
+    "Platform team wants to standardize on Go for all new services; Auth team prefers Rust for its memory safety guarantees in security-critical code.",
+    "Engineering manager advocates for gradual migration over 12 months; CTO wants the first 5 services extracted within 6 months to hit board-level milestone.",
+    "Data team wants a shared event schema registry; service teams want per-service schema autonomy to avoid cross-team coordination overhead."
+  ]
+}

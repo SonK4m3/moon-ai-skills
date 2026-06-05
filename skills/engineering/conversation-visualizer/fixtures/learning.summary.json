@@ -1,0 +1,41 @@
+{
+  "title": "Learning Session: Introduction to WebAssembly",
+  "summary": "A tutorial-style session covering WebAssembly fundamentals, compilation pipeline, and use cases for performance-critical web applications. Focus was on understanding concepts rather than making project decisions.",
+  "topics": [
+    {
+      "name": "What is WebAssembly",
+      "insight": "WebAssembly (Wasm) is a binary instruction format that runs in a sandboxed virtual machine inside browsers. It is not a replacement for JavaScript but a complement for CPU-intensive tasks.",
+      "status": "resolved"
+    },
+    {
+      "name": "Compilation Pipeline",
+      "insight": "Languages like Rust, C, and Go compile to .wasm modules via toolchains like wasm-pack (Rust) or Emscripten (C/C++). The browser loads and instantiates these modules through the WebAssembly JavaScript API.",
+      "status": "resolved"
+    },
+    {
+      "name": "Performance Characteristics",
+      "insight": "Wasm achieves near-native speed for numerical computation and data processing. For DOM manipulation, JavaScript remains faster because Wasm must cross the JS-Wasm boundary for every DOM call.",
+      "status": "ongoing"
+    }
+  ],
+  "decisions": [],
+  "actionItems": [
+    {
+      "task": "Read the official WebAssembly specification introduction chapter",
+      "owner": "learner",
+      "priority": "low"
+    },
+    {
+      "task": "Set up a Rust + wasm-pack hello-world project",
+      "owner": "learner",
+      "priority": "medium"
+    }
+  ],
+  "openQuestions": [
+    "When does the overhead of Wasm initialization outweigh the performance gains?",
+    "Can Wasm modules share memory with JavaScript without copying?",
+    "What are the security implications of running Wasm code from untrusted sources?",
+    "How does WASI (WebAssembly System Interface) extend Wasm beyond the browser?",
+    "Is there a practical way to debug Wasm code in Chrome DevTools?"
+  ]
+}
