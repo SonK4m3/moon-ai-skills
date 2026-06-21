@@ -7,3 +7,4 @@
 .codex
 **/node_modules
 **/fixtures/output
+**/sandbox
