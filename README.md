@@ -9,6 +9,7 @@ Works with Claude Code, OpenCode, Kiro, Antigravity, Codex, and any agent that s
 | Skill | Domain | Description |
 |-------|--------|-------------|
 | `conversation-visualizer` | Engineering | Summarize long conversations and render them as interactive HTML decision briefs |
+| `fe-memory-and-perf-audit` | Engineering | Optimization philosophy for frontend JS/TS/React — analyze architecture before applying memo/cache/virtualization |
 
 ## Install
 
