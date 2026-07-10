@@ -3,7 +3,9 @@
 Khi xác định người dùng thuộc Web/Frontend Team, hãy sử dụng các nguyên tắc và template dưới đây.
 
 ## 1. Thuật ngữ (Terminology)
+
 Giữ nguyên các từ:
+
 - UI / UX / Layout / Responsive
 - Component, State, Props
 - API Integration, Loading State, Error Handling
@@ -17,16 +19,19 @@ Giữ nguyên các từ:
 @QC-Team Tính năng **[tên tính năng]** đã được deploy lên **[DEV/STG]**.
 
 **Scope chính:**
-* [User flow mới / Behavior thay đổi]
-* [Các tính năng được bổ sung]
+
+- [User flow mới / Behavior thay đổi]
+- [Các tính năng được bổ sung]
 
 **Lưu ý khi test:**
-* [Loading state, responsive, edge case]
-* [Regression area cần chú ý]
+
+- [Loading state, responsive, edge case]
+- [Regression area cần chú ý]
 
 **Tài liệu liên quan:**
-* Figma & Docs: [Link Figma/UI Docs]
-* API Contract: [Link BE Swagger nếu cần]
+
+- Figma & Docs: [Link Figma/UI Docs]
+- API Contract: [Link BE Swagger nếu cần]
 
 **CC:** @Backend-Team @PM
 
