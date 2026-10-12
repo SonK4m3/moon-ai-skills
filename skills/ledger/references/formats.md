@@ -215,7 +215,7 @@ Khi hết phiên mà việc chưa xong:
 
 1. Thu dữ liệu git: `git diff --name-only <nhánh nguồn>...<nhánh>`, `git status --porcelain`.
 2. Viết `handoff-<YYMMDD>-<session>.md` trong thư mục work-item, theo khung ở `conventions.md` §5.
-3. **Điền cả sáu mục** — khung rỗng là vô dụng.
+3. **Điền cả bảy mục** — khung rỗng là vô dụng.
 4. Thêm một dòng vào `log.md`, và comment link file lên Issue.
 
 Người dùng sẽ tiếp tục ở harness khác thì gọi thêm `/handoff`.

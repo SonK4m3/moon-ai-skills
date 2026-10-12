@@ -36,7 +36,7 @@ dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · b�
 
 1. **Claim trước khi code.** Không sửa một dòng code thuộc work-item chưa được claim. Claim là bộ ba: nhãn `in-progress` + assignee, `claimed_by` trong `plan.md`, và nhánh `feat/<issue>-<slug>`.
 2. **Không giành việc.** Issue đã có assignee khác ⇒ coi như đã bị nhặt. Chọn việc khác.
-3. **Bản ghi công việc trước khi kết thúc.** Work-item chưa `completed` mà phiên kết thúc ⇒ phải có `handoff-<YYMMDD>-<session>.md` trong thư mục work-item, và **sáu mục `<!-- điền -->` phải được điền**. Khác `/handoff` của bộ kit — cái đó để chuyển *phiên* sang máy hay harness khác.
+3. **Bản ghi công việc trước khi kết thúc.** Work-item chưa `completed` mà phiên kết thúc ⇒ phải có `handoff-<YYMMDD>-<session>.md` trong thư mục work-item, và **bảy mục `<!-- điền -->` phải được điền**. Khác `/handoff` của bộ kit — cái đó để chuyển *phiên* sang máy hay harness khác.
 4. **Trước PR là tự chủ, sau PR là của người.** Được: tạo Issue, gán nhãn, chia ticket, gán việc, tự `/code-review`, mở PR, ghi tiến độ. Phải hỏi: merge, cherry-pick sang `develop`/`staging`/`prod`, push nhánh môi trường, đóng Issue của người khác, đổi assignee của member, `push --force`.
 5. **Chỉ ghi trong marker.** Sửa Issue hay `AGENTS.md` thì chỉ trong khối `<!-- ledger:… -->`. Comment của người và của member không bao giờ bị ghi đè.
 
