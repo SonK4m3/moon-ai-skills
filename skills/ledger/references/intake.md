@@ -19,6 +19,65 @@ Nếu không xác định được nó thuộc repo nào — **hỏi**, đừng 
 
 ---
 
+## Nguồn vào — đọc hết trước khi viết một chữ nào
+
+Một yêu cầu thật hiếm khi đến dưới dạng một đoạn văn. Nó đến thành **nhiều nguồn khác loại**, và bạn phải đọc hết trước khi tạo bất cứ thứ gì.
+
+| loại nguồn | thường có gì | cẩn thận |
+|---|---|---|
+| Thread Chat | mô tả vấn đề → cải thiện, người liên quan, link tới mọi thứ khác | đây thường là **nguồn cha** |
+| Bảng log (bug / feature) | mỗi dòng một mục, nhiều ô trộn lẫn | xem ba mục dưới |
+| Tài liệu nghiệp vụ | định nghĩa đúng của khái niệm | dùng từ của nó, đừng tự đặt |
+| Bàn giao BE→FE (.docx, .md) | hợp đồng API, kiểu dữ liệu, lỗi trả về | đây là **ràng buộc cứng**, không phải gợi ý |
+| Figma / ảnh / video | giao diện, luồng | **bạn không đọc được** — xem dưới |
+| Issue/ticket cũ | có thể đã có người làm | quét trước khi tạo mới |
+
+**Nguồn bạn không đọc được thì phải nói ra.** Link Figma, ảnh chụp, video, file nhị phân — bạn không mở được. Đừng suy ra nội dung từ tiêu đề link rồi viết như thể đã xem. Nói thẳng: *"Em chưa xem được Figma, anh mô tả giúp phần giao diện hoặc em sẽ để trống mục đó."* File `.docx` thì đọc được.
+
+### Một dòng bảng KHÔNG phải một work-item
+
+Bảng là **triệu chứng**; work-item là **vấn đề**. Bốn dòng bug cùng một luồng người dùng không phải bốn việc — chúng là một việc hỏng ở bốn nhánh.
+
+Dấu hiệu phải gộp:
+- cùng màn hình, cùng luồng người dùng
+- ô ghi chú nhắc tới dòng khác (*"conflict với bug 184"*) — dấu hiệu mạnh nhất
+- các dòng chỉ khác nhau ở bước thứ 2 hoặc 3 của cùng một kịch bản
+
+Dấu hiệu phải tách: khác màn hình, khác loại người dùng, hoặc sửa cái này không ảnh hưởng cái kia.
+
+### Một việc có thể nằm ở nhiều nguồn — gộp, đừng nhân đôi
+
+Thread Chat và bảng log thường nói về **cùng một việc**: thread có đủ ngữ cảnh, bảng có một dòng rút gọn. Lấy **thread làm thân**, bảng làm xác nhận. Trước khi tạo, quét `plans/` và issue đang mở xem đã có chưa.
+
+### Bóc ô, đừng copy ô
+
+Một ô bảng thường trộn: bước tái hiện, kết quả thực tế, yêu cầu thật, link, và ghi chú tiến độ. Tách ra:
+
+| thấy trong ô | đưa vào đâu |
+|---|---|
+| các bước đánh số | thân work-item, mục *Yêu cầu gốc* |
+| *"Actual: …"* | đó là **triệu chứng**, không phải tiêu chí |
+| *"Expected"* / cột kỳ vọng | mầm của **tiêu chí nghiệm thu** — viết lại cho đo được |
+| link | giữ nguyên, ghi vào `source` |
+| ghi chú kiểu *"đã xong 90%"* | một dòng vào `log.md`, không phải trạng thái |
+
+### Trạng thái người viết → hai trục
+
+Bảng của bạn dùng chữ tự do. Đừng đoán — ánh xạ, và **không chắc thì hỏi**:
+
+| người viết | đọc thành |
+|---|---|
+| `In Progress` + có tên người | lifecycle `in-progress`, `claimed_by` = người đó |
+| `Pending (BE)`, `Đợi bàn giao UIUX` | `pending` **+ lý do chặn**; nhãn `blocked` — đây là *chờ*, không phải một trạng thái mới |
+| `cancel` | `cancelled` |
+| ô trống | `pending`. Đừng suy diễn thêm |
+| `Done Stg`, `Done Dev`… | **hỏi.** Gần như chắc chắn là đã lên một môi trường và verify — ghi vào trục thứ hai (`env.staging: verified`), còn lifecycle phụ thuộc đã merge vào nhánh nguồn chưa. Đây đúng là lý do có hai trục: một chữ không đủ |
+### Tính năng trải nhiều nền tảng
+
+Thread ghi `[App/Web]`, có hai Figma riêng, hai nhóm người riêng — đó là **hai việc**, không phải một. Mỗi repo tự quản việc của nó; không có repo trung tâm nào để bịa ra.
+
+Luật: tạo work-item **ở từng repo**, mỗi cái ghi đủ **`project` · `repo` · `branch`**, và cả hai dùng **cùng một `project`**. Ba trường đó là cách hai phiên ở hai repo tìm thấy nhau.
+
 ## 1. Trích sáu thứ
 
 Đọc tin nhắn thô, rút ra đúng sáu thứ này. Cái nào không có trong tin nhắn thì **đi tìm** (đọc code, đọc Issue cũ, hỏi người dùng) chứ đừng bịa và cũng đừng bỏ trống.

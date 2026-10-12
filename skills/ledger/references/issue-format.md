@@ -7,6 +7,7 @@ Mọi Issue do `ledger` tạo đều theo đúng khuôn này, để bất kỳ a
 ```markdown
 <!-- ledger:work-item v1 -->
 - **Repo**: your-org/your-app
+- **Project**: <tên tính năng>
 - **Nguồn**: <link Google Chat/Sheet | trực tiếp>
 - **Người yêu cầu**: …
 - **Ưu tiên**: P1

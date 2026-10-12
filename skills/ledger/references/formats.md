@@ -33,10 +33,15 @@ status: in-progress
 priority: P1
 created: 2026-01-01
 routing: ready-for-agent
+project: "Tab Action items"    # tên tính năng — dùng CHUNG giữa các repo của cùng một tính năng
 repo: your-org/your-app
 source: "Google Chat #team-fe"
 requester: "Anh Sơn"
-acceptance: "Mở trang với 500 note, cuộn hết danh sách không khựng quá 100ms"
+acceptance:
+  - text: "Mở trang với 500 note, cuộn hết danh sách không khựng quá 100ms"
+    verify: "npm run profile:list -- --notes 500   (không frame nào > 100ms)"
+  - text: "Nút Lưu bật ngay khi gõ ký tự đầu tiên"
+    verify: "npx vitest run features/note-detail/save-button.spec.ts"
 scope: "src/features/note-detail"
 out_of_scope: "không đổi cấu trúc dữ liệu, không phân trang ở API"
 branch: feat/142-note-detail-quota
@@ -71,6 +76,8 @@ env:
 5. `routing` chỉ nhận: `ready-for-agent` · `ready-for-human` · `needs-info` · `needs-triage` · `wontfix`.
 6. Xoá một khoá thì xoá **cả dòng**, đừng để `claimed_by:` trống — dòng trống bị đọc thành `null` và gây lẫn giữa "chưa nhặt" với "nhặt rồi mà không ghi ai".
 7. Ngày: `created` là `YYYY-MM-DD`; `claimed_at` là ISO có múi giờ.
+8. `acceptance` là **danh sách**, mỗi mục có `text` và `verify`. `verify` là **một lệnh hoặc một phép đo chạy được**, không phải lời mô tả. Mục không có `verify` thì **không được `ready-for-agent`** — không có cổng pass/fail thì agent dừng khi thấy "có vẻ xong", và không ai biết nó xong thật chưa.
+9. **Ba trường định vị luôn phải đủ: `project`, `repo`, `branch`.** Tính năng trải nhiều nền tảng thì mỗi repo có work-item riêng nhưng **cùng `project`** — đó là cách chúng tìm thấy nhau, không cần repo trung tâm nào. Thiếu một trong ba thì phiên sau không biết việc này nằm ở đâu.
 
 ---
 
@@ -94,6 +101,7 @@ env:
 ```markdown
 <!-- ledger:work-item v1 -->
 - **Repo**: your-org/your-app
+- **Project**: <tên tính năng>
 - **Nguồn**: <link Chat/Sheet | trực tiếp>
 - **Người yêu cầu**: …
 - **Ưu tiên**: P1
@@ -148,6 +156,8 @@ Mỗi thủ tục: **làm gì → kiểm tra gì**. Kiểm tra là bắt buộc 
 
 ### 5.1 `setup` — cài vào một repo
 
+**Trước khi tạo gì, tìm quy ước repo đang có.** Repo có thể đã có `plans/`, `docs/plans/`, `tasks/`, hoặc cấu trúc riêng. Đọc trước, **dùng cái đang có**, ghi đường dẫn vào `.ledger/config.json` → `work_items_dir`. Repo có **hai** cấu trúc song song thì **nói ra và hỏi** — đừng tạo cái thứ ba.
+
 1. Tạo `.ledger/flow.yml` (copy `templates/flow.yml`, sửa `profile` cho đúng repo).
 2. Tạo `.ledger/config.json` (copy `templates/config.json`, điền `repo` = `<org>/<name>` từ `git remote -v`).
 3. Thêm khối `<!-- ledger:start -->…<!-- ledger:end -->` vào cuối `AGENTS.md` (tạo file nếu chưa có).
@@ -168,13 +178,23 @@ Nếu bước 3 hỏng vì mất mạng hoặc thiếu quyền: dùng `L-<n>`, g
 
 ### 5.3 `claim` — nhặt việc (**trước khi sửa code**)
 
-1. Đọc `plans/*/plan.md` tìm work-item theo số. Nếu `claimed_by` đã có → **dừng, không giành**.
+1. **Kiểm tracker trước, đừng tin file.** `plan.md` bạn đang đọc là **bản sao trên nhánh này** — phiên khác ở nhánh khác ghi vào bản của họ, bạn không thấy. Đọc assignee + nhãn trên Issue. Đã có người → **dừng, không giành**.
 2. Gán assignee cho chính bạn trên tracker — **gọi riêng**, để nhãn lỗi không làm mất assignee.
 3. Gán nhãn `in-progress` — gọi riêng.
 4. Sửa `plan.md`: `status: in-progress`, `branch`, `claimed_by`, `claimed_at`.
 5. Thêm dòng vào `log.md`.
-6. Tạo nhánh: `git checkout -b <type>/<số>-<slug>` **chỉ khi cây làm việc sạch**; nếu bẩn thì `git branch <tên>` và nói rõ chưa chuyển.
-7. **Kiểm tra**: `git branch --list`, và đọc lại Issue thấy assignee + nhãn. Bước nào lỗi thì ghi `sync_pending: true` và **nói ra**.
+6. Tạo nhánh `<type>/<số>-<slug>`. Muốn làm **song song nhiều việc trong cùng repo** thì tạo thêm worktree trỏ vào nhánh đó: `git worktree add ../<repo>-<số> <nhánh>` — rồi làm việc trong đó.
+7. **Kiểm tra**: `git branch --list` thấy nhánh (và `git worktree list` nếu có tạo); đọc lại Issue thấy assignee + nhãn.
+
+**Nhánh thì bắt buộc, worktree thì không.** Một việc = **một nhánh**. Worktree là lựa chọn của bạn: dùng khi chạy nhiều việc song song trên cùng repo, hoặc khi muốn cây làm việc chính sạch. Không tránh được điều này: mỗi cây làm việc chỉ đứng được trên **một** nhánh, nên muốn song song thì buộc phải tách cây.
+
+**Luật worktree** — chỉ khi bạn chọn dùng:
+
+- Một worktree = một nhánh. Git từ chối hai worktree cùng nhánh; đó là hàng rào miễn phí, đừng lách bằng `--force`.
+- **Không sửa file ở checkout chính** từ trong worktree. Buộc phải sửa thì **nói ra trước khi làm**.
+- Worktree mới **chỉ có file tracked**. File bị gitignore (`.env`, khoá local) **không tự sang**. Liệt kê chúng vào `.worktreeinclude` ở gốc repo, để lần sau không phải nhớ.
+- Xong việc: `git worktree remove <đường-dẫn>` sau khi đã merge. Còn việc chưa commit thì **đừng xoá**.
+- Repo có **submodule**: git nói thẳng là không khuyến khích nhiều checkout. Gặp thì báo người dùng. Bước nào lỗi thì ghi `sync_pending: true` và **nói ra**.
 
 ### 5.4 `note` — ghi tiến độ
 

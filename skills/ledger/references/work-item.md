@@ -29,6 +29,7 @@ description: 'Hiển thị quota còn lại ở trang chi tiết note.'
 effort: 8h
 branch: feat/142-note-detail-quota
 tags: [frontend, quota]
+project: "Tab Action items"    # tên tính năng — dùng CHUNG giữa các repo của cùng một tính năng
 repo: your-org/your-app
 routing: ready-for-agent     # ready-for-agent | ready-for-human | needs-info | needs-triage | wontfix
 owner: sonnh                 # GitHub login chịu trách nhiệm
@@ -53,6 +54,9 @@ env:
 |---|---|
 | `id` | khớp số trong tên thư mục |
 | `title` | không rỗng |
+| `project` | tên tính năng, dùng chung giữa các repo |
+| `repo` | `<org>/<name>` |
+| `branch` | khớp nhánh thật đang có |
 | `status` | thuộc enum |
 | `priority` | thuộc enum |
 
