@@ -182,16 +182,16 @@ Luật một câu: **trước PR là tự chủ, sau PR là của người.**
 | gỡ gì | khi nào | thay bằng |
 |---|---|---|
 | tên skill `pm` | commit `e9c4a75` | `ledger` |
-| CLI `pm.mjs` + `selftest.ps1` khỏi đường làm việc | mốc 5 (§10) | `references/formats.md` — 11 thủ tục, `doctor` thành 12 điểm agent tự chạy |
-| hẳn thư mục CLI và mọi thứ nó sinh ra | commit `041ec76` | không cần — người dùng không dùng CLI |
+| CLI `pm.mjs` + `selftest.ps1` khỏi đường làm việc | commit `150f43d` (mốc 5, §10) | `references/formats.md` — 11 thủ tục, `doctor` thành 12 điểm agent tự chạy |
+| thư mục `archive/pm-cli/` (79 KB, ~1800 dòng) và `README.md` của nó | commit `041ec76` | không cần — không tài liệu nào trỏ tới nó, người dùng không chạy nó |
 | hook sinh bởi `pm setup` (`.claude/settings.json`, `.claude/agents/pm.md`) | cùng lúc | **không còn lớp cưỡng chế**; luật gọi tay |
-| dòng `.gitignore` cho `.pm-tmp/` và `.ledger/.hook-state.json` | cùng lúc | không còn gì tạo ra chúng |
+| ba dòng `.gitignore` cho `.pm-tmp/` và `.ledger/.hook-state.json` | commit `041ec76` | không còn gì tạo ra chúng |
 
 Lịch sử còn nguyên trong git, lấy lại bất cứ lúc nào:
 
 ```bash
 git show 150f43d:skills/pm/scripts/pm.mjs       > pm.mjs       # v0.3, đường dẫn cũ
-git show e9c4a75:archive/pm-cli/pm.mjs          > pm.mjs       # cùng nội dung, sau khi chuyển chỗ
+git show e9c4a75:archive/pm-cli/pm.mjs          > pm.mjs       # v0.3, sửa đường dẫn sau khi chuyển chỗ
 git show 150f43d:skills/pm/scripts/selftest.ps1 > selftest.ps1
 ```
 

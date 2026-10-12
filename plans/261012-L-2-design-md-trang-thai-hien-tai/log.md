@@ -2,3 +2,5 @@
 
 - 2026-10-12 16:05 · intake · tạo work-item từ danh sách dọn dẹp; chưa có số Issue thật ⇒ `id: L-2` + `sync_pending: true`
 - 2026-10-13 00:16 · claim bởi dsh@DESKTOP-SEC48UO#7f29 · nhánh feat/L-2-design-md-trang-thai-hien-tai · ghi chú: 4 tiêu chí nghiệm thu trong frontmatter bị hỏng thành ký tự đơn (cả 3 work-item L-2/L-3/L-4 đều vậy) — báo người, không tự sửa ngoài scope
+- 2026-10-13 00:31 · viết lại docs/agent-ledger/DESIGN.md: 606 → 220 dòng (5355 → 2137 từ); 120 dòng đầu 0 khớp `pm|CLI|worlds.yml|archive/`; lịch sử CLI gom vào §9 với 3 lệnh `git show` (đã chạy thật, lấy lại được 85496/85539/7823 byte); 8/8 link tương đối trỏ tới file có thật. Sửa thêm 2 lỗi sự thật có sẵn: hai blob pm.mjs không "cùng nội dung" (khác 4 dòng đường dẫn), và `.gitignore` mất 3 dòng không phải 2. Commit `0f19b7d`.
+- 2026-10-13 00:31 · việc **chưa** `completed`: chưa mở PR, chưa có Issue thật (`sync_pending: true`), và 4 tiêu chí nghiệm thu gốc không đọc được nên 4 phép đo ở trên là do phiên này tự đặt, không phải tiêu chí gốc — xem `handoff-261013-dsh-7f29.md`
