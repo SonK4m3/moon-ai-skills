@@ -76,7 +76,7 @@ env:
 5. `routing` chỉ nhận: `ready-for-agent` · `ready-for-human` · `needs-info` · `needs-triage` · `wontfix`.
 6. Xoá một khoá thì xoá **cả dòng**, đừng để `claimed_by:` trống — dòng trống bị đọc thành `null` và gây lẫn giữa "chưa nhặt" với "nhặt rồi mà không ghi ai".
 7. Ngày: `created` là `YYYY-MM-DD`; `claimed_at` là ISO có múi giờ.
-8. `acceptance` là **danh sách**, mỗi mục có `text` và `verify`. `verify` là **một lệnh hoặc một phép đo chạy được**, không phải lời mô tả. Mục không có `verify` thì **không được `ready-for-agent`** — không có cổng pass/fail thì agent dừng khi thấy "có vẻ xong", và không ai biết nó xong thật chưa.
+8. `acceptance` là **danh sách**, mỗi mục có `text` và `verify`. `verify` là **một lệnh hoặc một phép đo chạy được**, không phải lời mô tả. Mục không có `verify` thì **không được `ready-for-agent`** — không có cổng pass/fail thì agent dừng khi thấy "có vẻ xong", và không ai biết nó xong thật chưa. Nếu **lệnh `verify` không chạy được** (thiếu toolchain, thiếu dependency, file test chưa tồn tại) thì **đó là việc đầu tiên**, không phải lý do để bỏ qua: dựng cho cổng chạy được rồi mới code.
 9. **Ba trường định vị luôn phải đủ: `project`, `repo`, `branch`.** Tính năng trải nhiều nền tảng thì mỗi repo có work-item riêng nhưng **cùng `project`** — đó là cách chúng tìm thấy nhau, không cần repo trung tâm nào. Thiếu một trong ba thì phiên sau không biết việc này nằm ở đâu.
 
 ---
@@ -156,7 +156,7 @@ Mỗi thủ tục: **làm gì → kiểm tra gì**. Kiểm tra là bắt buộc 
 
 ### 5.1 `setup` — cài vào một repo
 
-**Trước khi tạo gì, tìm quy ước repo đang có.** Repo có thể đã có `plans/`, `docs/plans/`, `tasks/`, hoặc cấu trúc riêng. Đọc trước, **dùng cái đang có**, ghi đường dẫn vào `.ledger/config.json` → `work_items_dir`. Repo có **hai** cấu trúc song song thì **nói ra và hỏi** — đừng tạo cái thứ ba.
+**Trước khi tạo gì, tìm quy ước repo đang có.** Repo có thể đã có `plans/`, `docs/plans/`, `tasks/`, hoặc cấu trúc riêng. Đọc trước, **dùng cái đang có**, ghi đường dẫn vào `.ledger/config.json` → `work_items_dir`. Repo có **hai** cấu trúc song song thì **chọn một mặc định, ghi rõ lý do, RỒI hỏi** — đừng tạo cái thứ ba, và **đừng dừng lại mà để repo trống**. Không ghi được gì vào repo thì phiên sau không biết việc này từng tồn tại; thà chọn sai rồi sửa còn hơn không chọn gì. Nêu cả phương án bạn đã loại và vì sao.
 
 1. Tạo `.ledger/flow.yml` (copy `templates/flow.yml`, sửa `profile` cho đúng repo).
 2. Tạo `.ledger/config.json` (copy `templates/config.json`, điền `repo` = `<org>/<name>` từ `git remote -v`).
@@ -214,7 +214,7 @@ Hai thứ khác nhau, đừng lẫn:
 Khi hết phiên mà việc chưa xong:
 
 1. Thu dữ liệu git: `git diff --name-only <nhánh nguồn>...<nhánh>`, `git status --porcelain`.
-2. Viết `handoff-<YYMMDD>-<session>.md` trong thư mục work-item, theo khung ở `conventions.md` §5.
+2. Viết `handoff-<YYMMDD>-<session>.md` trong thư mục work-item, theo khung ở `conventions.md` §5. `<YYMMDD>` là **ngày hôm nay, lấy từ đồng hồ máy** (`Get-Date -Format yyMMdd`) — không phải ngày tạo work-item. Work-item cũ mở lại nhiều lần thì mỗi lần một file, và ngày phải phân biệt được chúng.
 3. **Điền cả bảy mục** — khung rỗng là vô dụng.
 4. Thêm một dòng vào `log.md`, và comment link file lên Issue.
 

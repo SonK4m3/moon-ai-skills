@@ -32,13 +32,14 @@ Người dùng kể một tình huống, họ không gọi tên thủ tục. Cá
 
 dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · báo xong và mở PR · dừng giữa việc · hỏi tiến độ · bảo đẩy lên staging · hỏi thành viên đang làm gì · repo mới · số liệu không khớp · hỏi bức tranh tổng thể.
 
-## Năm luật không được vi phạm
+## Sáu luật không được vi phạm
 
 1. **Claim trước khi code.** Không sửa một dòng code thuộc work-item chưa được claim. Claim là bộ ba: nhãn `in-progress` + assignee, `claimed_by` trong `plan.md`, và nhánh `feat/<issue>-<slug>`.
 2. **Không giành việc.** Issue đã có assignee khác ⇒ coi như đã bị nhặt. Chọn việc khác.
 3. **Bản ghi công việc trước khi kết thúc.** Work-item chưa `completed` mà phiên kết thúc ⇒ phải có `handoff-<YYMMDD>-<session>.md` trong thư mục work-item, và **bảy mục `<!-- điền -->` phải được điền**. Khác `/handoff` của bộ kit — cái đó để chuyển *phiên* sang máy hay harness khác.
 4. **Trước PR là tự chủ, sau PR là của người.** Được: tạo Issue, gán nhãn, chia ticket, gán việc, tự `/code-review`, mở PR, ghi tiến độ. Phải hỏi: merge, cherry-pick sang `develop`/`staging`/`prod`, push nhánh môi trường, đóng Issue của người khác, đổi assignee của member, `push --force`.
-5. **Chỉ ghi trong marker.** Sửa Issue hay `AGENTS.md` thì chỉ trong khối `<!-- ledger:… -->`. Comment của người và của member không bao giờ bị ghi đè.
+5. **Báo cáo phải khớp file — đọc lại trước khi nói.** Nói "đã ghi `log.md`" thì phải mở `log.md` ra thấy dòng đó. Nói "đã đổi `status`" thì phải thấy nó đổi. Một phiên báo cáo sai về chính việc mình làm là kiểu hỏng tệ nhất: công đã bỏ ra mà **không dấu vết nào**, còn phiên sau thì tin vào lời báo cáo. Trước khi kết thúc: `git status --porcelain` và mở đúng những file bạn vừa nói là đã ghi.
+6. **Chỉ ghi trong marker.** Sửa Issue hay `AGENTS.md` thì chỉ trong khối `<!-- ledger:… -->`. Comment của người và của member không bao giờ bị ghi đè.
 
 ## Ranh giới ba tầng
 

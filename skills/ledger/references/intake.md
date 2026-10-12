@@ -45,6 +45,19 @@ Dấu hiệu phải gộp:
 
 Dấu hiệu phải tách: khác màn hình, khác loại người dùng, hoặc sửa cái này không ảnh hưởng cái kia.
 
+### Đối chiếu chéo phải thành BẢNG trong plan.md, không phải một câu
+
+Đọc nhiều nguồn thì kiểu gì cũng có chỗ chúng nói khác nhau. **Nói ra một điểm là chưa đủ** — lượt chạy chỉ nêu một điểm bị đánh giá thấp hơn hẳn lượt lập thành bảng.
+
+Bắt buộc: một mục **`## Đối chiếu chéo`** trong `plan.md`, mỗi dòng một điểm lệch, ghi rõ **nguồn nào nói gì** và nó chặn việc gì. Ví dụ thật:
+
+| # | lệch ở đâu | nguồn A nói | nguồn B nói | hệ quả |
+|---|---|---|---|---|
+| 1 | xoá Action Item | nghiệp vụ: xoá mềm, ẩn khỏi mọi tab | hợp đồng BE: **không có endpoint DELETE**, response không có `deletedAt` | FE không có gì để lọc ⇒ phải hỏi BE |
+| 2 | lọc theo `type` | bảng feature: có lọc | hợp đồng API: chỉ có tham số `status` | không viết được tiêu chí lọc |
+
+Bảng rỗng cũng là một kết quả hợp lệ — nhưng phải nói rõ là **đã đối chiếu và không thấy lệch**, không được bỏ qua.
+
 ### Một việc có thể nằm ở nhiều nguồn — gộp, đừng nhân đôi
 
 Thread Chat và bảng log thường nói về **cùng một việc**: thread có đủ ngữ cảnh, bảng có một dòng rút gọn. Lấy **thread làm thân**, bảng làm xác nhận. Trước khi tạo, quét `plans/` và issue đang mở xem đã có chưa.
@@ -67,7 +80,7 @@ Bảng của bạn dùng chữ tự do. Đừng đoán — ánh xạ, và **khô
 
 | người viết | đọc thành |
 |---|---|
-| `In Progress` + có tên người | lifecycle `in-progress`, `claimed_by` = người đó |
+| `In Progress` + có tên người | lifecycle `in-progress`, và ghi tên vào **`holder`** — **KHÔNG** ghi vào `claimed_by` |. `claimed_by` chỉ dành cho **phiên** đã thật sự nhặt việc, và luôn có dạng `<harness>@<HOST>#<4 ký tự>`. Tên người trong bảng chưa chứng minh được gì: không nhánh, không PR, không tracker thì **không nhật** — ghi `holder`, để `claimed_by` trống, và nói rõ là chưa xác minh |
 | `Pending (BE)`, `Đợi bàn giao UIUX` | `pending` **+ lý do chặn**; nhãn `blocked` — đây là *chờ*, không phải một trạng thái mới |
 | `cancel` | `cancelled` |
 | ô trống | `pending`. Đừng suy diễn thêm |
