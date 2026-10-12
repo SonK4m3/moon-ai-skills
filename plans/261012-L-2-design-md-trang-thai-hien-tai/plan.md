@@ -1,5 +1,6 @@
 ---
 id: L-2
+issue: 3
 title: "DESIGN.md đọc được trong 2 phút"
 project: "Dọn dẹp bộ skill ledger"
 repo: SonK4m3/moon-ai-skills

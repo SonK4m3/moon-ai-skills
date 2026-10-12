@@ -1,5 +1,6 @@
 ---
 id: L-4
+issue: 5
 title: "Chốt số phận hai work-item cũ"
 project: "Dọn dẹp bộ skill ledger"
 repo: SonK4m3/moon-ai-skills

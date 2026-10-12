@@ -1,5 +1,6 @@
 ---
 id: L-3
+issue: 4
 title: "README khớp với thực tế repo"
 project: "Dọn dẹp bộ skill ledger"
 repo: SonK4m3/moon-ai-skills
