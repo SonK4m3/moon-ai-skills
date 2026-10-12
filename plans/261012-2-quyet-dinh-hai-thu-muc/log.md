@@ -1,0 +1,4 @@
+# Nhật ký
+- 2026-10-12 10:39 · intake bởi dsh@DESKTOP-SEC48UO#35b4 · nguồn: Google Chat - tin nhan truc tiep
+- 2026-10-13 00:19 · L-4 chốt số phận: **giữ** — `react-component-preview/` và `skills/astra-luna-orchestrator/` vẫn chưa commit (git status checkout chính), quyết định commit/ignore/xoá là của người ⇒ giữ `pending` + `routing: ready-for-human`. Nội dung hai thư mục đó L-4 không đụng tới.
+- 2026-10-13 00:19 · **đính chính dòng ngay trên** (log append-only, không sửa dòng cũ): sau khi `main` sửa khối `acceptance` bị hỏng ở commit `1e80d3e`, tiêu chí 1 của L-4 đòi **cả hai** `plan.md` phải ở trạng thái kết thúc ⇒ work-item này chuyển từ `pending` sang **`cancelled`**: bản ghi là vật thời `pm` (`acceptance` dạng chuỗi nên không có cổng chạy được, chưa từng được commit) nên không dùng lại được. **Vấn đề thì không huỷ:** hai thư mục vẫn chưa commit ⇒ phải intake lại thành work-item mới hoặc người quyết trực tiếp; Issue #2 vẫn OPEN.
