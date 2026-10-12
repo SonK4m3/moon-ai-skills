@@ -553,3 +553,32 @@ Trong đề xuất ban đầu tôi nói sẽ gỡ 5 lệnh (`next`, `note`, `rel
 Thay vào đó chúng bị **hạ cấp trong tài liệu**: skill mô tả hành vi và format, lệnh chỉ là cách làm nhanh. Nếu agent tự làm, nó phải theo đúng format trong `references/` — không có format thứ hai.
 
 > Bản chất: **sản phẩm thật là `references/conventions.md`** — tập quy ước. Script và skill chỉ là hai cách giao cùng tập quy ước đó cho máy. Vứt `pm.mjs` đi thì quy ước vẫn còn nguyên giá trị.
+
+---
+
+## 19. Bỏ script khỏi đường làm việc
+
+Sau khi thấy vòng đời chạy thật trên một repo thật, người dùng quyết định: **chỉ dùng skill và agent**, không dùng CLI.
+
+### Đã làm để skill tự đủ
+
+`pm.mjs` không biến mất, nhưng nó **không còn là đường làm việc**. Để bỏ được nó, skill phải có thứ mà trước đó script giữ hộ:
+
+| thêm | nội dung |
+|---|---|
+| `references/formats.md` | **hợp đồng định dạng**: định danh, frontmatter `plan.md` + 7 luật sửa, `log.md`, thân Issue + 3 marker, lệnh tạo Issue, 4 nhãn — cộng **11 thủ tục** viết dưới dạng "làm gì → kiểm tra gì" |
+| `formats.md` §5.10 | `doctor` thành **12 điểm kiểm tra agent tự chạy**, thay vì một lệnh |
+| `formats.md` §6 | nói thẳng ba việc script làm tốt hơn: quét nhiều repo, di trú hàng loạt, và **làm chương trình cho hook** |
+| `SKILL.md` | bỏ bảng lệnh; thay bằng bảng "việc → thủ tục ở đâu" |
+| `playbooks.md` | 13 chỗ "gọi `pm X`" đổi thành việc phải làm, trỏ về `formats.md` |
+| `conventions.md` §11 | cột "script" đổi thành "tuỳ chọn"; chỉ còn ba việc script làm tốt hơn |
+
+### Cái mất, nói thẳng
+
+1. **Không còn lớp cưỡng chế.** Hook `Stop` cần một chương trình. Ở harness không có hook (Codex, DSH) thì trước đó cũng không có; nay Claude Code cũng mất. Đây là đánh đổi có ý thức, sau khi đã thấy bốn đặc tả cũ chết vì thiếu cưỡng chế.
+2. **Chậm hơn và tốn token hơn** ở việc khối lượng lớn: quét 33 repo, thêm frontmatter cho 16 plan cũ.
+3. **Trôi lệch định dạng có thể quay lại** nếu agent viết tay sai. Đối trọng duy nhất là `formats.md` — nên nếu sau này thấy lệch, việc cần làm là làm cho hợp đồng định dạng chặt hơn, không phải viết lại script.
+
+### Trạng thái mã
+
+`scripts/pm.mjs` (v0.3) vẫn nằm trong repo, đã commit ở `150f43d`, kèm `selftest.ps1` 24 điểm. Giữ lại vì: nó là bản tham chiếu cho các thủ tục trong `formats.md`, và là điểm khởi đầu nếu sau này muốn dựng lại hook check.

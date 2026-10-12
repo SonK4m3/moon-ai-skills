@@ -1,6 +1,6 @@
 # Chuẩn hoá yêu cầu thô thành work-item
 
-Đây là **việc phán đoán của agent**, không phải của script. `pm intake` chỉ biết lấy dòng đầu làm tiêu đề — nó viết file hộ bạn, không suy nghĩ hộ bạn. Nếu bạn gọi `pm intake` với text thô rồi để nó tự đặt tiêu đề, bạn đã bỏ mất phần giá trị nhất.
+Đây là **việc phán đoán của agent**. Không có script nào làm hộ bạn phần này. Nếu bạn dán nguyên văn tin nhắn vào làm mô tả rồi lấy dòng đầu làm tiêu đề, bạn đã bỏ mất phần giá trị nhất.
 
 Mục tiêu: một agent **khác** đọc work-item này vào ngày mai, không hỏi lại câu nào, và làm được.
 
@@ -110,18 +110,15 @@ Nguyên tắc: **chỉ hỏi khi câu trả lời đổi việc bạn làm tiế
 
 ## 7. Tạo thật
 
-Sau khi soạn xong, gọi `pm intake` với **nội dung bạn đã viết**, không phải text thô:
+Sau khi soạn xong, ghi work-item theo `formats.md` §5.2 — tạo Issue với **nội dung bạn đã viết**, rồi tạo thư mục với frontmatter đầy đủ sáu trường:
 
 ```bash
-pm intake "<mô tả đã chuẩn hoá>" --create \
-  --title "<tiêu đề bạn viết>" \
-  --priority P2 \
-  --routing ready-for-agent \
-  --source "Google Chat #team-fe — link nếu có" \
-  --requester "<người nghiệm thu>" \
-  --acceptance "<tiêu chí 1>; <tiêu chí 2>" \
-  --scope "<module/màn hình>" \
-  --out-of-scope "<thứ trông giống nhưng không làm>"
+# 1. viết thân Issue ra file tạm (tránh hỏng dấu tiếng Việt), rồi:
+gh issue create --repo <org/repo> --title "<tiêu đề bạn viết>" --body-file /tmp/issue.md --label ready-for-agent
+
+# 2. tạo plans/<YYMMDD>-<số>-<slug>/plan.md   — frontmatter đầy đủ, xem formats.md §2
+# 3. tạo plans/<...>/log.md                   — dòng đầu: intake bởi <session>
+# 4. nếu bước 1 chưa gán được nhãn routing thì gán sau
 ```
 
 Rồi **trình người dùng đúng những gì sẽ được ghi** trước khi bấm tạo thật. Người dùng là người đối chiếu với thực tế — đó là lý do bước này tồn tại.

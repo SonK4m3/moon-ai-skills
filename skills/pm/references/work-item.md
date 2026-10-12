@@ -49,7 +49,7 @@ env:
 
 ### Trường bắt buộc
 
-| trường | kiểm tra bởi `pm doctor` |
+| trường | kiểm tra ở `formats.md` §5.10 |
 |---|---|
 | `id` | khớp số trong tên thư mục |
 | `title` | không rỗng |
@@ -88,7 +88,7 @@ main: { state: merged, pr: 87, sha: 1a2b3c4 }
 9. done        pm archive 142            → completed, đóng Issue
 ```
 
-`blocked_by` chặn `pm next` trả về việc đó cho tới khi mọi việc nó chờ đều `completed`.
+`blocked_by` chặn việc đó xuất hiện trong danh sách sẵn sàng cho tới khi mọi việc nó chờ đều `completed`.
 
 ---
 
@@ -111,4 +111,4 @@ env:
 ---
 ```
 
-Work-item nhỏ vẫn là một thư mục. Không có đường tắt — `pm doctor` cần chỗ để kiểm tra.
+Work-item nhỏ vẫn là một thư mục. Không có đường tắt — danh sách kiểm tra cần chỗ để đối chiếu.

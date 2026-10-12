@@ -1,0 +1,262 @@
+# Định dạng và thủ tục
+
+Bạn làm mọi việc bằng công cụ của mình: đọc/ghi file, `git`, `gh`. File này là **hợp đồng định dạng** — không có script nào kiểm tra hộ, nên sai một ký tự là work-item trở nên vô hình với phiên sau. Không có "format thứ hai".
+
+> Đọc `conventions.md` trước để biết luật. File này chỉ nói **viết cái gì, viết thế nào**.
+
+---
+
+## 1. Định danh
+
+| thứ | dạng | ví dụ |
+|---|---|---|
+| Thư mục work-item | `plans/<YYMMDD>-<số>-<slug>/` | `plans/260101-142-note-detail-quota/` |
+| Nhánh | `<type>/<số>-<slug>` | `feat/142-note-detail-quota` |
+| Handoff | `handoff-<YYMMDD>-<session>.md` | `handoff-260101-codex-a1b2.md` |
+| Dòng log | `- YYYY-MM-DD HH:mm · <nội dung>` | `- 2026-01-01 09:12 · claim bởi …` |
+| Session id | `<harness>@<HOST>#<4 ký tự>` | `codex@MAY-A#a1b2` |
+
+- `<YYMMDD>` là **ngày tạo**, không đổi về sau.
+- `<số>` là **số Issue**. Khi chưa tạo được Issue (mất mạng, thiếu quyền), dùng `L-<n>` với `n = max(số đang có) + 1`, và ghi `sync_pending: true`.
+- `<slug>`: kebab-case, không dấu, tối đa 5 từ, **không kết thúc bằng hư từ** (`cho`, `va`, `voi`, `cua`, `de`…).
+- Session id: tự đặt một lần, **giữ nguyên suốt phiên**.
+
+---
+
+## 2. `plan.md` — frontmatter
+
+```markdown
+---
+id: GH-142
+title: "Note detail — quota"
+status: in-progress
+priority: P1
+created: 2026-01-01
+routing: ready-for-agent
+repo: your-org/your-app
+source: "Google Chat #team-fe"
+requester: "Anh Sơn"
+acceptance: "Mở trang với 500 note, cuộn hết danh sách không khựng quá 100ms"
+scope: "src/features/note-detail"
+out_of_scope: "không đổi cấu trúc dữ liệu, không phân trang ở API"
+branch: feat/142-note-detail-quota
+claimed_by: codex@MAY-A#a1b2
+claimed_at: 2026-01-01T09:00:00+07:00
+blocked_by: [GH-140]
+env:
+  main: { state: merged, pr: 87, sha: 1a2b3c4 }
+  develop: { state: cherry-picked, pr: 91, sha: 5d6e7f8 }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# Note detail — quota
+
+## Yêu cầu gốc
+<nguyên văn tin nhắn, để đối chiếu về sau>
+
+## Việc cần làm
+- [ ] …
+
+## Nghiệm thu
+- …
+```
+
+**Luật sửa file này:**
+
+1. Chuỗi có dấu hai chấm, dấu `#`, hoặc bắt đầu bằng ký tự đặc biệt → **luôn bọc trong nháy kép**.
+2. `env:` **luôn đủ bốn khoá** `main`, `develop`, `staging`, `prod`. Thiếu khoá = coi như `none`, nhưng đừng để thiếu.
+3. `state` chỉ nhận: `none` · `cherry-picked` · `merged` · `verified` · `failed`.
+4. `status` chỉ nhận: `pending` · `in-progress` · `in-review` · `completed` · `cancelled`.
+5. `routing` chỉ nhận: `ready-for-agent` · `ready-for-human` · `needs-info` · `needs-triage` · `wontfix`.
+6. Xoá một khoá thì xoá **cả dòng**, đừng để `claimed_by:` trống — dòng trống bị đọc thành `null` và gây lẫn giữa "chưa nhặt" với "nhặt rồi mà không ghi ai".
+7. Ngày: `created` là `YYYY-MM-DD`; `claimed_at` là ISO có múi giờ.
+
+---
+
+## 3. `log.md`
+
+```markdown
+# Nhật ký
+
+- 2026-01-01 09:12 · claim bởi codex@MAY-A#a1b2 · nhánh feat/142-note-detail-quota
+- 2026-01-01 14:03 · xong phase 1, còn phase 2
+```
+
+**Append-only.** Không bao giờ sửa hay xoá dòng cũ. Muốn đính chính thì thêm dòng mới nói rõ.
+
+---
+
+## 4. GitHub Issue
+
+### 4.1 Thân Issue
+
+```markdown
+<!-- pm:work-item v1 -->
+- **Repo**: your-org/your-app
+- **Nguồn**: <link Chat/Sheet | trực tiếp>
+- **Người yêu cầu**: …
+- **Ưu tiên**: P1
+- **Kết quả mong đợi**: …
+- **Phạm vi**: …
+- **Không làm**: …
+- **Work-item**: `plans/260101-142-note-detail-quota/`
+- **Nhánh**: `feat/142-note-detail-quota`
+- **Môi trường**: main ⬜ · develop ⬜ · staging ⬜ · prod ⬜
+
+## Tiến độ
+<!-- pm:log — append-only, mỗi lần ghi tiến độ thêm một dòng -->
+- 2026-01-01 09:12 · claim bởi codex@MAY-A#a1b2
+```
+
+Ba marker: `pm:work-item v1` (khối đầu), `pm:log` (append-only), `pm:env` (dòng môi trường nếu tách riêng). **Chỉ ghi bên trong marker.** Mọi thứ ngoài marker là của người.
+
+### 4.2 Tạo Issue
+
+```bash
+# viết body ra file tạm trước — tránh hỏng dấu tiếng Việt khi truyền qua dòng lệnh
+gh issue create --repo <org/repo> --title "<tiêu đề>" --body-file /tmp/issue.md --label ready-for-agent
+```
+
+Nếu lệnh **thất bại vì nhãn chưa tồn tại**, tạo Issue không nhãn rồi gán sau. Nếu `gh label create` trả **HTTP 404**, đó là **thiếu quyền ghi**, không phải repo không tồn tại — báo người dùng chuyển tài khoản, đừng thử lại.
+
+### 4.3 Đọc
+
+```bash
+gh issue view <số> --comments
+gh issue list --state open --label ready-for-agent --json number,title,labels,assignees
+```
+
+Repo suy ra từ `git remote -v`. Không hard-code.
+
+### 4.4 Nhãn — tạo một lần cho mỗi repo
+
+```bash
+gh label create ready-for-agent --color 0e8a16 --description "Đủ rõ, giao được cho agent"
+gh label create in-progress     --color fbca04 --description "Đã có phiên nhặt"
+gh label create in-review       --color 5319e7 --description "PR đang mở"
+gh label create blocked         --color b60205 --description "Đang chờ việc khác"
+```
+
+Bốn nhãn này cộng ba nhãn triage đã có (`needs-triage`, `needs-info`, `ready-for-human`) và `wontfix` là đủ. Không phát minh thêm.
+
+---
+
+## 5. Thủ tục
+
+Mỗi thủ tục: **làm gì → kiểm tra gì**. Kiểm tra là bắt buộc — không có script nhắc bạn.
+
+### 5.1 `setup` — cài vào một repo
+
+1. Tạo `.pm/flow.yml` (copy `templates/flow.yml`, sửa `profile` cho đúng repo).
+2. Tạo `.pm/config.json` (copy `templates/config.json`, điền `repo` = `<org>/<name>` từ `git remote -v`).
+3. Thêm khối `<!-- pm:start -->…<!-- pm:end -->` vào cuối `AGENTS.md` (tạo file nếu chưa có).
+4. Thêm `.pm/.hook-state.json` vào `.gitignore`.
+5. Tạo thư mục `plans/`.
+6. **Kiểm tra**: `cat .pm/config.json`, `git status --short` — và nói cho người dùng biết file nào được git theo dõi.
+
+### 5.2 `intake` — nhận việc mới
+
+1. **Soạn nội dung** theo `intake.md`. Đây là phần khó; đừng bỏ qua.
+2. Trình bản nháp cho người dùng. **Chờ xác nhận.**
+3. Tạo Issue (§4.2) → lấy số từ URL in ra.
+4. Tạo `plans/<YYMMDD>-<số>-<slug>/plan.md` (§2) và `log.md` (§3).
+5. Gán nhãn routing lên Issue.
+6. **Kiểm tra**: `gh issue view <số>` thấy đúng nhãn; `ls plans/` thấy thư mục; frontmatter parse được.
+
+Nếu bước 3 hỏng vì mất mạng hoặc thiếu quyền: dùng `L-<n>`, ghi `sync_pending: true`, và **nói rõ** với người dùng là Issue chưa tồn tại.
+
+### 5.3 `claim` — nhặt việc (**trước khi sửa code**)
+
+1. Đọc `plans/*/plan.md` tìm work-item theo số. Nếu `claimed_by` đã có → **dừng, không giành**.
+2. `gh issue edit <số> --add-assignee @me` — **gọi riêng**, để nhãn lỗi không làm mất assignee.
+3. `gh issue edit <số> --add-label in-progress` — gọi riêng.
+4. Sửa `plan.md`: `status: in-progress`, `branch`, `claimed_by`, `claimed_at`.
+5. Thêm dòng vào `log.md`.
+6. Tạo nhánh: `git checkout -b <type>/<số>-<slug>` **chỉ khi cây làm việc sạch**; nếu bẩn thì `git branch <tên>` và nói rõ chưa chuyển.
+7. **Kiểm tra**: `git branch --list`, `gh issue view <số>` thấy assignee + nhãn. Bước nào lỗi thì ghi `sync_pending: true` và **nói ra**.
+
+### 5.4 `note` — ghi tiến độ
+
+1. Thêm một dòng vào `log.md`.
+2. `gh issue comment <số> --body "**<YYYY-MM-DD HH:mm>** · <nội dung>"`.
+3. **Kiểm tra**: `tail -3 log.md`.
+
+### 5.5 `handoff` — bàn giao
+
+1. Thu dữ liệu git: `git diff --name-only <nhánh nguồn>...<nhánh>`, `git status --porcelain`.
+2. Viết `handoff-<YYMMDD>-<session>.md` theo khung ở `conventions.md` §5.
+3. **Điền cả sáu mục** — khung rỗng là handoff vô dụng.
+4. Thêm dòng vào `log.md`, và comment link file lên Issue.
+5. **Kiểm tra**: mở file đọc lại; không còn dòng `<!-- điền -->` nào.
+
+### 5.6 `env` — cập nhật môi trường
+
+1. Sửa khối `env:` trong `plan.md`, giữ đủ bốn khoá.
+2. Cập nhật dòng `**Môi trường**` trong thân Issue và ghi một comment.
+3. **Kiểm tra**: `sha` phải có khi `state` khác `none` — không có sha thì không đối chiếu được về sau.
+
+### 5.7 `release` — nhả việc
+
+1. `gh issue edit <số> --remove-assignee @me` (riêng).
+2. `gh issue edit <số> --remove-label in-progress --add-label <routing>` (riêng).
+3. Xoá `claimed_by`, `claimed_at`, `branch` khỏi `plan.md`; `status: pending`.
+4. Ghi log kèm lý do.
+
+### 5.8 `archive` — đóng việc
+
+1. `status: completed` + `completed: <ngày>`.
+2. `gh issue close <số> --comment "…"`, gỡ nhãn `in-progress`/`in-review`.
+3. `git mv plans/<tên> plans/archive/<tên>`.
+4. **Kiểm tra**: `git status` sạch; Issue đã đóng.
+
+### 5.9 `sync` — hòa giải file ↔ GitHub
+
+Chạy khi `sync_pending: true`, hoặc khi nghi ngờ lệch. Với mỗi work-item:
+
+1. Nếu `id` còn là `L-<n>`: tạo Issue thật → đổi `id` thành `GH-<số>`, **đổi tên thư mục** thành `<YYMMDD>-<số>-<slug>`, xoá `sync_pending`.
+2. Viết lại thân Issue từ frontmatter (chỉ trong marker).
+3. Gán nhãn đúng theo `status`.
+4. **Kiểm tra**: `gh issue view <số>` khớp với `plan.md`.
+
+### 5.10 `doctor` — kiểm tra lệch
+
+Không có script, nên đây là **danh sách kiểm tra bạn tự chạy**. Chạy khi người dùng hỏi "số liệu có đúng không", và trước khi báo cáo tổng hợp.
+
+| # | kiểm | cách |
+|---|---|---|
+| 1 | `plan.md` parse được, có `id`/`title`/`status` | đọc file |
+| 2 | tên thư mục khớp `id` (`260101-142-…` ↔ `GH-142`) | so chuỗi |
+| 3 | `status` và `routing` thuộc enum | so enum |
+| 4 | `env` đủ bốn khoá, `state` thuộc enum | đọc file |
+| 5 | `status: in-progress` mà thiếu `claimed_by` | đọc file |
+| 6 | `claimed_by` có mà không thấy nhánh | `git branch --list`, `git ls-remote --heads origin` |
+| 7 | nhánh trong `plan.md` ≠ nhánh thật đang có | so |
+| 8 | Issue có nhãn khớp `status`/`routing` | `gh issue view <số> --json labels` |
+| 9 | Issue có assignee khớp `claimed_by` | `gh issue view <số> --json assignees` |
+| 10 | nhãn pm có tồn tại trên repo | `gh label list --repo <r> --json name` |
+| 11 | tài khoản gh có quyền ghi | `gh api repos/<r> --jq .permissions.push` |
+| 12 | plan cũ không theo schema | đếm, báo là **warn**, không chặn |
+
+**File thắng.** Lệch thì sửa GitHub theo file, hoặc sửa file nếu file sai — nhưng phải **nói rõ bạn chọn bên nào và vì sao**.
+
+### 5.11 `next` / `status` — trả lời câu hỏi
+
+- `next`: đọc `plans/*/plan.md`, lọc `status: pending` + không có `claimed_by` + `routing: ready-for-agent` + mọi `blocked_by` đã `completed`. Xếp P1 trước, rồi theo `created`.
+- `status`: đếm theo `status`, đếm theo bốn cờ `env`, liệt kê việc `in-progress`/`in-review`.
+
+Với nhiều repo: giao subagent (xem `playbooks.md` §11), đừng tự quét hết.
+
+---
+
+## 6. Khi nào vẫn nên dùng script
+
+Làm tay được hết, nhưng ba loại việc này tốn kém nếu làm tay:
+
+| việc | vì sao |
+|---|---|
+| Quét **nhiều repo** (hàng chục) cùng lúc | vòng lặp đọc file + gọi `gh`, dễ sai và tốn token |
+| **Di trú hàng loạt** plan cũ sang schema | sửa frontmatter của 16 file — làm tay dễ hỏng format |
+| **Hook** `Stop` chặn kết thúc phiên thiếu handoff | hook chỉ gọi được **chương trình**, không gọi được skill |
+
+Ba việc đó là toàn bộ lý do `scripts/pm.mjs` còn tồn tại. Không có nó thì mất lớp cưỡng chế — và nhớ rằng bốn đặc tả cũ trong repo công việc (`journals/`, `agent-memory`, `cherry-pick-tracking`, `plans/archive`) đã chết vì không có gì cưỡng chế.

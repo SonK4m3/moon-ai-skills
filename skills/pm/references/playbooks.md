@@ -18,19 +18,19 @@ Không bao giờ tạo thẳng rồi báo sau. Người dùng là người đố
 
 ## 2. "Hôm nay làm gì?"
 
-1. `pm next` — việc sẵn sàng nhặt.
-2. `pm status` — cái gì đang chạy, đang ở môi trường nào.
+1. Đọc `plans/*/plan.md` và lọc việc sẵn sàng nhặt (`formats.md` §5.11).
+2. Đếm theo vòng đời và bốn cờ môi trường (`formats.md` §5.11).
 3. Trả lời bằng **hai tầng**, đừng trộn:
    - **Đang chạy**: `ID · phiên giữ · nhánh · môi trường · tiêu đề`
    - **Sẵn sàng nhặt**: `ID · ưu tiên · tiêu đề`, xếp P1 trước
-4. Nếu có việc `in-progress` mà **không ai giữ** (claim cũ, phiên đã chết) → nói ra và đề nghị `pm release` hoặc tiếp quản.
+4. Nếu có việc `in-progress` mà **không ai giữ** (claim cũ, phiên đã chết) → nói ra và đề nghị nhả việc (`formats.md` §5.7) hoặc tiếp quản.
 5. Kết bằng một câu đề xuất: *"Tôi nghĩ nên làm GH-142 trước, vì nó chặn GH-151."*
 
 ---
 
 ## 3. "Làm GH-142 đi"
 
-1. `pm claim GH-142` — **trước khi sửa một dòng code**.
+1. Nhặt việc theo `formats.md` §5.3 — **trước khi sửa một dòng code**.
 2. Nếu claim báo đã có người giữ → **không giành**. Báo người dùng và hỏi.
 3. Chuyển sang chuỗi skill của Matt, đúng thứ tự:
    - chưa rõ → `/grill-with-docs` hoặc `/grilling`
@@ -45,7 +45,7 @@ Không bao giờ tạo thẳng rồi báo sau. Người dùng là người đố
 1. `/code-review` trước khi mở PR — bạn tự chạy, không cần ai nhắc.
 2. `/pr` để viết thân PR.
 3. Mở PR vào `main` (hoặc nhánh nguồn trong `.pm/flow.yml`).
-4. `pm note GH-142 "PR #87 đang mở"` — một dòng là đủ.
+4. Ghi một dòng tiến độ (`formats.md` §5.4) — một dòng là đủ.
 5. Nói rõ với người dùng: **việc này từ đây là của bạn** — review, merge, rồi cherry-pick.
 
 Từ PR trở đi bạn **không tự quyết** nữa: merge, cherry-pick sang `develop`/`staging`/`prod`, push nhánh môi trường — đều phải hỏi.
@@ -54,9 +54,9 @@ Từ PR trở đi bạn **không tự quyết** nữa: merge, cherry-pick sang `
 
 ## 5. "Anh có việc gấp, dừng đây đã"
 
-1. `pm handoff GH-142` — sinh file vào thư mục work-item.
+1. Viết handoff vào thư mục work-item (`formats.md` §5.5).
 2. **Điền sáu mục `<!-- điền -->`**, không để nguyên khung. Mục quan trọng nhất là *File và đường dẫn chính xác* và *Skill nên gọi tiếp* — đó là thứ phiên sau cần.
-3. `pm note GH-142 "dừng giữa phase 2, xem handoff"`.
+3. Ghi một dòng tiến độ: dừng giữa phase 2, xem handoff.
 4. Nếu người dùng không nói gì mà phiên sắp hết: hook `Stop` sẽ chặn và nhắc bạn. Đừng để nó phải nhắc.
 
 ---
@@ -81,14 +81,14 @@ Nếu người dùng hỏi *"xong chưa"* → câu trả lời đúng là **"xon
 
 1. Đây là việc **phải hỏi** — cherry-pick sang nhánh môi trường không phải quyền tự chủ của bạn.
 2. Đọc `.pm/flow.yml` trước: repo này có `profile: cherry-pick-4-env` không, `env_branches` gồm gì, `prod_policy` là gì. **Repo của bên khác thì theo flow của họ** — không áp flow của bạn lên.
-3. Nếu người dùng đồng ý và bạn thực hiện: ghi lại bằng `pm env GH-142 staging cherry-picked --pr <số> --sha <sha>`.
+3. Nếu người dùng đồng ý và bạn thực hiện: ghi lại bằng cập nhật cờ môi trường theo `formats.md` §5.6.
 4. Cảnh báo nếu thiếu `--sha` — cờ môi trường không có sha thì không đối chiếu được.
 
 ---
 
 ## 8. "Thành viên X đang làm gì?"
 
-1. `pm status` để lấy bức tranh, rồi lọc theo assignee trên Issue: `gh issue list --assignee <login> --json number,title,labels`.
+1. Lấy bức tranh từ `plans/*/plan.md`, rồi lọc theo assignee trên Issue: `gh issue list --assignee <login> --json number,title,labels`.
 2. Trả lời gọn theo người, đừng đổ cả bảng ra.
 3. Nếu thấy việc `ready-for-human` gán cho người đã nghỉ/đổi việc → nói ra.
 
@@ -96,16 +96,16 @@ Nếu người dùng hỏi *"xong chưa"* → câu trả lời đúng là **"xon
 
 ## 9. "Repo mới, cài vào đi"
 
-1. `pm setup --repo <đường-dẫn>`.
+1. Cài theo `formats.md` §5.1.
 2. Nói rõ nó vừa thêm gì vào repo — **nhất là file nào được git theo dõi** (`AGENTS.md`, `.gitignore`) để người dùng biết mà commit hoặc hoàn tác.
 3. Nếu repo thuộc bên khác: **hỏi trước**, và dùng `profile: github-flow` trong `.pm/flow.yml`, không áp flow cherry-pick của bạn.
-4. Repo đã có `plans/` cũ → đề nghị `pm adopt --list` rồi `--dry-run` trước khi adopt thật.
+4. Repo đã có `plans/` cũ → đề nghị liệt kê plan cũ trước, xem trước rồi mới thêm frontmatter theo `formats.md` §2.
 
 ---
 
 ## 10. "Sao tôi thấy số liệu không khớp?"
 
-1. `pm doctor` — nó đối chiếu file ↔ Issue ↔ nhãn ↔ nhánh.
+1. Chạy danh sách 12 điểm ở `formats.md` §5.10 — đối chiếu file ↔ Issue ↔ nhãn ↔ nhánh.
 2. Đọc các dòng `[fail]` trước, `[warn]` sau.
 3. Nói rõ **bên nào đúng**: theo quy ước, **file thắng**. Sửa GitHub theo file, hoặc sửa file nếu file sai — nhưng phải nói ra bạn chọn bên nào và vì sao.
 4. Nếu lệch do người sửa tay trên GitHub: ghi lại một dòng vào `log.md` để lần sau không ai phải đoán.
@@ -119,7 +119,7 @@ Khi người dùng hỏi những câu cần **đọc nhiều repo/plan** ("cho t
 ```
 Bạn là agent PM. Đọc trạng thái work-item và trả về báo cáo, KHÔNG sửa gì.
 
-Phạm vi: <danh sách repo hoặc "chạy pm status --world work">
+Phạm vi: <danh sách repo hoặc để trống nghĩa là mọi repo trong vùng>
 Cần trả về:
 1. Bảng: ID · repo · vòng đời · môi trường · phiên giữ · tiêu đề
 2. Việc in-progress quá <N> ngày không có handoff

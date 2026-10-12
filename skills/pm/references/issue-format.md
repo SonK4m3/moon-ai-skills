@@ -68,4 +68,4 @@ gh label create blocked     --color B60205 --description "Đang chờ việc kh�
 
 - Issue ↔ work-item: qua **số**. `GH-142` ↔ `plans/260101-142-…/` ↔ `feat/142-…`.
 - Issue ↔ PR: PR mở vào `main` phải nhắc `#142` trong tiêu đề hoặc thân.
-- Issue ↔ môi trường: khối `Môi trường` trong thân, cập nhật bằng `pm env`.
+- Issue ↔ môi trường: khối `Môi trường` trong thân, cập nhật theo `formats.md` §5.6.

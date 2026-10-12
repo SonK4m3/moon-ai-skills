@@ -69,8 +69,8 @@ Session-id có dạng `<harness>@<host>#<4 ký tự>`, ví dụ `codex@SON-PC#a1
 Luật:
 - Claim **trước** khi sửa code.
 - Issue đã có assignee khác ⇒ **không giành**.
-- `gh` lỗi ⇒ vẫn ghi file + tạo nhánh, ghi `sync_pending: true`; `pm sync` hòa giải.
-- Nhả việc (`pm release`) khi bỏ ngang: xóa `claimed_by`, gỡ assignee, đổi nhãn về `ready-for-agent`.
+- `gh` lỗi ⇒ vẫn ghi file + tạo nhánh, ghi `sync_pending: true`; lần hòa giải sau (`formats.md` §5.9) sẽ đẩy lại.
+- Nhả việc (`formats.md` §5.7) khi bỏ ngang: xóa `claimed_by`, gỡ assignee, đổi nhãn về `ready-for-agent`.
 
 ---
 
@@ -128,8 +128,8 @@ npm run ci:check
 Mỗi lần chuyển trạng thái: **ghi file trước, ghi GitHub sau, trong cùng một lệnh**.
 
 - `gh` thành công → xóa `sync_pending`.
-- `gh` lỗi → `sync_pending: true`, không chặn công việc. `pm sync` (hoặc `pm status`) sẽ đẩy lại.
-- Sửa nhãn bằng tay trên GitHub là hợp lệ. `pm doctor` sẽ phát hiện lệch và nói rõ bên nào đúng: **file thắng**.
+- `gh` lỗi → `sync_pending: true`, không chặn công việc. lần hòa giải sau (`formats.md` §5.9) sẽ đẩy lại.
+- Sửa nhãn bằng tay trên GitHub là hợp lệ. danh sách kiểm tra (`formats.md` §5.10) sẽ phát hiện lệch và nói rõ bên nào đúng: **file thắng**.
 
 ---
 
@@ -174,7 +174,7 @@ Khi làm việc trong repo của bên khác: **đọc `.pm/flow.yml` của họ 
 
 Người dùng nói chuyện với agent, không nói chuyện với lệnh. Phân chia cố định:
 
-| thuộc về **agent** (phán đoán) | thuộc về **script** (tay máy) |
+| bạn tự làm (phán đoán) | script làm nhanh hơn — tuỳ chọn |
 |---|---|
 | Đọc tin nhắn thô → quyết đó là việc gì | Ghi frontmatter, không làm hỏng file |
 | Viết tiêu chí nghiệm thu | Tạo/sửa Issue, nhãn, assignee |
@@ -184,12 +184,12 @@ Người dùng nói chuyện với agent, không nói chuyện với lệnh. Ph�
 | Viết nửa còn lại của handoff | Sinh khung handoff từ dữ liệu git |
 | Kết luận và đề xuất với người dùng | `Stop` hook — **bắt buộc phải là chương trình** |
 
-Ba lý do script tồn tại, và chỉ ba:
+Ba việc mà script làm tốt hơn bạn, và chỉ ba. Ngoài ba việc này, **bạn tự làm theo `formats.md`**:
 
 1. **Hook không gọi được skill.** `Stop` chạy một lệnh và đọc exit code. Đây là cơ chế duy nhất cưỡng chế được luật — bốn đặc tả cũ (`journals/`, `agent-memory`, `cherry-pick-tracking`, `plans/archive`) chết vì không có nó.
 2. **Ghi file có cấu trúc phải giống nhau mọi lần.** Để model tự sửa YAML qua nhiều phiên thì trôi lệch — bằng chứng: `.agent/rules` và `.claude/rules` là bản sao mà 2/5 file đã lệch nhau.
 3. **Việc lặp qua nhiều repo.** Quét 33 repo, đối chiếu file ↔ Issue ↔ nhánh là vòng lặp so sánh, không phải phán đoán.
 
-Nếu bạn tự làm một việc thuộc cột phải, **phải theo đúng format trong `references/`** — không có format thứ hai.
+Làm tay thì **phải theo đúng `formats.md`** — không có format thứ hai.
 
 Nếu bạn thấy mình đang gọi lệnh cho một việc thuộc cột trái, dừng lại: đó là chỗ bạn đang bỏ mất giá trị.

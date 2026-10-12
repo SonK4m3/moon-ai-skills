@@ -12,7 +12,7 @@ Người dùng nói chuyện với bạn, không nói chuyện với lệnh. H�
 
 ## Phán đoán là của bạn, không phải của script
 
-Script `pm` viết file hộ bạn. Nó **không nghĩ hộ bạn**. Bằng chứng cụ thể: nếu bạn gọi `pm intake "<text thô>"`, nó lấy **dòng đầu tiên** làm tiêu đề và cắt 5 từ đầu làm slug. Đó là mức thấp nhất chấp nhận được, không phải đích.
+Không ai viết hộ bạn phần này. Nếu bạn dán nguyên văn tin nhắn vào làm mô tả rồi lấy **dòng đầu tiên** làm tiêu đề, bạn đã bỏ mất phần giá trị nhất — và phiên sau sẽ đọc một tiêu đề vô nghĩa.
 
 Việc bạn phải tự làm, mỗi lần:
 
@@ -48,53 +48,51 @@ dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · b�
 | **GitHub Issue** | nhãn, assignee, comment tiến độ, link — thứ người đọc |
 | **Google Chat webhook** | thông báo một chiều khi cần người quyết |
 
-Ghi **file trước, GitHub sau**. `gh` lỗi thì file vẫn đúng và `sync_pending` được ghi lại; `pm sync` hòa giải sau. File không bao giờ phụ thuộc mạng.
+Ghi **file trước, GitHub sau**. `gh` lỗi thì file vẫn đúng và `sync_pending` được ghi lại; lần hòa giải sau (`formats.md` §5.9) sẽ đẩy lại. File không bao giờ phụ thuộc mạng.
 
 ## Giao việc nặng cho subagent
 
 Câu hỏi cần đọc nhiều repo ("bức tranh tuần này", "repo nào đang bỏ không") thì **đừng tự đọc hết** — giao cho subagent, giữ context chính sạch. Prompt mẫu ở `references/playbooks.md` §11. Subagent thu thập; **bạn** kết luận và đề xuất.
 
-## Bộ tay — gọi khi cần, không phải giao diện
+## Cách làm — bạn tự làm, theo đúng định dạng
 
-Đây là tay của bạn, không phải thứ để đưa cho người dùng. Cái nào không gọi thì bạn phải tự làm **đúng format trong `references/`**.
+Mọi thao tác bạn làm bằng công cụ của mình: đọc/ghi file, `git`, `gh`. **Hợp đồng định dạng nằm ở `references/formats.md`** — không có script kiểm tra hộ, nên sai một ký tự là work-item trở nên vô hình với phiên sau.
 
-```
-pm setup   [--repo <đường-dẫn>]     cài vào repo: .pm/, AGENTS.md, hook, persona
-pm init    --world <tên>=<thư-mục>  quét repo, sinh ~/.pm/worlds.yml
-pm doctor  [--repo … | --all]       đối chiếu file ↔ Issue ↔ nhãn ↔ nhánh
-pm next    [--world …]              việc sẵn sàng nhặt
-pm intake  "<mô tả đã chuẩn hoá>" --create --title … --acceptance … --scope …
-pm claim   <id> [--type feat|fix]   bộ ba claim + tạo nhánh
-pm release <id> [--reason "…"]      nhả việc về hàng đợi
-pm note    <id> "<nội dung>"        một dòng tiến độ vào log.md + comment Issue
-pm handoff <id>                     sinh handoff + tự điền file đã đổi và nhật ký
-pm env     <id> <main|develop|staging|prod> <state> [--pr N] [--sha X]
-pm status  [--world work|personal|all]
-pm sync    [--all] [--dry-run]      đẩy file → GitHub, tạo Issue cho ID tạm L-<n>
-pm archive <id> [--keep]            đóng việc, đóng Issue, chuyển vào plans/archive/
-pm adopt   [--list | --all]         đưa plan cũ vào hệ thống
-pm hook    session-start | stop     Claude Code tự gọi; đừng gọi tay
-```
+| việc | ở đâu |
+|---|---|
+| Cài pm vào một repo | `formats.md` §5.1 |
+| Nhận việc mới từ Chat/Sheet | `intake.md` để soạn, rồi `formats.md` §5.2 để ghi |
+| Nhặt việc (trước khi code) | §5.3 |
+| Ghi tiến độ | §5.4 |
+| Bàn giao giữa các phiên | §5.5 |
+| Cập nhật cờ môi trường | §5.6 |
+| Nhả việc · đóng việc | §5.7 · §5.8 |
+| Hòa giải file ↔ GitHub | §5.9 |
+| Kiểm tra lệch | §5.10 — 12 điểm, **bạn tự chạy**, không ai chạy hộ |
+| Trả lời "hôm nay làm gì" / "tới đâu rồi" | §5.11 |
 
-Đường dẫn: `node <framework>/skills/pm/scripts/pm.mjs <lệnh>`.
+Cái gì không tự làm được thì **nói ra**, đừng bịa trạng thái.
+
+> `scripts/pm.mjs` vẫn nằm trong repo nhưng **không còn là đường làm việc**. Ba việc nó còn giá trị: quét nhiều repo cùng lúc, di trú hàng loạt plan cũ, và làm **chương trình** cho hook `Stop` (hook không gọi được skill). Chi tiết: `formats.md` §6.
 
 ## Nền: skill của Matt
 
 Việc triển khai không phải của bạn. Bạn lo trạng thái bao quanh chuỗi này:
 
 ```
-pm intake → /grill-with-docs (nếu còn mờ) → /to-spec → /to-tickets
-                                                          ↓
-                              pm claim <id> → /implement (→ /tdd → /code-review)
-                                                          ↓
-                                                pm handoff → /pr → người review
+nhận việc → /grill-with-docs (nếu còn mờ) → /to-spec → /to-tickets
+                                                            ↓
+                                  nhặt việc → /implement (→ /tdd → /code-review)
+                                                            ↓
+                                              handoff → /pr → người review
 ```
 
 ## Đọc thêm
 
-- `references/conventions.md` — quy ước đầy đủ, chuẩn tắc. Đọc trước khi làm bất cứ việc gì; §11 nói rõ phần nào thuộc phán đoán, phần nào thuộc tay máy.
-- `references/playbooks.md` — tình huống → việc làm.
+- `references/formats.md` — **hợp đồng định dạng và thủ tục**. Đọc trước khi ghi bất cứ file nào.
+- `references/conventions.md` — quy ước đầy đủ, chuẩn tắc.
 - `references/intake.md` — chuẩn hoá yêu cầu thô (phần phán đoán nặng nhất).
+- `references/playbooks.md` — tình huống chat → việc làm.
 - `references/work-item.md` — schema, hai trục trạng thái.
 - `references/issue-format.md` — format Issue, bảng nhãn.
 - `agents/project-manager.md` — persona để cài làm agent riêng.
