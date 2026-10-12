@@ -8,3 +8,5 @@
 **/node_modules
 **/fixtures/output
 **/sandbox
+.pm-tmp
+.pm-local
