@@ -4,7 +4,7 @@ title: "DESIGN.md đọc được trong 2 phút"
 project: "Dọn dẹp bộ skill ledger"
 repo: SonK4m3/moon-ai-skills
 branch: feat/L-2-design-md-trang-thai-hien-tai
-status: pending
+status: in-progress
 priority: P2
 created: 2026-10-12
 routing: ready-for-agent
@@ -25,6 +25,8 @@ acceptance:
     verify: "i"
 scope: "docs/agent-ledger/DESIGN.md"
 out_of_scope: "không xoá lịch sử · không sửa skills/ledger/**"
+claimed_by: dsh@DESKTOP-SEC48UO#7f29
+claimed_at: 2026-10-13T00:16:39+07:00
 sync_pending: true
 env:
   main: { state: none }
