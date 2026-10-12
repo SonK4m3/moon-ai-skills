@@ -1,0 +1,22 @@
+{
+  "pm_version": 1,
+  "repo": "",
+  "issue_prefix": "GH-",
+  "work_items_dir": "plans",
+  "dir_format": "{date}-{issue}-{slug}",
+  "date_format": "YYMMDD",
+  "labels": {
+    "needs_triage": "needs-triage",
+    "needs_info": "needs-info",
+    "ready_for_agent": "ready-for-agent",
+    "ready_for_human": "ready-for-human",
+    "in_progress": "in-progress",
+    "in_review": "in-review",
+    "blocked": "blocked",
+    "wontfix": "wontfix"
+  },
+  "notify": {
+    "level": "issue-comment",
+    "chat_webhook_env": "PM_CHAT_WEBHOOK"
+  }
+}

@@ -1,0 +1,27 @@
+# .pm/flow.yml — flow của repo này.
+#
+# Đây là DỮ LIỆU, không phải code. Đổi profile là đổi hành vi của pm,
+# không phải sửa script. Repo của bên khác thì dùng flow của họ.
+#
+# profile:
+#   cherry-pick-4-env — PR vào main, cherry-pick sang develop/staging để test,
+#                       prod chỉ nhận merge từ main
+#   github-flow       — PR thẳng vào main, không nhánh môi trường
+
+profile: cherry-pick-4-env
+
+source_branch: main
+env_branches: [develop, staging, prod]
+prod_policy: merge-from-main        # merge-from-main | none
+
+branch_format: "{type}/{issue}-{slug}"
+branch_types: [feat, fix, chore, refactor, hotfix, docs]
+agent_branch_prefixes: [codex, opencode]
+
+commit_style: conventional
+pre_commit_gate: npm run ci:check
+pre_push_gate: null
+
+review:
+  human_gate: pull-request          # pull-request | none
+  agent_review_before_pr: true      # agent tự chạy /code-review trước khi mở PR

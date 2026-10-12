@@ -1,0 +1,33 @@
+# ~/.pm/worlds.yml — cấu hình cấp MÁY, không nằm trong repo nào.
+#
+# Sinh tự động:  pm init --world <tên>=<thư-mục-gốc> [--account <tên>=<gh-login>]
+# KHÔNG commit file này. Nó chứa đường dẫn máy bạn và (tuỳ chọn) webhook secret.
+#
+# Mỗi world là một thế giới tách biệt: thư mục gốc, tài khoản GitHub, SSH alias.
+# Tên world và đường dẫn là ví dụ — thay bằng cái của bạn.
+
+version: 1
+
+worlds:
+  work:
+    root: D:/work
+    gh_account: your-work-account
+    ssh_alias: github-work-account
+    repos:
+      - name: your-org/your-app
+        path: D:/work/your-app
+        ssh_alias: github-work-account
+
+  personal:
+    root: D:/projects
+    gh_account: your-personal-account
+    ssh_alias: github-personal-account
+    repos:
+      - name: your-name/your-skills
+        path: D:/projects/your-skills
+        ssh_alias: github-personal-account
+
+# Thông báo: chỉ gửi một chiều. KHÔNG đặt secret ở đây nếu máy dùng chung —
+# tốt hơn là để trống và export biến môi trường PM_CHAT_WEBHOOK.
+notify:
+  google_chat_webhook: ""
