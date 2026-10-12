@@ -30,7 +30,7 @@
 
 ## File và đường dẫn chính xác
 
-- `docs/agent-ledger/DESIGN.md` — viết lại hai vòng, **248 dòng**: vòng 1 commit `0f19b7d`, vòng 2 commit `57fce11`.
+- `docs/agent-ledger/DESIGN.md` — viết lại hai vòng, **248 dòng**: vòng 1 commit `0f19b7d`, vòng 2 commit `05ba6f0` (hash này bị amend một lần khi điền chính nó vào file; bản trước là `57fce11`, cùng nội dung).
 - `plans/261012-L-2-design-md-trang-thai-hien-tai/plan.md` — `status: in-progress`, `claimed_by`, `claimed_at`. **Không** sửa khối `acceptance` (người đã sửa ở `bece5cf`).
 - `plans/261012-L-2-design-md-trang-thai-hien-tai/log.md` — 5 dòng (claim + hai vòng verify).
 - `plans/261012-L-2-design-md-trang-thai-hien-tai/handoff-261013-dsh-7f29.md` — file này.
