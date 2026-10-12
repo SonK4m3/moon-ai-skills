@@ -8,8 +8,17 @@ Works with Claude Code, OpenCode, Kiro, Antigravity, Codex, and any agent that s
 
 | Skill | Domain | Description |
 |-------|--------|-------------|
-| `conversation-visualizer` | Engineering | Summarize long conversations and render them as interactive HTML decision briefs |
-| `fe-memory-and-perf-audit` | Engineering | Optimization philosophy for frontend JS/TS/React — analyze architecture before applying memo/cache/virtualization |
+| [`pm`](./skills/pm) | Workflow | Agent PM — quản lý work-item trên GitHub Issues: intake, claim, tiến độ, handoff, theo dõi môi trường `main/develop/staging/prod` |
+| [`astra-orchestrator`](./skills/astra-luna-orchestrator) | Orchestration | Orchestrate complex Codex work with root planner/integrator, Luna subagents, and an Astra reviewer |
+| [`tech-team-chat-communication`](./skills/tech-team-chat-communication) | Workflow | Viết message/reply trên Google Chat theo vai trò Lead hoặc Member |
+| [`feature-design`](./skills/engineering/feature-design) | Engineering | Design software features from requirements |
+| [`feature-layer-pattern`](./skills/engineering/feature-layer-pattern) | Engineering | 5-layer feature module pattern (types→api→keys→queries→mutations→store) |
+| [`fe-memory-and-perf-audit`](./skills/engineering/fe-memory-and-perf-audit) | Engineering | Optimization philosophy for frontend JS/TS/React — architecture before memo/cache/virtualization |
+| [`react-composition-architect`](./skills/engineering/react-composition-architect) | Engineering | Progressive composition patterns for React components |
+| [`conversation-visualizer`](./skills/engineering/conversation-visualizer) | Engineering | Summarize long conversations into interactive HTML decision briefs |
+| [`write-pr-description`](./skills/engineering/write-pr-description) | Engineering | Tạo PR và mô tả thay đổi theo template chuẩn |
+
+Thiết kế của `pm`: [`docs/agent-pm/DESIGN.md`](./docs/agent-pm/DESIGN.md) · Quy ước: [`skills/pm/references/conventions.md`](./skills/pm/references/conventions.md)
 
 ## Install
 
