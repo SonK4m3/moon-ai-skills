@@ -586,3 +586,21 @@ Sau khi thấy vòng đời chạy thật trên một repo thật, người dùn
 ### Trạng thái mã
 
 `archive/pm-cli/pm.mjs` (v0.3) vẫn nằm trong repo, đã commit ở `150f43d`, kèm `archive/pm-cli/selftest.ps1` 24 điểm. Giữ lại vì: nó là bản tham chiếu cho các thủ tục trong `formats.md`, và là điểm khởi đầu nếu sau này muốn dựng lại hook check.
+
+---
+
+## 20. Xoá CLI — kết thúc §19
+
+`archive/pm-cli/` đã bị xoá hẳn. Không tài liệu nào trong skill trỏ tới nó, người dùng không dùng CLI, và một chương trình 79 KB không ai gọi là **trầm tích** — đúng thứ `writing-for-agents` dạy phải cạo đi.
+
+Lịch sử còn nguyên, lấy lại bất cứ lúc nào:
+
+```bash
+git show 150f43d:skills/pm/scripts/pm.mjs      > pm.mjs       # v0.3, đường dẫn cũ
+git show e9c4a75:archive/pm-cli/pm.mjs         > pm.mjs       # cùng nội dung, sau khi chuyển chỗ
+git show 150f43d:skills/pm/scripts/selftest.ps1 > selftest.ps1
+```
+
+Kéo theo: `.pm-tmp/` (fixture của selftest) và hai dòng `.gitignore` cho nó và cho `.ledger/.hook-state.json` cũng bị xoá — không còn gì tạo ra chúng.
+
+Mất mát ghi ở §19 vẫn nguyên: **không còn lớp cưỡng chế nào**. Nhưng cái giá đó đã trả lúc bỏ CLI khỏi đường làm việc, không phải lúc xoá file.

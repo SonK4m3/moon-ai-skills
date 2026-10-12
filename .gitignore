@@ -15,10 +15,6 @@
 .zed
 .aider*
 
-# --- Sinh ra khi chay thu ---
-.pm-tmp
-.ledger/.hook-state.json
-
 # --- Dependencies & output ---
 **/node_modules
 **/fixtures/output
