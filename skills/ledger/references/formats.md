@@ -255,7 +255,7 @@ Chạy khi `sync_pending: true`, hoặc khi nghi ngờ lệch. Với mỗi work-
 - `next`: đọc `plans/*/plan.md`, lọc `status: pending` + không có `claimed_by` + `routing: ready-for-agent` + mọi `blocked_by` đã `completed`. Xếp P1 trước, rồi theo `created`.
 - `status`: đếm theo `status`, đếm theo bốn cờ `env`, liệt kê việc `in-progress`/`in-review`.
 
-Với nhiều repo: giao subagent (xem `playbooks.md` §11), đừng tự quét hết.
+Với nhiều repo: đọc `~/.ledger/worlds.yml` để biết repo nào thuộc thế giới nào, rồi **giao subagent** (`playbooks.md` §11) — đừng tự quét hết trong context này.
 
 ---
 

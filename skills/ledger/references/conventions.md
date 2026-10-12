@@ -159,6 +159,7 @@ Khi làm việc trong repo của bên khác: **đọc `.ledger/flow.yml` của h
 |---|---|---|
 | Skill, template, script, DESIGN.md | `moon-ai-skills` (public) | có |
 | `.ledger/flow.yml`, `.ledger/config.json` | repo đích | có |
+| ~/.ledger/worlds.yml — danh sách repo theo thế giới | cấp máy | **không** |
 | Work-item, handoff, evidence | `plans/<…>/` trong repo đích | có |
 | Session state | `%TEMP%` — không ai đọc, không ai cần | không |
 

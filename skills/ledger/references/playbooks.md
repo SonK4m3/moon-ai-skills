@@ -119,7 +119,7 @@ Khi người dùng hỏi những câu cần **đọc nhiều repo/plan** ("cho t
 ```
 Bạn là agent giữ sổ. Đọc trạng thái work-item và trả về báo cáo, KHÔNG sửa gì.
 
-Phạm vi: <danh sách repo hoặc để trống nghĩa là mọi repo trong vùng>
+Phạm vi: <danh sách repo — lấy từ ~/.ledger/worlds.yml nếu người dùng không nói rõ>
 Cần trả về:
 1. Bảng: ID · repo · vòng đời · môi trường · phiên giữ · tiêu đề
 2. Việc in-progress quá <N> ngày không có handoff
