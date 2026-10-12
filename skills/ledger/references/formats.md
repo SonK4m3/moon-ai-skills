@@ -220,11 +220,21 @@ Khi hết phiên mà việc chưa xong:
 
 Người dùng sẽ tiếp tục ở harness khác thì gọi thêm `/handoff`.
 
-### 5.6 `env` — cập nhật môi trường
+### 5.6 `env` — đưa một việc lên môi trường
 
-1. Sửa khối `env:` trong `plan.md`, giữ đủ bốn khoá.
-2. Cập nhật dòng `**Môi trường**` trong thân Issue và ghi một comment.
-3. **Kiểm tra**: `sha` phải có khi `state` khác `none` — không có sha thì không đối chiếu được về sau.
+Đây là việc **phải hỏi người trước khi làm** (luật 4). Với `profile: cherry-pick-4-env`:
+
+1. **Xác định commit cần đưa sang.** `git fetch origin <nhánh>` rồi `git log --oneline origin/<nhánh> --not origin/<nhánh-nguồn>`. Ghi lại danh sách hash.
+2. **Kiểm rủi ro conflict TRƯỚC khi cherry-pick.** Với mỗi file trong diff, xem nhánh env có sửa file đó không. Biết trước rẻ hơn resolve.
+3. **Cherry-pick vào nhánh env.** `git checkout <env> && git pull origin <env> && git cherry-pick <hash…>`
+4. **Conflict thì theo quy ước của repo** (ở repo có `docs/agents/git-flow.md` thì đọc file đó): giữ logic đang chạy của env, apply thay đổi từ PR, **không xoá code đang hoạt động**. Ghi chú conflict vào commit message. Conflict quá nhiều → **dừng**, đề xuất merge nhánh nguồn vào env thay vì cherry-pick.
+5. **Chạy cổng của repo** (`env_gate` trong `flow.yml`). Đỏ thì **dừng**, đánh `failed`, báo người — không push.
+6. **Push nhánh env.**
+7. **Ghi nhật ký** vào `tracking_file`, **commit riêng**, prefix `docs:` (không dùng `feat:`/`fix:` để không lẫn với commit code). File này sống trên nhánh env và **không bao giờ được cherry-pick** sang nhánh khác — nó là nhật ký của chính nhánh đó.
+8. **Cập nhật cờ** trong `plan.md`: `cherry-picked` ngay sau bước 3, `verified` sau bước 5. `merged` chỉ dùng cho `main`/`prod`.
+9. **Kiểm tra**: cờ `env` trong `plan.md` khớp thật với nhánh env; `log.md` có dòng; Issue có comment.
+
+**Thứ tự không được đảo.** Cherry-pick để test *trước*, merge PR *sau*. Đánh dấu `merged` cho `develop`/`staging` là sai — chúng nhận cherry-pick, không nhận merge. Và `prod` **không bao giờ** nhận cherry-pick trực tiếp, chỉ nhận merge từ `main`.
 
 ### 5.7 `release` — nhả việc
 

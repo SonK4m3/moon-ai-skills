@@ -35,6 +35,20 @@ pending → in-progress → in-review → completed
 |---|---|
 | `main` `develop` `staging` `prod` | `none` · `cherry-picked` · `merged` · `verified` · `failed` |
 
+Nghĩa chính xác của từng trạng thái, theo flow cherry-pick bốn môi trường:
+
+| state | nghĩa | dùng ở đâu |
+|---|---|---|
+| `none` | chưa có gì ở môi trường đó | mọi môi trường |
+| `cherry-picked` | commit đã cherry-pick sang nhánh env, **chưa** chạy cổng | `develop` `staging` |
+| `verified` | đã chạy `env_gate` xanh **và** đã test trên môi trường đó | `develop` `staging` |
+| `merged` | PR đã merge vào `main`, hoặc `prod` đã merge từ `main` | `main` `prod` |
+| `failed` | cổng đỏ, hoặc conflict không giải được → **dừng, phải hỏi người** | mọi môi trường |
+
+**Thứ tự là `cherry-picked` → `verified`, rồi mới `merged` vào `main`.** Cherry-pick để test *trước*, merge PR *sau*. Đừng đánh dấu `merged` cho `develop`/`staging` — chúng không nhận merge, chúng nhận cherry-pick.
+
+File `tracking_file` sống trên **từng nhánh env** và **không bao giờ được cherry-pick** sang nhánh khác — nó là nhật ký của chính nhánh đó.
+
 Mỗi cờ ghi kèm `pr` và `sha` khi đã có.
 
 > Một việc có thể `completed` ở `main` nhưng chưa lên `staging`. Vì vậy **không bao giờ** báo cáo trạng thái chỉ bằng một chữ.

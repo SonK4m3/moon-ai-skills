@@ -14,6 +14,13 @@ source_branch: main
 env_branches: [develop, staging, prod]
 prod_policy: merge-from-main        # merge-from-main | none
 
+pr_target: main                     # PR luôn nhắm nhánh này, không PR thẳng vào env
+env_gate: npm run typecheck && npm run build   # cổng BẮT BUỘC trước khi push nhánh môi trường
+env_order: cherry-pick-then-merge   # cherry-pick để test TRƯỚC, merge PR vào main SAU
+tracking_file: docs/cherry-pick-tracking.md    # sống trên từng nhánh env
+tracking_exclude: true              # KHÔNG cherry-pick chính file này sang nhánh khác
+conflict_fallback: merge-source     # conflict quá nhiều → merge main vào env thay vì cherry-pick
+
 branch_format: "{type}/{issue}-{slug}"
 branch_types: [feat, fix, chore, refactor, hotfix, docs]
 agent_branch_prefixes: [codex, opencode]
