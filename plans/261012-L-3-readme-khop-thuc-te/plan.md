@@ -25,6 +25,20 @@ routing: ready-for-agent
 source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
 requester: "chính mình"
 acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
   - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
     verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
   - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
@@ -315,6 +329,21180 @@ acceptance:
     verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
   - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
     verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi đường dẫn nội bộ trong README.md đều tồn tại trong repo — không còn liên kết chết"
+    verify: '$t = [regex]::Matches((Get-Content README.md -Raw), "\]\((\./[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value }; $miss = @($t | Where-Object { -not (Test-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**.) }); "link=$($t.Count) missing=$($miss.Count)"; $miss   → mong đợi missing=0'
+  - text: "Bảng Skills khớp thực tế: mọi thư mục có SKILL.md đều có một dòng, và không dòng nào trỏ tới thư mục không tồn tại"
+    verify: '$root = (Get-Location).Path; $have = @(Get-ChildItem -Recurse -Filter SKILL.md skills | ForEach-Object { (Split-Path ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..FullName -Parent).Replace("$root\", "").Replace("\", "/") }); $want = @([regex]::Matches((Get-Content README.md -Raw), "\]\((\./skills/[^)]+)\)") | ForEach-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**..Groups[1].Value.Substring(2) } | Where-Object { ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. -notmatch "references/" }); "thua=" + (($want | Where-Object { $have -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",") + " thieu=" + (($have | Where-Object { $want -notcontains ---
+id: L-3
+title: "README khớp với thực tế repo"
+project: "Dọn dẹp bộ skill ledger"
+repo: SonK4m3/moon-ai-skills
+branch: feat/L-3-readme-khop-thuc-te
+status: pending
+priority: P2
+created: 2026-10-12
+routing: ready-for-agent
+source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
+requester: "chính mình"
+acceptance:
+  - text: "Mọi thư mục con của skills/ đều có mặt trong bảng README"
+    verify: "với mỗi dir trong skills/*/ và skills/*/*/ có SKILL.md: grep tên nó trong README.md  → 0 cái thiếu"
+  - text: "Không còn chữ "pm" nào với nghĩa skill đã nghỉ hưu"
+    verify: "grep -n "\bpm\b" README.md  → 0 lần, hoặc chỉ trong ngữ cảnh lịch sử có ghi rõ"
+  - text: "Số dòng trong bảng skill khớp số thư mục skill thật"
+    verify: "đếm dòng bảng so với đếm thư mục chứa SKILL.md  → khớp"
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
+scope: "README.md"
+out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
+sync_pending: true
+env:
+  main: { state: none }
+  develop: { state: none }
+  staging: { state: none }
+  prod: { state: none }
+---
+
+# README khớp với thực tế repo
+
+## Yêu cầu gốc
+
+Dọn dẹp còn lại sau khi skill pm đổi tên thành ledger và CLI bị gỡ.
+
+## Việc cần làm
+
+Xem bốn tiêu chí trong frontmatter. Chạy đúng lệnh erify của từng tiêu chí **trước khi** nói xong.
+
+## Phạm vi
+
+- **Trong:** README.md
+- **Ngoài:** không sửa skills/** · không đổi mục Install nếu nó vẫn đúng
+
+## Ghi chú
+
+- sync_pending: true vì chưa tạo được Issue — gh chỉ có tài khoản work, tài khoản này chỉ có SSH.
+- Luật 4: mở PR là quyền tự chủ, **merge thì phải hỏi người**. }) -join ",")   → mong đợi thua= thieu='
+  - text: "README không còn dấu vết của skill `pm` đã đổi tên hay CLI đã gỡ"
+    verify: '(Select-String -Path README.md -Pattern "skills/pm|pm\.mjs|archive/pm-cli|\bpm\b" -AllMatches | Measure-Object).Count   → mong đợi 0'
+  - text: "Mục Install giữ nguyên (ràng buộc out_of_scope) — diff so với gốc không chạm khoảng ## Install…## Domains"
+    verify: '$base = git show 4eb42d4:README.md; $i1 = ($base | Select-String -Pattern "^## Install$").LineNumber; $i2 = ($base | Select-String -Pattern "^## Domains$").LineNumber; $h = @(git diff 4eb42d4 -- README.md | Select-String -Pattern "^@@ -(\d+)(?:,(\d+))?"); $touch = $false; foreach ($x in $h) { $s = [int]$x.Matches[0].Groups[1].Value; $c = if ($x.Matches[0].Groups[2].Success) { [int]$x.Matches[0].Groups[2].Value } else { 1 }; if ($s -le $i2 -and ($s + $c - 1) -ge $i1) { $touch = $true } }; "install=$i1-$i2 hunks=$($h.Count) install_touched=$touch"   → mong đợi install_touched=False'
 scope: "README.md"
 out_of_scope: "không sửa skills/** · không đổi mục Install nếu nó vẫn đúng"
 sync_pending: true

@@ -11,12 +11,12 @@ routing: ready-for-agent
 source: "trực tiếp — dọn dẹp sau khi đổi tên pm -> ledger"
 requester: "chính mình"
 acceptance:
-  - text: "Cả hai plan.md có status kết thúc (completed hoặc cancelled), không còn pending hay in-progress"
-    verify: "grep "^status:" plans/261012-1-quickstart-pm/plan.md plans/261012-2-quyet-dinh-hai-thu-muc/plan.md  → cả hai thuộc {completed, cancelled}"
-  - text: "Mỗi cái có một dòng log giải thích VÌ SAO kết thúc ở trạng thái đó"
-    verify: "mỗi log.md có >= 1 dòng mới nói rõ lý do kết thúc"
-  - text: "Chỗ nào còn nhắc "pm" như thể còn dùng được thì sửa thành "ledger" hoặc ghi rõ là lịch sử"
-    verify: "grep -n "pm" trong hai thư mục  → mọi lần xuất hiện đều nằm trong ngữ cảnh lịch sử"
+  - text: 'Cả hai plan.md có status kết thúc (completed hoặc cancelled), không còn pending hay in-progress'
+    verify: 'grep "^status:" plans/261012-1-quickstart-pm/plan.md plans/261012-2-quyet-dinh-hai-thu-muc/plan.md  → cả hai thuộc {completed, cancelled}'
+  - text: 'Mỗi cái có một dòng log giải thích VÌ SAO kết thúc ở trạng thái đó'
+    verify: 'mỗi log.md có >= 1 dòng mới nói rõ lý do kết thúc'
+  - text: 'Chỗ nào còn nhắc "pm" như thể còn dùng được thì sửa thành "ledger" hoặc ghi rõ là lịch sử'
+    verify: 'grep -n "pm" trong hai thư mục  → mọi lần xuất hiện đều nằm trong ngữ cảnh lịch sử'
 scope: "plans/261012-1-quickstart-pm/ · plans/261012-2-quyet-dinh-hai-thu-muc/"
 out_of_scope: "không xoá thư mục · không sửa skills/ledger/**"
 sync_pending: true
