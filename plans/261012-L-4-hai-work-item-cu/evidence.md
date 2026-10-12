@@ -224,3 +224,12 @@ Ba điều cần người biết:
 1. **Checkout chính vẫn giữ bản untracked của hai thư mục đó.** Nhánh này thêm chúng vào git với nội dung đã sửa; `git checkout`/merge sau này sẽ **báo lỗi "untracked working tree files would be overwritten"** cho tới khi người xoá hoặc dọn hai bản cũ trong `D:\Web\moon-ai-skills\plans\`. Phiên này **không** sửa gì trong checkout chính (đã đối chiếu `git status` + mtime + sha của 5 file ở đó).
 2. **Issue #1 và #2 vẫn OPEN, không nhãn, không assignee.** Tài khoản `gh` chỉ có quyền `pull`; đóng Issue #1 (đề xuất: huỷ) và Issue #2 (đề xuất: giữ, hoặc thay bằng work-item mới) là việc của người.
 3. **Việc thật còn lại, đừng để mất:** (a) Quickstart cho skill `ledger` + câu trả lời Codex/Claude — chưa ai làm; (b) quyết định commit/ignore/xoá cho `react-component-preview/` và `skills/astra-luna-orchestrator/` — chưa ai làm.
+
+---
+
+## 6. Commit
+
+- `d3eda989f2a2d8eaec0b25db08e7324d2ed70eca` (ngắn `d3eda98`) — `docs(plans): settle the fate of the two old pm-era work items` · 8 file, +425/−15 · nhánh `feat/L-4-hai-work-item-cu`, hơn `main` đúng 1 commit.
+- **Chưa push, chưa merge** — luật 4: merge là việc phải hỏi người.
+- Nhánh này dựa trên `4eb42d4`, **không** chứa `main` (đang ở `1e80d3e` trở lên); ba tiêu chí được chép tay từ `1e80d3e`, không merge `main`.
+
