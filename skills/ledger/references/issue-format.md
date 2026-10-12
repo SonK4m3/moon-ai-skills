@@ -43,27 +43,9 @@ gh issue list --state open --label ready-for-agent \
 
 Repo suy ra từ `git remote -v`. Không hard-code tên repo.
 
-## Bảng nhãn
+## Bảng nhãn — không phải của `ledger`
 
-| nhãn | đặt khi |
-|---|---|
-| `needs-triage` | vừa tạo, chưa phân loại |
-| `needs-info` | chờ người báo thêm |
-| `ready-for-agent` | đã đủ rõ để AI làm |
-| `ready-for-human` | cần người làm |
-| `in-progress` | đã claim |
-| `in-review` | PR đang mở |
-| `blocked` | đang chờ việc khác |
-| `wontfix` | không làm |
-
-Tạo nhãn thiếu (một lần cho mỗi repo):
-
-```bash
-gh label create in-progress --color FBCA04 --description "Đã có session nhặt"
-gh label create in-review   --color 0E8A16 --description "PR đang mở, chờ review"
-gh label create blocked     --color B60205 --description "Đang chờ việc khác"
-```
-
+Năm nhãn định tuyến do kit trong repo sở hữu: `docs/agents/triage-labels.md` nếu có, không thì `labels` trong `.ledger/config.json`. `ledger` chỉ thêm ba nhãn vòng đời — `in-progress`, `in-review`, `blocked`. Chi tiết và lý do: `conventions.md` §3.
 ## Liên kết
 
 - Issue ↔ work-item: qua **số**. `GH-142` ↔ `plans/260101-142-…/` ↔ `feat/142-…`.

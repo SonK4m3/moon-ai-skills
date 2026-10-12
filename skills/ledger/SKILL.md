@@ -75,17 +75,21 @@ Cái gì không tự làm được thì **nói ra**, đừng bịa trạng thái
 
 > `archive/pm-cli/pm.mjs` vẫn nằm trong repo nhưng **không còn là đường làm việc**. Ba việc nó còn giá trị: quét nhiều repo cùng lúc, di trú hàng loạt plan cũ, và làm **chương trình** cho hook `Stop` (hook không gọi được skill). Chi tiết: `formats.md` §6.
 
-## Nền: skill của Matt
+## Ghép với bộ skill khác
 
-Việc triển khai không phải của bạn. Bạn lo trạng thái bao quanh chuỗi này:
+`ledger` độc lập: nó cần biết **tracker ở đâu** và **ai chia ticket**, cả hai nằm trong `.ledger/config.json` với mặc định sẵn. Repo dùng kit nào cũng chạy.
+
+Khuyên dùng bộ skill của Matt. Chuỗi điển hình:
 
 ```
 nhận việc → /grill-with-docs (nếu còn mờ) → /to-spec → /to-tickets
                                                             ↓
                                   nhặt việc → /implement (→ /tdd → /code-review)
                                                             ↓
-                                              handoff → /pr → người review
+                                              bản ghi công việc → /pr → người review
 ```
+
+Repo dùng kit khác (Linear, Jira, spec kit riêng) thì thay các mũi tên đó bằng kit của repo — **phần của `ledger` không đổi**. Ranh giới chi tiết: `references/conventions.md` §12.
 
 ## Đọc thêm
 

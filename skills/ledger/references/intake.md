@@ -82,19 +82,13 @@ Nếu người dùng đưa tiêu chí mơ hồ, **đề xuất bản cụ thể 
 
 ---
 
-## 5. Một work-item hay nhiều ticket?
+## 5. Việc lớn thì chia ticket — nhưng không tự chia
 
-| dấu hiệu | kết luận |
-|---|---|
-| Một người làm trong ≤ 1 ngày, một nhánh, một PR | một work-item |
-| Nhiều tầng (API + UI + migration), hoặc > 1 ngày | một work-item + chia ticket bằng `/to-tickets` |
-| Có việc phải xong **trước** việc khác | chia ticket, ghi `blocked_by` |
-| Hai người làm song song được | chia ticket, mỗi cái một nhánh |
+`ledger` tạo **một** work-item. Chia nó thành ticket là việc của bộ kit đang dùng trong repo — mặc định `/to-tickets`, và bộ đó lo cả blocking edges.
 
-Quy tắc: **work-item là cái để bạn báo cáo; ticket là cái để máy làm.** Đừng nhồi 12 phase vào một work-item rồi báo "đang làm".
+Dấu hiệu phải chia: hơn một ngày công, nhiều tầng (API + UI + migration), hoặc hai người làm song song được.
 
----
-
+Quy tắc: **work-item là cái để báo cáo; ticket là cái để máy làm.** Đừng nhồi 12 phase vào một work-item rồi báo "đang làm".
 ## 6. Hỏi gì, tự quyết gì
 
 Tự quyết: cách diễn đạt tiêu đề, slug, mô tả, phạm vi suy ra từ code, thứ tự ticket.
@@ -110,21 +104,9 @@ Nguyên tắc: **chỉ hỏi khi câu trả lời đổi việc bạn làm tiế
 
 ## 7. Tạo thật
 
-Sau khi soạn xong, ghi work-item theo `formats.md` §5.2 — tạo Issue với **nội dung bạn đã viết**, rồi tạo thư mục với frontmatter đầy đủ sáu trường:
+Sau khi soạn xong: ghi work-item theo `formats.md` §5.2 — tạo Issue với **nội dung bạn đã viết**, rồi tạo thư mục `plans/<YYMMDD>-<số>-<slug>/` với frontmatter đầy đủ sáu trường. Cách nói chuyện với tracker nằm ở `formats.md` §4.2, không phải ở đây.
 
-```bash
-# 1. viết thân Issue ra file tạm (tránh hỏng dấu tiếng Việt), rồi:
-gh issue create --repo <org/repo> --title "<tiêu đề bạn viết>" --body-file /tmp/issue.md --label ready-for-agent
-
-# 2. tạo plans/<YYMMDD>-<số>-<slug>/plan.md   — frontmatter đầy đủ, xem formats.md §2
-# 3. tạo plans/<...>/log.md                   — dòng đầu: intake bởi <session>
-# 4. nếu bước 1 chưa gán được nhãn routing thì gán sau
-```
-
-Rồi **trình người dùng đúng những gì sẽ được ghi** trước khi bấm tạo thật. Người dùng là người đối chiếu với thực tế — đó là lý do bước này tồn tại.
-
----
-
+Rồi **trình người dùng đúng những gì sẽ được ghi** trước khi tạo thật. Người dùng là người đối chiếu với thực tế — đó là lý do bước này tồn tại.
 ## 8. Bốn ví dụ
 
 **Ví dụ 1 — tin nhắn thô**

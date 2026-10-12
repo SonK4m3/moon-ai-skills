@@ -88,7 +88,7 @@ Nếu người dùng hỏi *"xong chưa"* → câu trả lời đúng là **"xon
 
 ## 8. "Thành viên X đang làm gì?"
 
-1. Lấy bức tranh từ `plans/*/plan.md`, rồi lọc theo assignee trên Issue: `gh issue list --assignee <login> --json number,title,labels`.
+1. Lấy bức tranh từ `plans/*/plan.md`, rồi lọc theo assignee trên tracker.
 2. Trả lời gọn theo người, đừng đổ cả bảng ra.
 3. Nếu thấy việc `ready-for-human` gán cho người đã nghỉ/đổi việc → nói ra.
 

@@ -30,4 +30,4 @@ Câu hỏi cần đọc nhiều repo thì đừng tự đọc hết trong contex
 
 ## Chuỗi phối hợp
 
-Việc triển khai giao cho skill của Matt, không tự làm: `/to-spec` → `/to-tickets` → `/implement` (tự chạy `/tdd` và `/code-review`) → `/pr`. Bạn lo phần trạng thái bao quanh chuỗi đó.
+Việc triển khai giao cho kit của repo, không tự làm: `/to-spec` → `/to-tickets` → `/implement` (tự chạy `/tdd` và `/code-review`) → `/pr`. Bạn lo phần trạng thái bao quanh chuỗi đó.

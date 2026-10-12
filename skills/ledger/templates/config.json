@@ -1,10 +1,15 @@
 {
-  "pm_version": 1,
+  "ledger_version": 1,
   "repo": "",
+
+  "tracker": "github",
+  "tracker_notes": "",
+
   "issue_prefix": "GH-",
   "work_items_dir": "plans",
   "dir_format": "{date}-{issue}-{slug}",
   "date_format": "YYMMDD",
+
   "labels": {
     "needs_triage": "needs-triage",
     "needs_info": "needs-info",
@@ -15,8 +20,14 @@
     "blocked": "blocked",
     "wontfix": "wontfix"
   },
+
+  "companion": {
+    "spec_kit": "mattpocock/skills",
+    "note": "Khuyen dung, KHONG bat buoc. Repo dung kit khac thi doi gia tri nay; phan con lai giu nguyen."
+  },
+
   "notify": {
     "level": "issue-comment",
-    "chat_webhook_env": "PM_CHAT_WEBHOOK"
+    "chat_webhook_env": "LEDGER_CHAT_WEBHOOK"
   }
 }

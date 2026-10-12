@@ -41,22 +41,19 @@ Mỗi cờ ghi kèm `pr` và `sha` khi đã có.
 
 ---
 
-## 3. Routing — tái dùng nhãn triage
+## 3. Routing — nhãn không phải của `ledger`
 
-| nhãn | nghĩa | ai làm |
-|---|---|---|
-| `needs-triage` | chưa phân loại | bạn |
-| `needs-info` | chờ người báo thêm | người báo |
-| `ready-for-agent` | đủ rõ, **hàng đợi cho AI** | agent |
-| `ready-for-human` | cần người | bạn / member |
-| `wontfix` | không làm | — |
-| `in-progress` | đã có session nhặt | agent |
-| `in-review` | PR đang mở, chờ review | bạn |
-| `blocked` | đang chờ việc khác | — |
+Năm nhãn định tuyến (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`) do bộ kit trong repo sở hữu. Có `docs/agents/triage-labels.md` thì **đó là nguồn sự thật**; không có thì đọc `labels` trong `.ledger/config.json`.
 
-Ba nhãn cuối là phần thêm của `ledger`. Bảy nhãn đầu đã tồn tại trong repo — không tạo bản sao.
+`ledger` chỉ thêm ba nhãn **vòng đời**, vì không kit nào có khái niệm này:
 
----
+| nhãn | nghĩa |
+|---|---|
+| `in-progress` | đã có phiên nhặt |
+| `in-review` | PR đang mở, chờ người |
+| `blocked` | đang chờ việc khác |
+
+Định tuyến là "việc này đi đâu"; ba nhãn này là "việc này đang ở đâu". Không phát minh thêm.
 
 ## 4. Claim — bộ ba, theo thứ tự cố định
 
@@ -196,26 +193,27 @@ Nếu bạn thấy mình đang gọi lệnh cho một việc thuộc cột trái
 
 ---
 
-## 12. Nền tảng: bộ skill của Matt
+## 12. `ledger` độc lập với bộ skill ghép cùng
 
-`ledger` **không** thay bộ skill của Matt và không được viết lại thứ chúng đã làm. Ranh giới:
+`ledger` **không phụ thuộc** bộ skill nào. Nó cần đúng hai thứ: biết **tracker ở đâu**, và biết **ai chia ticket**. Cả hai đến từ `.ledger/config.json`, cả hai đều có mặc định.
+
+**Khuyên dùng: bộ skill của Matt** (`/to-spec`, `/to-tickets`, `/implement`, `/code-review`, `/pr`, `/triage`, `/handoff`). Repo đã chạy `/setup-matt-pocock-skills` thì `ledger` **đọc** `docs/agents/` và để nó thắng ở đúng một chỗ: **chuỗi nhãn** — vì nhãn thật trên tracker là thứ cả hai bên phải dùng chung.
 
 | việc | ai sở hữu | `ledger` làm gì |
 |---|---|---|
-| Cách nói chuyện với tracker (`gh issue …`) | `docs/agents/issue-tracker.md` | đọc file đó, không tự định nghĩa lại |
-| Nhãn định tuyến (`needs-triage`, `ready-for-agent`, …) | `docs/agents/triage-labels.md` | đọc, chỉ **thêm** ba nhãn vòng đời |
-| Từ vựng domain + ADR | `docs/agents/domain.md` → `GLOSSARY.md`, `docs/adr/` | dùng từ đúng, không tự đặt tên mới |
-| Chia spec thành ticket | `/to-tickets` | không chia ticket |
-| Việc thô từ người ngoài | `/triage` | không triage — issue do `ledger` tạo vốn đã sẵn sàng |
-| Triển khai song song nhiều ticket | `/implement-spec` (worktree + nhánh tích hợp) | không tự dựng cơ chế song song |
-| Bàn giao giữa phiên | `/handoff` | ghi **bản ghi công việc**, không thay `/handoff` |
-| Thân PR | `/pr` | không viết thân PR |
-| Bug khó | `/diagnosing-bugs` | không chẩn đoán |
+| Nói chuyện với tracker | `docs/agents/issue-tracker.md`, hoặc kit của repo | đọc, không định nghĩa lại |
+| Nhãn định tuyến | `docs/agents/triage-labels.md`, hoặc `.ledger/config.json` | đọc, chỉ thêm ba nhãn vòng đời |
+| Từ vựng domain + ADR | kit của repo (`GLOSSARY.md`, `docs/adr/`) | dùng từ đúng |
+| Chia spec thành ticket | kit của repo (`/to-tickets`) | không chia ticket |
+| Việc thô từ người ngoài | kit của repo (`/triage`) | không triage |
+| Triển khai song song nhiều ticket | kit của repo (`/implement-spec`, worktree) | không dựng cơ chế song song |
+| Bàn giao giữa **phiên** | kit của repo (`/handoff`) | ghi **bản ghi công việc** trong repo, không thay `/handoff` |
+| Thân PR · chẩn đoán bug | kit của repo (`/pr`, `/diagnosing-bugs`) | không viết lại |
 
 **Ba việc chỉ `ledger` làm, và đó là toàn bộ lý do nó tồn tại:**
 
-1. **Trục môi trường.** Bộ skill của Matt không có khái niệm "việc này đã lên môi trường nào". Flow cherry-pick bốn môi trường cần nó, và không có nó thì chữ "xong" là câu trả lời sai.
-2. **Chuẩn hoá yêu cầu từ Chat.** `/triage` xử lý issue **đã tồn tại**; không ai xử lý một tin nhắn Chat vừa dán vào.
-3. **Nhìn ngang nhiều repo.** "Hôm nay làm gì" trên hàng chục repo — bộ skill của Matt chạy trong một repo.
+1. **Trục môi trường** — `main/develop/staging/prod` kèm PR + sha. Không kit nào có khái niệm "việc này đã lên môi trường nào"; flow cherry-pick bốn môi trường cần nó, và thiếu nó thì chữ "xong" là câu trả lời sai.
+2. **Chuẩn hoá yêu cầu từ Chat** — `/triage` xử lý issue **đã tồn tại**; không ai xử lý một tin nhắn Chat vừa dán vào.
+3. **Nhìn ngang nhiều repo** — "hôm nay làm gì" trên hàng chục repo. Kit của Matt chạy trong **một** repo.
 
-Nếu một việc không nằm trong ba mục trên, **nó không thuộc về `ledger`**.
+Ngoài ba mục trên, **việc đó không thuộc về `ledger`** — gọi kit của repo.
