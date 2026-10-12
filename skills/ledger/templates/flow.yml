@@ -1,6 +1,6 @@
-# .pm/flow.yml — flow của repo này.
+# .ledger/flow.yml — flow của repo này.
 #
-# Đây là DỮ LIỆU, không phải code. Đổi profile là đổi hành vi của pm,
+# Đây là DỮ LIỆU, không phải code. Đổi profile là đổi hành vi của ledger,
 # không phải sửa code. Repo của bên khác thì dùng flow của họ.
 #
 # profile:
