@@ -1,13 +1,25 @@
+# --- Cong cu agent: cau hinh cuc bo, khong bao gio push ---
 .agents
 .agent
 .claude
-.opencode
-.kiro
-.antigravity
 .codex
+.kiro
+.opencode
+.antigravity
+.cursor
+.windsurf
+.gemini
+.copilot
+.continue
+.roo
+.zed
+.aider*
+
+# --- Sinh ra khi chay thu ---
+.pm-tmp
+.ledger/.hook-state.json
+
+# --- Dependencies & output ---
 **/node_modules
 **/fixtures/output
 **/sandbox
-.pm-tmp
-.pm-local
-.pm/.hook-state.json
