@@ -34,7 +34,7 @@ routing: ready-for-agent     # ready-for-agent | ready-for-human | needs-info | 
 owner: sonnh                 # GitHub login chịu trách nhiệm
 source: https://chat.google.com/...   # nguồn intake
 
-# --- pm ghi, người không cần sửa ---
+# --- ledger ghi, người không cần sửa ---
 claimed_by: codex@SON-PC#a1b2
 claimed_at: 2026-01-01T09:00:00+07:00
 sync_pending: false
@@ -77,15 +77,15 @@ main: { state: merged, pr: 87, sha: 1a2b3c4 }
 ## Vòng đời một work-item
 
 ```
-1. intake      pm intake "<text>"        → Issue + thư mục + plan.md (status: pending)
+1. intake      ghi work-item              → Issue + thư mục + plan.md (status: pending)
 2. triage      bạn xác nhận routing      → nhãn ready-for-agent | ready-for-human
-3. claim       pm claim 142              → in-progress + claimed_by + nhánh
+3. claim       nhặt việc                        → in-progress + claimed_by + nhánh
 4. build       /implement …              → phase-*.md, code
-5. note        pm note 142 "…"           → log vào Issue + file
-6. handoff     pm handoff 142            → handoff-*.md
+5. note        ghi một dòng log              → log vào Issue + file
+6. handoff     viết handoff                   → handoff-*.md
 7. pr          /pr                       → nhãn in-review, status: in-review
-8. env         pm env 142 main merged --pr 87 --sha 1a2b3c4
-9. done        pm archive 142            → completed, đóng Issue
+8. env         cập nhật cờ main   
+9. done        đóng việc                      → completed, đóng Issue
 ```
 
 `blocked_by` chặn việc đó xuất hiện trong danh sách sẵn sàng cho tới khi mọi việc nó chờ đều `completed`.

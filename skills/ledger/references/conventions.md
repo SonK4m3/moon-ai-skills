@@ -1,6 +1,6 @@
-# Quy ước — Agent PM
+# Quy ước — Ledger
 
-Tài liệu này là **chuẩn tắc**. Agent đọc trước khi làm bất cứ việc gì. Lý do đằng sau các quy tắc: `docs/agent-pm/DESIGN.md`.
+Tài liệu này là **chuẩn tắc**. Agent đọc trước khi làm bất cứ việc gì. Lý do đằng sau các quy tắc: `docs/agent-ledger/DESIGN.md`.
 
 ---
 
@@ -54,7 +54,7 @@ Mỗi cờ ghi kèm `pr` và `sha` khi đã có.
 | `in-review` | PR đang mở, chờ review | bạn |
 | `blocked` | đang chờ việc khác | — |
 
-Ba nhãn cuối là phần thêm của `pm`. Bảy nhãn đầu đã tồn tại trong repo — không tạo bản sao.
+Ba nhãn cuối là phần thêm của `ledger`. Bảy nhãn đầu đã tồn tại trong repo — không tạo bản sao.
 
 ---
 
@@ -145,14 +145,14 @@ Mỗi lần chuyển trạng thái: **ghi file trước, ghi GitHub sau, trong c
 
 ## 9. Flow là dữ liệu
 
-Repo khai báo flow trong `.pm/flow.yml`. Không hard-code flow vào skill.
+Repo khai báo flow trong `.ledger/flow.yml`. Không hard-code flow vào skill.
 
 | profile | dùng cho |
 |---|---|
 | `cherry-pick-4-env` | repo của bạn: PR → `main`, rồi cherry-pick sang `develop`/`staging` để test, `prod` merge từ `main` |
 | `github-flow` | repo của bên khác: PR thẳng vào `main`, không nhánh môi trường |
 
-Khi làm việc trong repo của bên khác: **đọc `.pm/flow.yml` của họ trước**, và nếu họ chưa có thì hỏi — không áp flow của bạn lên repo người khác.
+Khi làm việc trong repo của bên khác: **đọc `.ledger/flow.yml` của họ trước**, và nếu họ chưa có thì hỏi — không áp flow của bạn lên repo người khác.
 
 ---
 
@@ -161,9 +161,9 @@ Khi làm việc trong repo của bên khác: **đọc `.pm/flow.yml` của họ 
 | file | ở đâu | commit? |
 |---|---|---|
 | Skill, template, script, DESIGN.md | `moon-ai-skills` (public) | có |
-| `.pm/flow.yml`, `.pm/config.json` | repo đích | có |
+| `.ledger/flow.yml`, `.ledger/config.json` | repo đích | có |
 | Work-item, handoff, evidence | `plans/<…>/` trong repo đích | có |
-| `worlds.yml`, webhook URL | `~/.pm/` (cấp máy) | **không** |
+| `worlds.yml`, webhook URL | `~/.ledger/` (cấp máy) | **không** |
 | Session state | `%TEMP%` — không ai đọc, không ai cần | không |
 
 > `moon-ai-skills` là **repo công khai**. Không bao giờ đặt vào đó: quy trình nội bộ, tên member, state của task, hay bất kỳ secret nào.
@@ -193,3 +193,29 @@ Ba việc mà script làm tốt hơn bạn, và chỉ ba. Ngoài ba việc này,
 Làm tay thì **phải theo đúng `formats.md`** — không có format thứ hai.
 
 Nếu bạn thấy mình đang gọi lệnh cho một việc thuộc cột trái, dừng lại: đó là chỗ bạn đang bỏ mất giá trị.
+
+---
+
+## 12. Nền tảng: bộ skill của Matt
+
+`ledger` **không** thay bộ skill của Matt và không được viết lại thứ chúng đã làm. Ranh giới:
+
+| việc | ai sở hữu | `ledger` làm gì |
+|---|---|---|
+| Cách nói chuyện với tracker (`gh issue …`) | `docs/agents/issue-tracker.md` | đọc file đó, không tự định nghĩa lại |
+| Nhãn định tuyến (`needs-triage`, `ready-for-agent`, …) | `docs/agents/triage-labels.md` | đọc, chỉ **thêm** ba nhãn vòng đời |
+| Từ vựng domain + ADR | `docs/agents/domain.md` → `GLOSSARY.md`, `docs/adr/` | dùng từ đúng, không tự đặt tên mới |
+| Chia spec thành ticket | `/to-tickets` | không chia ticket |
+| Việc thô từ người ngoài | `/triage` | không triage — issue do `ledger` tạo vốn đã sẵn sàng |
+| Triển khai song song nhiều ticket | `/implement-spec` (worktree + nhánh tích hợp) | không tự dựng cơ chế song song |
+| Bàn giao giữa phiên | `/handoff` | ghi **bản ghi công việc**, không thay `/handoff` |
+| Thân PR | `/pr` | không viết thân PR |
+| Bug khó | `/diagnosing-bugs` | không chẩn đoán |
+
+**Ba việc chỉ `ledger` làm, và đó là toàn bộ lý do nó tồn tại:**
+
+1. **Trục môi trường.** Bộ skill của Matt không có khái niệm "việc này đã lên môi trường nào". Flow cherry-pick bốn môi trường cần nó, và không có nó thì chữ "xong" là câu trả lời sai.
+2. **Chuẩn hoá yêu cầu từ Chat.** `/triage` xử lý issue **đã tồn tại**; không ai xử lý một tin nhắn Chat vừa dán vào.
+3. **Nhìn ngang nhiều repo.** "Hôm nay làm gì" trên hàng chục repo — bộ skill của Matt chạy trong một repo.
+
+Nếu một việc không nằm trong ba mục trên, **nó không thuộc về `ledger`**.

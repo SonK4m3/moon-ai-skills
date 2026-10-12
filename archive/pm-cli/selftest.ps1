@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Continue'
 try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
 
 $pm  = Join-Path $PSScriptRoot 'pm.mjs'
-$repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
+$repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $fx  = Join-Path $repo '.pm-tmp\fixture-repo'
 
 if (Test-Path $fx) { Remove-Item -Recurse -Force $fx }

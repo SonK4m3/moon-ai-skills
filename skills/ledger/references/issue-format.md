@@ -1,11 +1,11 @@
 # Format chung của GitHub Issue
 
-Mọi Issue do `pm` tạo đều theo đúng khuôn này, để bất kỳ agent nào vào repo cũng đọc được mà không cần hỏi.
+Mọi Issue do `ledger` tạo đều theo đúng khuôn này, để bất kỳ agent nào vào repo cũng đọc được mà không cần hỏi.
 
 ## Thân Issue
 
 ```markdown
-<!-- pm:work-item v1 -->
+<!-- ledger:work-item v1 -->
 - **Repo**: your-org/your-app
 - **Nguồn**: <link Google Chat/Sheet | trực tiếp>
 - **Người yêu cầu**: …
@@ -18,7 +18,7 @@ Mọi Issue do `pm` tạo đều theo đúng khuôn này, để bất kỳ agent
 - **Môi trường**: main ⬜ · develop ⬜ · staging ⬜ · prod ⬜
 
 ## Tiến độ
-<!-- pm:log — append-only, mỗi lần pm note ghi một dòng -->
+<!-- ledger:log — append-only, mỗi lần ghi tiến độ thêm một dòng -->
 - 2026-01-01 09:12 · claim bởi codex@SON-PC#a1b2
 ```
 
@@ -26,11 +26,11 @@ Mọi Issue do `pm` tạo đều theo đúng khuôn này, để bất kỳ agent
 
 | marker | ai ghi | quy tắc |
 |---|---|---|
-| `<!-- pm:work-item v1 -->` | `pm` | khối đầu máy đọc. Chỉ `pm` sửa. |
-| `<!-- pm:log … -->` | `pm` | **append-only**. Không bao giờ sửa hay xóa dòng cũ. |
-| `<!-- pm:env … -->` | `pm` | dòng môi trường, cập nhật tại chỗ. |
+| `<!-- ledger:work-item v1 -->` | `ledger` | khối đầu máy đọc. Chỉ `ledger` sửa. |
+| `<!-- ledger:log … -->` | `ledger` | **append-only**. Không bao giờ sửa hay xóa dòng cũ. |
+| `<!-- ledger:env … -->` | `ledger` | dòng môi trường, cập nhật tại chỗ. |
 
-Phần nằm **ngoài** marker là của người: mô tả thêm, comment, thảo luận. `pm` không bao giờ chạm vào.
+Phần nằm **ngoài** marker là của người: mô tả thêm, comment, thảo luận. `ledger` không bao giờ chạm vào.
 
 ## Đọc Issue từ agent
 

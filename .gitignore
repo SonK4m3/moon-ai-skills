@@ -10,3 +10,4 @@
 **/sandbox
 .pm-tmp
 .pm-local
+.pm/.hook-state.json

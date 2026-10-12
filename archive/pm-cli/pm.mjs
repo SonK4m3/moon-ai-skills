@@ -15,9 +15,10 @@ import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const HERE = path.dirname(fileURLToPath(import.meta.url));       // skills/pm/scripts
-const SKILL_DIR = path.resolve(HERE, '..');                     // skills/pm
-const FRAMEWORK_ROOT = path.resolve(SKILL_DIR, '..', '..');     // gốc moon-ai-skills
+const HERE = path.dirname(fileURLToPath(import.meta.url));       // archive/pm-cli
+const REPO_ROOT = path.resolve(HERE, '..', '..');                // gốc moon-ai-skills
+const SKILL_DIR = path.join(REPO_ROOT, 'skills', 'ledger');      // skill hiện hành
+const FRAMEWORK_ROOT = REPO_ROOT;
 const TEMPLATES = path.join(SKILL_DIR, 'templates');
 const PM_HOME = process.env.PM_HOME || path.join(os.homedir(), '.pm');
 const WORLDS_PATH = path.join(PM_HOME, 'worlds.yml');

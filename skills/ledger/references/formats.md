@@ -92,7 +92,7 @@ env:
 ### 4.1 Thân Issue
 
 ```markdown
-<!-- pm:work-item v1 -->
+<!-- ledger:work-item v1 -->
 - **Repo**: your-org/your-app
 - **Nguồn**: <link Chat/Sheet | trực tiếp>
 - **Người yêu cầu**: …
@@ -105,11 +105,11 @@ env:
 - **Môi trường**: main ⬜ · develop ⬜ · staging ⬜ · prod ⬜
 
 ## Tiến độ
-<!-- pm:log — append-only, mỗi lần ghi tiến độ thêm một dòng -->
+<!-- ledger:log — append-only, mỗi lần ghi tiến độ thêm một dòng -->
 - 2026-01-01 09:12 · claim bởi codex@MAY-A#a1b2
 ```
 
-Ba marker: `pm:work-item v1` (khối đầu), `pm:log` (append-only), `pm:env` (dòng môi trường nếu tách riêng). **Chỉ ghi bên trong marker.** Mọi thứ ngoài marker là của người.
+Ba marker: `ledger:work-item v1` (khối đầu), `ledger:log` (append-only), `ledger:env` (dòng môi trường nếu tách riêng). **Chỉ ghi bên trong marker.** Mọi thứ ngoài marker là của người.
 
 ### 4.2 Tạo Issue
 
@@ -138,7 +138,15 @@ gh label create in-review       --color 5319e7 --description "PR đang mở"
 gh label create blocked         --color b60205 --description "Đang chờ việc khác"
 ```
 
-Bốn nhãn này cộng ba nhãn triage đã có (`needs-triage`, `needs-info`, `ready-for-human`) và `wontfix` là đủ. Không phát minh thêm.
+**Nhãn routing không phải của bạn.** `/setup-matt-pocock-skills` đã ghi chúng vào `docs/agents/triage-labels.md`, và `/triage` đọc từ đó. Nếu file ấy tồn tại, **nó là nguồn sự thật** — đọc nó, đừng tự khai báo lại. Chỉ ba nhãn **vòng đời** dưới đây là phần `ledger` thêm vào:
+
+```bash
+gh label create in-progress --color fbca04 --description "Đã có phiên nhặt"
+gh label create in-review   --color 5319e7 --description "PR đang mở"
+gh label create blocked     --color b60205 --description "Đang chờ việc khác"
+```
+
+Lý do tách: nhãn của `/triage` là **định tuyến** (việc này đi đâu); ba nhãn này là **vòng đời** (việc này đang ở đâu). Không phát minh thêm cái nào khác.
 
 ---
 
@@ -148,12 +156,12 @@ Mỗi thủ tục: **làm gì → kiểm tra gì**. Kiểm tra là bắt buộc 
 
 ### 5.1 `setup` — cài vào một repo
 
-1. Tạo `.pm/flow.yml` (copy `templates/flow.yml`, sửa `profile` cho đúng repo).
-2. Tạo `.pm/config.json` (copy `templates/config.json`, điền `repo` = `<org>/<name>` từ `git remote -v`).
-3. Thêm khối `<!-- pm:start -->…<!-- pm:end -->` vào cuối `AGENTS.md` (tạo file nếu chưa có).
-4. Thêm `.pm/.hook-state.json` vào `.gitignore`.
+1. Tạo `.ledger/flow.yml` (copy `templates/flow.yml`, sửa `profile` cho đúng repo).
+2. Tạo `.ledger/config.json` (copy `templates/config.json`, điền `repo` = `<org>/<name>` từ `git remote -v`).
+3. Thêm khối `<!-- ledger:start -->…<!-- ledger:end -->` vào cuối `AGENTS.md` (tạo file nếu chưa có).
+4. Thêm `.ledger/.hook-state.json` vào `.gitignore`.
 5. Tạo thư mục `plans/`.
-6. **Kiểm tra**: `cat .pm/config.json`, `git status --short` — và nói cho người dùng biết file nào được git theo dõi.
+6. **Kiểm tra**: `cat .ledger/config.json`, `git status --short` — và nói cho người dùng biết file nào được git theo dõi.
 
 ### 5.2 `intake` — nhận việc mới
 
@@ -234,7 +242,7 @@ Không có script, nên đây là **danh sách kiểm tra bạn tự chạy**. C
 | 7 | nhánh trong `plan.md` ≠ nhánh thật đang có | so |
 | 8 | Issue có nhãn khớp `status`/`routing` | `gh issue view <số> --json labels` |
 | 9 | Issue có assignee khớp `claimed_by` | `gh issue view <số> --json assignees` |
-| 10 | nhãn pm có tồn tại trên repo | `gh label list --repo <r> --json name` |
+| 10 | nhãn ledger có tồn tại trên repo | `gh label list --repo <r> --json name` |
 | 11 | tài khoản gh có quyền ghi | `gh api repos/<r> --jq .permissions.push` |
 | 12 | plan cũ không theo schema | đếm, báo là **warn**, không chặn |
 
@@ -259,4 +267,4 @@ Làm tay được hết, nhưng ba loại việc này tốn kém nếu làm tay:
 | **Di trú hàng loạt** plan cũ sang schema | sửa frontmatter của 16 file — làm tay dễ hỏng format |
 | **Hook** `Stop` chặn kết thúc phiên thiếu handoff | hook chỉ gọi được **chương trình**, không gọi được skill |
 
-Ba việc đó là toàn bộ lý do `scripts/pm.mjs` còn tồn tại. Không có nó thì mất lớp cưỡng chế — và nhớ rằng bốn đặc tả cũ trong repo công việc (`journals/`, `agent-memory`, `cherry-pick-tracking`, `plans/archive`) đã chết vì không có gì cưỡng chế.
+Ba việc đó là toàn bộ lý do `archive/pm-cli/pm.mjs` còn tồn tại. Không có nó thì mất lớp cưỡng chế — và nhớ rằng bốn đặc tả cũ trong repo công việc (`journals/`, `agent-memory`, `cherry-pick-tracking`, `plans/archive`) đã chết vì không có gì cưỡng chế.

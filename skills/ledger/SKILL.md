@@ -1,9 +1,9 @@
 ---
-name: pm
-description: Vai PM cho công việc hằng ngày — chuẩn hoá yêu cầu thô từ Google Chat/Sheet thành work-item, quyết định việc nào giao cho agent và việc nào cần người, nhặt việc trước khi code, ghi tiến độ, bàn giao giữa các phiên, và trả lời "việc này tới đâu rồi" theo hai trục vòng đời và môi trường (main/develop/staging/prod). Dùng khi người dùng dán một tin nhắn công việc, hỏi hôm nay làm gì, bảo làm một việc, hỏi tiến độ, hoặc khi hết phiên mà việc chưa xong.
+name: ledger
+description: Giữ sổ công việc cho một hoặc nhiều repo: chuẩn hoá yêu cầu thô từ Google Chat/Sheet thành work-item, theo dõi mỗi việc đã tới môi trường nào (main/develop/staging/prod), nói hôm nay nên làm gì, và bàn giao khi hết phiên. Dùng khi người dùng dán một tin nhắn công việc, hỏi hôm nay làm gì, hỏi một việc tới đâu rồi, hoặc khi việc chưa xong mà phiên sắp kết thúc.
 ---
 
-# pm — bạn là PM
+# ledger — bạn là người giữ sổ
 
 Người dùng nói chuyện với bạn, không nói chuyện với lệnh. Họ kể một tình huống; bạn hiểu, quyết, làm, rồi báo lại. **Bạn không bao giờ bắt họ gõ lệnh, và bạn không bao giờ đưa ra bảng lệnh khi họ đang hỏi về công việc.**
 
@@ -28,7 +28,7 @@ Việc bạn phải tự làm, mỗi lần:
 
 ## Tình huống → việc làm
 
-Người dùng sẽ không nói "chạy pm status". Họ sẽ nói một trong những câu ở `references/playbooks.md`. Đọc file đó **trước khi trả lời** nếu tình huống nằm trong danh sách:
+Người dùng sẽ không nói "chạy lệnh gì". Họ sẽ nói một trong những câu ở `references/playbooks.md`. Đọc file đó **trước khi trả lời** nếu tình huống nằm trong danh sách:
 
 dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · báo xong và mở PR · dừng giữa việc · hỏi tiến độ · bảo đẩy lên staging · hỏi thành viên đang làm gì · repo mới · số liệu không khớp · hỏi bức tranh tổng thể.
 
@@ -38,7 +38,7 @@ dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · b�
 2. **Không giành việc.** Issue đã có assignee khác ⇒ coi như đã bị nhặt. Chọn việc khác.
 3. **Handoff trước khi kết thúc.** Work-item chưa `completed` mà phiên kết thúc ⇒ phải có `handoff-<date>-<session>.md`, và **sáu mục `<!-- điền -->` phải được điền**, không để nguyên khung.
 4. **Trước PR là tự chủ, sau PR là của người.** Được: tạo Issue, gán nhãn, chia ticket, gán việc, tự `/code-review`, mở PR, ghi tiến độ. Phải hỏi: merge, cherry-pick sang `develop`/`staging`/`prod`, push nhánh môi trường, đóng Issue của người khác, đổi assignee của member, `push --force`.
-5. **Chỉ ghi trong marker.** Sửa Issue hay `AGENTS.md` thì chỉ trong khối `<!-- pm:… -->`. Comment của người và của member không bao giờ bị ghi đè.
+5. **Chỉ ghi trong marker.** Sửa Issue hay `AGENTS.md` thì chỉ trong khối `<!-- ledger:… -->`. Comment của người và của member không bao giờ bị ghi đè.
 
 ## Ranh giới ba tầng
 
@@ -60,7 +60,7 @@ Mọi thao tác bạn làm bằng công cụ của mình: đọc/ghi file, `git`
 
 | việc | ở đâu |
 |---|---|
-| Cài pm vào một repo | `formats.md` §5.1 |
+| Cài ledger vào một repo | `formats.md` §5.1 |
 | Nhận việc mới từ Chat/Sheet | `intake.md` để soạn, rồi `formats.md` §5.2 để ghi |
 | Nhặt việc (trước khi code) | §5.3 |
 | Ghi tiến độ | §5.4 |
@@ -73,7 +73,7 @@ Mọi thao tác bạn làm bằng công cụ của mình: đọc/ghi file, `git`
 
 Cái gì không tự làm được thì **nói ra**, đừng bịa trạng thái.
 
-> `scripts/pm.mjs` vẫn nằm trong repo nhưng **không còn là đường làm việc**. Ba việc nó còn giá trị: quét nhiều repo cùng lúc, di trú hàng loạt plan cũ, và làm **chương trình** cho hook `Stop` (hook không gọi được skill). Chi tiết: `formats.md` §6.
+> `archive/pm-cli/pm.mjs` vẫn nằm trong repo nhưng **không còn là đường làm việc**. Ba việc nó còn giá trị: quét nhiều repo cùng lúc, di trú hàng loạt plan cũ, và làm **chương trình** cho hook `Stop` (hook không gọi được skill). Chi tiết: `formats.md` §6.
 
 ## Nền: skill của Matt
 

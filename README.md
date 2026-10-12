@@ -8,7 +8,7 @@ Works with Claude Code, OpenCode, Kiro, Antigravity, Codex, and any agent that s
 
 | Skill | Domain | Description |
 |-------|--------|-------------|
-| [`pm`](./skills/pm) | Workflow | Agent PM — quản lý work-item trên GitHub Issues: intake, claim, tiến độ, handoff, theo dõi môi trường `main/develop/staging/prod` |
+| [`ledger`](./skills/ledger) | Workflow | Giữ sổ công việc: chuẩn hoá yêu cầu từ Chat thành work-item, theo dõi mỗi việc đã tới môi trường nào, nói hôm nay nên làm gì |
 | [`astra-orchestrator`](./skills/astra-luna-orchestrator) | Orchestration | Orchestrate complex Codex work with root planner/integrator, Luna subagents, and an Astra reviewer |
 | [`tech-team-chat-communication`](./skills/tech-team-chat-communication) | Workflow | Viết message/reply trên Google Chat theo vai trò Lead hoặc Member |
 | [`feature-design`](./skills/engineering/feature-design) | Engineering | Design software features from requirements |
@@ -18,7 +18,7 @@ Works with Claude Code, OpenCode, Kiro, Antigravity, Codex, and any agent that s
 | [`conversation-visualizer`](./skills/engineering/conversation-visualizer) | Engineering | Summarize long conversations into interactive HTML decision briefs |
 | [`write-pr-description`](./skills/engineering/write-pr-description) | Engineering | Tạo PR và mô tả thay đổi theo template chuẩn |
 
-Thiết kế của `pm`: [`docs/agent-pm/DESIGN.md`](./docs/agent-pm/DESIGN.md) · Quy ước: [`skills/pm/references/conventions.md`](./skills/pm/references/conventions.md)
+Thiết kế của `pm`: [`docs/agent-ledger/DESIGN.md`](./docs/agent-ledger/DESIGN.md) · Quy ước: [`skills/ledger/references/conventions.md`](./skills/ledger/references/conventions.md)
 
 ## Install
 

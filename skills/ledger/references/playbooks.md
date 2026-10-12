@@ -44,7 +44,7 @@ Không bao giờ tạo thẳng rồi báo sau. Người dùng là người đố
 
 1. `/code-review` trước khi mở PR — bạn tự chạy, không cần ai nhắc.
 2. `/pr` để viết thân PR.
-3. Mở PR vào `main` (hoặc nhánh nguồn trong `.pm/flow.yml`).
+3. Mở PR vào `main` (hoặc nhánh nguồn trong `.ledger/flow.yml`).
 4. Ghi một dòng tiến độ (`formats.md` §5.4) — một dòng là đủ.
 5. Nói rõ với người dùng: **việc này từ đây là của bạn** — review, merge, rồi cherry-pick.
 
@@ -80,7 +80,7 @@ Nếu người dùng hỏi *"xong chưa"* → câu trả lời đúng là **"xon
 ## 7. "Đẩy lên staging đi"
 
 1. Đây là việc **phải hỏi** — cherry-pick sang nhánh môi trường không phải quyền tự chủ của bạn.
-2. Đọc `.pm/flow.yml` trước: repo này có `profile: cherry-pick-4-env` không, `env_branches` gồm gì, `prod_policy` là gì. **Repo của bên khác thì theo flow của họ** — không áp flow của bạn lên.
+2. Đọc `.ledger/flow.yml` trước: repo này có `profile: cherry-pick-4-env` không, `env_branches` gồm gì, `prod_policy` là gì. **Repo của bên khác thì theo flow của họ** — không áp flow của bạn lên.
 3. Nếu người dùng đồng ý và bạn thực hiện: ghi lại bằng cập nhật cờ môi trường theo `formats.md` §5.6.
 4. Cảnh báo nếu thiếu `--sha` — cờ môi trường không có sha thì không đối chiếu được.
 
@@ -98,7 +98,7 @@ Nếu người dùng hỏi *"xong chưa"* → câu trả lời đúng là **"xon
 
 1. Cài theo `formats.md` §5.1.
 2. Nói rõ nó vừa thêm gì vào repo — **nhất là file nào được git theo dõi** (`AGENTS.md`, `.gitignore`) để người dùng biết mà commit hoặc hoàn tác.
-3. Nếu repo thuộc bên khác: **hỏi trước**, và dùng `profile: github-flow` trong `.pm/flow.yml`, không áp flow cherry-pick của bạn.
+3. Nếu repo thuộc bên khác: **hỏi trước**, và dùng `profile: github-flow` trong `.ledger/flow.yml`, không áp flow cherry-pick của bạn.
 4. Repo đã có `plans/` cũ → đề nghị liệt kê plan cũ trước, xem trước rồi mới thêm frontmatter theo `formats.md` §2.
 
 ---
@@ -117,7 +117,7 @@ Nếu người dùng hỏi *"xong chưa"* → câu trả lời đúng là **"xon
 Khi người dùng hỏi những câu cần **đọc nhiều repo/plan** ("cho tôi bức tranh toàn bộ tuần này", "repo nào đang bỏ không"), đừng tự đọc hết trong context chính. Giao cho subagent với prompt:
 
 ```
-Bạn là agent PM. Đọc trạng thái work-item và trả về báo cáo, KHÔNG sửa gì.
+Bạn là agent giữ sổ. Đọc trạng thái work-item và trả về báo cáo, KHÔNG sửa gì.
 
 Phạm vi: <danh sách repo hoặc để trống nghĩa là mọi repo trong vùng>
 Cần trả về:
@@ -125,7 +125,7 @@ Cần trả về:
 2. Việc in-progress quá <N> ngày không có handoff
 3. Việc pending bị blocked_by mà blocker đã completed (có thể gỡ chặn)
 4. Việc ready-for-human đang chờ người
-Quy ước đọc: skills/pm/references/conventions.md
+Quy ước đọc: skills/ledger/references/conventions.md
 Chỉ báo cáo, không tạo/sửa Issue, không claim.
 ```
 

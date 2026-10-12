@@ -4,8 +4,7 @@
   "type": "module",
   "scripts": {
     "cv:validate": "tsx skills/engineering/conversation-visualizer/scripts/validate-summary.ts",
-    "cv:render": "tsx skills/engineering/conversation-visualizer/scripts/render-html.ts",
-    "pm": "node skills/pm/scripts/pm.mjs"
+    "cv:render": "tsx skills/engineering/conversation-visualizer/scripts/render-html.ts"
   },
   "devDependencies": {
     "tsx": "^4.0.0",

@@ -1,5 +1,9 @@
-# Agent PM — thiết kế chốt
+# Ledger — thiết kế chốt
 
+> **Tên gọi.** Tài liệu này ghi lại thiết kế qua các bước. §1–§18 viết khi skill còn tên `pm` và
+> còn một CLI; chúng giữ nguyên tên cũ vì đó là lịch sử, không phải hướng dẫn hiện hành.
+> §19 ghi việc bỏ CLI, và skill nay tên **`ledger`**. Hướng dẫn hiện hành nằm ở
+> `skills/ledger/SKILL.md` + `references/`; CLI cũ nằm ở `archive/pm-cli/`.
 > Trạng thái: **đã duyệt, đang triển khai**. Bước 1 (§13.1) xong — xem §15.
 > Nguồn: phiên grilling (Q1–Q22) + 4 vòng điều tra môi trường thật.
 
@@ -60,7 +64,7 @@ plans/260101-142-note-detail-quota/
 
 ### 2.3 Frontmatter `plan.md`
 
-Giữ nguyên các trường đang dùng, thêm phần của Agent PM:
+Giữ nguyên các trường đang dùng, thêm phần của Ledger:
 
 ```yaml
 ---
@@ -73,7 +77,7 @@ effort: 8h
 branch: feat/142-note-detail-quota
 tags: [frontend, quota]
 created: 2026-01-01
-# --- Agent PM thêm ---
+# --- Ledger thêm ---
 id: GH-142                   # = số Issue, ID duy nhất trong repo
 repo: your-org/your-app
 routing: ready-for-agent     # ready-for-agent | ready-for-human | needs-info | needs-triage | wontfix
@@ -92,10 +96,10 @@ env:
 
 ### 2.4 Format chung cho GitHub Issue
 
-Mọi work-item do Agent PM tạo đều có **khối đầu máy đọc được** + **log tiến độ append-only**. Đây là "format chung" đã chốt ở Q11.
+Mọi work-item do Ledger tạo đều có **khối đầu máy đọc được** + **log tiến độ append-only**. Đây là "format chung" đã chốt ở Q11.
 
 ```markdown
-<!-- pm:work-item v1 -->
+<!-- ledger:work-item v1 -->
 - **Repo**: your-org/your-app
 - **Nguồn**: <link Chat/Sheet | trực tiếp>
 - **Người yêu cầu**: …
@@ -108,11 +112,11 @@ Mọi work-item do Agent PM tạo đều có **khối đầu máy đọc đượ
 - **Môi trường**: main ⬜ · develop ⬜ · staging ⬜ · prod ⬜
 
 ## Tiến độ
-<!-- pm:log — append-only, mỗi lần `pm note` ghi một dòng -->
+<!-- ledger:log — append-only, mỗi lần `pm note` ghi một dòng -->
 - 2026-01-01 09:12 · claim bởi codex@SON-PC#a1b2
 ```
 
-Quy tắc: `pm` chỉ sửa **bên trong** các marker `<!-- pm:… -->`. Comment của người và của member không bao giờ bị ghi đè.
+Quy tắc: `ledger` chỉ sửa **bên trong** các marker `<!-- ledger:… -->`. Comment của người và của member không bao giờ bị ghi đè.
 
 ### 2.5 Nhãn — tái dùng, không phát minh
 
@@ -136,17 +140,17 @@ Bộ nhãn bạn đã có **mã hoá đúng cái routing mà agent PM cần**: `
 | tầng | chứa gì | ai ghi | bền không |
 |---|---|---|---|
 | **File trong repo** (`plans/…`) | spec, plan, ticket, handoff, evidence — thứ AI đọc để làm việc | agent | bền, versioned |
-| **GitHub Issue** | intake thô, label, assignee, log tiến độ, link — thứ người đọc | `pm` + member | bền, cả team thấy |
-| **Google Chat webhook** | thông báo đẩy, một chiều | `pm` | không lưu |
+| **GitHub Issue** | intake thô, label, assignee, log tiến độ, link — thứ người đọc | `ledger` + member | bền, cả team thấy |
+| **Google Chat webhook** | thông báo đẩy, một chiều | `ledger` | không lưu |
 
-**Luật đồng bộ:** mỗi lần chuyển trạng thái, `pm` ghi **file trước, GitHub sau**, trong cùng một lệnh. Nếu `gh` lỗi (chưa đăng nhập, mất mạng) → file vẫn đúng, một dòng `sync-pending` được ghi lại, và `pm sync` (hoặc `pm status`) hòa giải sau. File không bao giờ phụ thuộc mạng.
+**Luật đồng bộ:** mỗi lần chuyển trạng thái, `ledger` ghi **file trước, GitHub sau**, trong cùng một lệnh. Nếu `gh` lỗi (chưa đăng nhập, mất mạng) → file vẫn đúng, một dòng `sync-pending` được ghi lại, và `pm sync` (hoặc `pm status`) hòa giải sau. File không bao giờ phụ thuộc mạng.
 
 ---
 
 ## 4. Luồng v1
 
 ```
-1. INTAKE      bạn dán text từ Google Chat/Sheet vào:  pm intake "<text>"
+1. INTAKE      bạn dán text từ Google Chat/Sheet vào:  ghi work-item      
                  → agent chuẩn hoá thành draft work-item
                  → bạn xem, sửa, xác nhận
                  → tạo Issue (gh) + thư mục plans/<...>/
@@ -155,14 +159,14 @@ Bộ nhãn bạn đã có **mã hoá đúng cái routing mà agent PM cần**: `
 2. QUEUE       pm next        → việc kế tiếp nên làm (theo routing, priority, blocked_by)
                pm status      → bảng tổng hợp nhiều repo + cảnh báo lệch
 
-3. CLAIM       pm claim 142   → bộ ba claim (xem §5)
+3. CLAIM       nhặt việc             → bộ ba claim (xem §5)
                  → sinh nhánh feat/142-<slug>
 
 4. BUILD       agent chạy chuỗi skill Matt:
                  /to-spec → /to-tickets → /implement (→ /tdd) → /code-review
-               pm note 142 "…"   → ghi tiến độ vào Issue + file
+               ghi một dòng log      → ghi tiến độ vào Issue + file
 
-5. HANDOFF     pm handoff 142 → handoff-<date>-<session>.md trong thư mục plan
+5. HANDOFF     viết handoff        → handoff-<date>-<session>.md trong thư mục plan
                  → bắt buộc nếu work-item chưa done (hook ép, xem §7)
 
 6. PR          /pr → mở PR vào main → nhãn in-review → thông báo bạn (Chat)
@@ -172,7 +176,7 @@ Bộ nhãn bạn đã có **mã hoá đúng cái routing mà agent PM cần**: `
                  → cập nhật cờ; prod chỉ merge từ main
                  → mọi thay đổi cờ đều ghi lại kèm PR + sha
 
-8. DONE        pm archive 142 → đóng work-item, đóng Issue
+8. DONE        đóng việc           → đóng work-item, đóng Issue
 ```
 
 ---
@@ -189,7 +193,7 @@ Luật:
 - Claim xong **trước khi sửa một dòng code**.
 - Thấy Issue đã có assignee khác ⇒ **coi như đã bị nhặt, không giành**. Chọn việc khác.
 - `gh` lỗi ⇒ vẫn ghi file + tạo nhánh, ghi `sync-pending`.
-- Mọi chuyển trạng thái đi qua **một đường duy nhất** là `pm`. Sửa label bằng tay trên GitHub là hợp lệ, nhưng `pm doctor` sẽ phát hiện lệch và hòa giải.
+- Mọi chuyển trạng thái đi qua **một đường duy nhất** là `ledger`. Sửa label bằng tay trên GitHub là hợp lệ, nhưng `pm doctor` sẽ phát hiện lệch và hòa giải.
 
 ---
 
@@ -216,7 +220,7 @@ Luật:
 | Sau khi xong | `/retro` |
 | Điều hướng | `/ask-matt` |
 
-### 6.2 Mới — 5 skill của Agent PM
+### 6.2 Mới — 5 skill của Ledger
 
 | skill | làm gì |
 |---|---|
@@ -231,7 +235,7 @@ Luật:
 ```
 /pm intake ──► /grill-with-docs (nếu còn mờ) ──► /to-spec ──► /to-tickets
                                                                    │
-                                          /pm claim 142 ◄──────────┘
+                                          /nhặt việc           ◄──────────┘
                                                 │
                                           /implement (→ /tdd → /code-review)
                                                 │
@@ -242,13 +246,13 @@ Luật:
 
 ## 7. Logic & setup
 
-### 7.1 `scripts/pm.mjs`
+### 7.1 `archive/pm-cli/pm.mjs`
 
 Node, không phụ thuộc gì ngoài `git` + `gh`. Chạy được ở mọi harness vì mọi harness đều gọi được shell.
 
 ```
 pm setup [--repo <path>]              cài vào repo, idempotent
-pm intake "<text>" [--source <url>]   chuẩn hoá → draft → xác nhận → tạo Issue + plan dir
+ghi work-item       [--source <url>]   chuẩn hoá → draft → xác nhận → tạo Issue + plan dir
 pm next [--repo <path>]               việc kế tiếp
 pm claim <id>                         bộ ba claim
 pm note <id> "<text>"                 ghi tiến độ (Issue + file)
@@ -262,7 +266,7 @@ pm archive <id>                       đóng work-item
 
 ### 7.2 Hook — chỗ luật được thi hành
 
-Đây là phần trả lời trực tiếp cho bốn đặc tả đã chết. Framework **không** dựa vào việc agent nhớ gọi `pm`; nó tự gọi:
+Đây là phần trả lời trực tiếp cho bốn đặc tả đã chết. Framework **không** dựa vào việc agent nhớ gọi `ledger`; nó tự gọi:
 
 | hook | hành vi |
 |---|---|
@@ -275,10 +279,10 @@ pm archive <id>                       đóng work-item
 ### 7.3 `pm setup` sinh ra gì trong repo đích
 
 ```
-.pm/
+.ledger/
   flow.yml          # flow của repo (dữ liệu, không phải code)
   config.json       # repo, issue prefix, paths, gates
-AGENTS.md           # khối <!-- pm:start -->…<!-- pm:end --> (idempotent)
+AGENTS.md           # khối <!-- ledger:start -->…<!-- ledger:end --> (idempotent)
 CLAUDE.md           # con trỏ tới AGENTS.md
 .claude/rules/pm.md # SINH RA từ framework, một chiều
 .claude/hooks/pm-*.cjs
@@ -309,7 +313,7 @@ commit_style: conventional
 
 ## 8. `worlds.yml` — đa vùng, đa danh tính
 
-Nằm ở **`~/.pm/worlds.yml`** (cấp máy, không nằm trong repo public):
+Nằm ở **`~/.ledger/worlds.yml`** (cấp máy, không nằm trong repo public):
 
 ```yaml
 worlds:
@@ -327,7 +331,7 @@ notify:
   google_chat_webhook: <secret>      # KHÔNG commit vào repo public
 ```
 
-Chặn cứng đã biết: `gh` hiện **chỉ có tài khoản công việc**. Vùng `personal` sẽ báo "không có quyền truy cập" cho tới khi bạn `gh auth login` thêm account. `pm` phải nói thẳng điều đó thay vì im lặng trả bảng rỗng.
+Chặn cứng đã biết: `gh` hiện **chỉ có tài khoản công việc**. Vùng `personal` sẽ báo "không có quyền truy cập" cho tới khi bạn `gh auth login` thêm account. `ledger` phải nói thẳng điều đó thay vì im lặng trả bảng rỗng.
 
 ---
 
@@ -373,12 +377,12 @@ Luật một câu: **trước PR là tự chủ, sau PR là của bạn.**
 
 | rủi ro | cách chống |
 |---|---|
-| **Trở thành "đặc tả chết" thứ năm** | Hook tự gọi `pm` ở đầu/cuối phiên. Không dựa vào việc agent nhớ. |
+| **Trở thành "đặc tả chết" thứ năm** | Hook tự gọi `ledger` ở đầu/cuối phiên. Không dựa vào việc agent nhớ. |
 | Framework lại nằm ngoài git | Framework sống trong `moon-ai-skills`; `pm setup` sinh file vào repo đích |
 | Nhân bản rồi trôi lệch (như `.agent/rules` ↔ `.claude/rules`) | File sinh ra một chiều, chỉ ghi trong marker; `pm doctor` phát hiện lệch |
 | `plans/` phình mãi (15 thư mục, chưa từng archive) | `pm archive` + `pm doctor` cảnh báo plan mồ côi |
-| Repo public chứa dữ liệu nội bộ | `moon-ai-skills` chỉ chứa **quy ước + logic**; state, `worlds.yml`, webhook, tên member → ở `~/.pm/` hoặc repo dự án |
-| Vùng `personal` im lặng hỏng | `pm` báo thẳng khi `gh` thiếu quyền, không trả bảng rỗng |
+| Repo public chứa dữ liệu nội bộ | `moon-ai-skills` chỉ chứa **quy ước + logic**; state, `worlds.yml`, webhook, tên member → ở `~/.ledger/` hoặc repo dự án |
+| Vùng `personal` im lặng hỏng | `ledger` báo thẳng khi `gh` thiếu quyền, không trả bảng rỗng |
 
 ---
 
@@ -386,8 +390,8 @@ Luật một câu: **trước PR là tự chủ, sau PR là của bạn.**
 
 | # | việc | nghiệm thu |
 |---|---|---|
-| 1 | `.pm/` + `flow.yml` + `worlds.yml` + doc quy ước | `pm doctor` chạy được, báo đúng 0 work-item |
-| 2 | `scripts/pm.mjs`: `setup · intake · next · claim · note · handoff · status · sync` | chạy trọn một vòng trên repo thử |
+| 1 | `.ledger/` + `flow.yml` + `worlds.yml` + doc quy ước | `pm doctor` chạy được, báo đúng 0 work-item |
+| 2 | `archive/pm-cli/pm.mjs`: `setup · intake · next · claim · note · handoff · status · sync` | chạy trọn một vòng trên repo thử |
 | 3 | Skill `/pm` + `/pm-intake` + `/pm-handoff` + `/pm-setup` + `/pm-flow` | gọi được từ DSH **và** Claude Code |
 | 4 | Hook: SessionStart in `pm next`, Stop ép handoff, statusline | tắt phiên giữa việc → bị nhắc handoff |
 | 5 | Pilot thật ở một repo công việc | 3 work-item thật chạy hết vòng, không cần bạn nhắc |
@@ -398,9 +402,9 @@ Luật một câu: **trước PR là tự chủ, sau PR là của bạn.**
 
 ## 14. Cần bạn xác nhận trước khi code
 
-1. **Tên**: `pm` (lệnh/skill) — hay bạn muốn tên khác?
+1. **Tên**: `ledger` (lệnh/skill) — hay bạn muốn tên khác?
 2. **Nhà của work-item**: bám `plans/<YYMMDD>-<issue>-<slug>/` (convention đang dùng) — hay `docs/work/`?
-3. **`docs/cherry-pick-tracking.md`**: giữ song song, hay để `pm` thay thế nó? (Hiện file trống, và format cũ **thiếu `main`/`prod`**.)
+3. **`docs/cherry-pick-tracking.md`**: giữ song song, hay để `ledger` thay thế nó? (Hiện file trống, và format cũ **thiếu `main`/`prod`**.)
 4. **Ba nhãn mới** `in-progress`, `in-review`, `blocked`: đồng ý?
 5. **Pilot**: một repo công việc là nơi thử đầu tiên — xác nhận?
 
@@ -412,30 +416,30 @@ Sau khi bạn duyệt 5 điểm này, tôi bắt đầu từ mục 13.1.
 
 | đường dẫn | là gì |
 |---|---|
-| `skills/pm/SKILL.md` | đầu mối skill `/pm` |
-| `skills/pm/references/conventions.md` | quy ước đầy đủ (chuẩn tắc) |
-| `skills/pm/references/work-item.md` | schema work-item |
-| `skills/pm/references/issue-format.md` | format chung của Issue + bảng nhãn |
-| `skills/pm/templates/` | `flow.yml`, `config.json`, `worlds.yml` |
-| `skills/pm/scripts/pm.mjs` | CLI: `init`, `setup`, `doctor` |
-| `skills/pm/scripts/selftest.ps1` | dựng fixture có lỗi cố ý, kiểm tra `doctor` bắt đúng |
+| `skills/ledger/SKILL.md` | đầu mối skill `/pm` |
+| `skills/ledger/references/conventions.md` | quy ước đầy đủ (chuẩn tắc) |
+| `skills/ledger/references/work-item.md` | schema work-item |
+| `skills/ledger/references/issue-format.md` | format chung của Issue + bảng nhãn |
+| `skills/ledger/templates/` | `flow.yml`, `config.json`, `worlds.yml` |
+| `archive/pm-cli/pm.mjs` | CLI: `init`, `setup`, `doctor` |
+| `archive/pm-cli/selftest.ps1` | dựng fixture có lỗi cố ý, kiểm tra `doctor` bắt đúng |
 
 ```bash
-node skills/pm/scripts/pm.mjs init --world work=D:/work --world personal=D:/projects \
+node archive/pm-cli/pm.mjs init --world work=D:/work --world personal=D:/projects \
   --account work=your-work-account --account personal=your-personal-account
-node skills/pm/scripts/pm.mjs setup --repo <repo>
-node skills/pm/scripts/pm.mjs doctor [--repo <repo> | --all]
-pwsh -File skills/pm/scripts/selftest.ps1
+node archive/pm-cli/pm.mjs setup --repo <repo>
+node archive/pm-cli/pm.mjs doctor [--repo <repo> | --all]
+pwsh -File archive/pm-cli/selftest.ps1
 ```
 
-Kết quả thật lúc triển khai: `~/.pm/worlds.yml` sinh ra **33 repo / 2 world**; `doctor` xác nhận **33/33 remote khớp**, và cảnh báo đúng một việc — tài khoản cá nhân `your-personal-account` chưa đăng nhập `gh`, nên vùng `personal` chưa đọc được Issue.
+Kết quả thật lúc triển khai: `~/.ledger/worlds.yml` sinh ra **33 repo / 2 world**; `doctor` xác nhận **33/33 remote khớp**, và cảnh báo đúng một việc — tài khoản cá nhân `your-personal-account` chưa đăng nhập `gh`, nên vùng `personal` chưa đọc được Issue.
 
 ### Hai ràng buộc phát hiện khi viết code
 
-1. **DSH chặn `child_process` dùng stdio kiểu pipe** → gọi `git`/`gh` từ Node trả `EPERM`. `pm.mjs` vì vậy thu output qua **file tạm** (`stdio: ['ignore', fd, fd]`). Đã kiểm chứng: pipe hỏng, file fd chạy được — kể cả với repo ngoài workspace.
+1. **DSH chặn `child_process` dùng stdio kiểu pipe** → gọi `git`/`gh` từ Node trả `EPERM`. `archive/pm-cli/pm.mjs` vì vậy thu output qua **file tạm** (`stdio: ['ignore', fd, fd]`). Đã kiểm chứng: pipe hỏng, file fd chạy được — kể cả với repo ngoài workspace.
 2. **PowerShell ghi file kèm BOM** → frontmatter `---` không khớp nên work-item bị coi là plan cũ. `parseYaml` và `readFrontmatter` nay bỏ BOM trước khi đọc.
 
-Cả hai đã nằm trong code, và `selftest.ps1` khoá lại để không tái phát.
+Cả hai đã nằm trong code, và `archive/pm-cli/selftest.ps1` khoá lại để không tái phát.
 
 ### Bước 1 **chưa** làm
 
@@ -445,12 +449,12 @@ Cả hai đã nằm trong code, và `selftest.ps1` khoá lại để không tái
 
 ## 16. Bước 2, 3, 4 — đã triển khai
 
-### Engine (`skills/pm/scripts/pm.mjs`, v0.2)
+### Engine (`archive/pm-cli/pm.mjs`, v0.2)
 
 | lệnh | làm gì |
 |---|---|
-| `init` | quét thư mục gốc tìm git repo → `~/.pm/worlds.yml` |
-| `setup` | sinh `.pm/flow.yml`, `.pm/config.json`, khối pm trong `AGENTS.md`, hook `.claude/settings.json`, persona `.claude/agents/pm.md`, dòng `.gitignore` |
+| `init` | quét thư mục gốc tìm git repo → `~/.ledger/worlds.yml` |
+| `setup` | sinh `.ledger/flow.yml`, `.ledger/config.json`, khối pm trong `AGENTS.md`, hook `.claude/settings.json`, persona `.claude/agents/pm.md`, dòng `.gitignore` |
 | `doctor` | kiểm tra framework, worlds, remote từng repo, tài khoản gh, flow, từng work-item; `--all`, `--json` |
 | `intake` | chuẩn hoá text thô → draft; `--create` mới ghi; `--from-file` cho text dài |
 | `next` | việc sẵn sàng nhặt: chưa ai giữ, không bị `blocked_by`, đúng routing |
@@ -495,12 +499,12 @@ Bước 5 — pilot trên repo công việc chính: 3 work-item thật chạy h�
 
 | file | thay đổi |
 |---|---|
-| `.gitignore` | +1 dòng: `.pm/.hook-state.json` |
-| `AGENTS.md` | +13 dòng: khối `<!-- pm:start -->…<!-- pm:end -->` ở cuối file |
+| `.gitignore` | +1 dòng: `.ledger/.hook-state.json` |
+| `AGENTS.md` | +13 dòng: khối `<!-- ledger:start -->…<!-- ledger:end -->` ở cuối file |
 
-Phần còn lại nằm trong `.claude/` (repo đó đã ignore `.claude`) và `.pm/` (2 file mới).
+Phần còn lại nằm trong `.claude/` (repo đó đã ignore `.claude`) và `.ledger/` (2 file mới).
 
-Hoàn tác: `git checkout AGENTS.md .gitignore && rm -rf .pm`
+Hoàn tác: `git checkout AGENTS.md .gitignore && rm -rf .ledger`
 
 `pm doctor` đọc được trạng thái thật của repo: **16 plan cũ** không theo schema pm, bỏ qua không chặn, **0 fail**. `pm status --world work` chạy được trên vùng `work`.
 
@@ -523,7 +527,7 @@ pm adopt --all                  # thêm frontmatter, GIỮ NGUYÊN phần thân 
 3. `pm intake` một việc thật đầu tiên.
 4. Tuỳ chọn: `pm adopt --all` cho các plan cũ.
 
-> Phần chi tiết môi trường cụ thể của máy người dùng — đường dẫn, tài khoản, quy trình nội bộ của repo công việc — **không nằm trong repo công khai này**. Bản đầy đủ để ở `~/.pm/ENVIRONMENT.md` trên máy.
+> Phần chi tiết môi trường cụ thể của máy người dùng — đường dẫn, tài khoản, quy trình nội bộ của repo công việc — **không nằm trong repo công khai này**. Bản đầy đủ để ở `~/.ledger/ENVIRONMENT.md` trên máy.
 
 ---
 
@@ -552,7 +556,7 @@ Trong đề xuất ban đầu tôi nói sẽ gỡ 5 lệnh (`next`, `note`, `rel
 
 Thay vào đó chúng bị **hạ cấp trong tài liệu**: skill mô tả hành vi và format, lệnh chỉ là cách làm nhanh. Nếu agent tự làm, nó phải theo đúng format trong `references/` — không có format thứ hai.
 
-> Bản chất: **sản phẩm thật là `references/conventions.md`** — tập quy ước. Script và skill chỉ là hai cách giao cùng tập quy ước đó cho máy. Vứt `pm.mjs` đi thì quy ước vẫn còn nguyên giá trị.
+> Bản chất: **sản phẩm thật là `references/conventions.md`** — tập quy ước. Script và skill chỉ là hai cách giao cùng tập quy ước đó cho máy. Vứt `archive/pm-cli/pm.mjs` đi thì quy ước vẫn còn nguyên giá trị.
 
 ---
 
@@ -562,7 +566,7 @@ Sau khi thấy vòng đời chạy thật trên một repo thật, người dùn
 
 ### Đã làm để skill tự đủ
 
-`pm.mjs` không biến mất, nhưng nó **không còn là đường làm việc**. Để bỏ được nó, skill phải có thứ mà trước đó script giữ hộ:
+`archive/pm-cli/pm.mjs` không biến mất, nhưng nó **không còn là đường làm việc**. Để bỏ được nó, skill phải có thứ mà trước đó script giữ hộ:
 
 | thêm | nội dung |
 |---|---|
@@ -581,4 +585,4 @@ Sau khi thấy vòng đời chạy thật trên một repo thật, người dùn
 
 ### Trạng thái mã
 
-`scripts/pm.mjs` (v0.3) vẫn nằm trong repo, đã commit ở `150f43d`, kèm `selftest.ps1` 24 điểm. Giữ lại vì: nó là bản tham chiếu cho các thủ tục trong `formats.md`, và là điểm khởi đầu nếu sau này muốn dựng lại hook check.
+`archive/pm-cli/pm.mjs` (v0.3) vẫn nằm trong repo, đã commit ở `150f43d`, kèm `archive/pm-cli/selftest.ps1` 24 điểm. Giữ lại vì: nó là bản tham chiếu cho các thủ tục trong `formats.md`, và là điểm khởi đầu nếu sau này muốn dựng lại hook check.
