@@ -45,6 +45,7 @@ Ghi **file trước, tracker sau**. Tracker lỗi thì file vẫn đúng và `sy
 | Làm một thủ tục: cài · nhận việc · nhặt việc · ghi tiến độ · bàn giao · đưa lên môi trường · nhả việc · đóng việc · hòa giải · kiểm lệch · trả lời | `references/formats.md` §5.1–§5.11 |
 | Cần biết ranh giới với bộ kit khác | `references/conventions.md` §12 |
 | Cần schema work-item và hai trục trạng thái | `references/work-item.md` |
+| Cần thân Issue và bảng nhãn dựng sẵn | `references/issue-format.md` |
 | Cài làm agent riêng | `agents/ledger.md` |
 
 `formats.md` §5.10 là **12 điểm kiểm lệch bạn tự chạy** — không ai chạy hộ. Cái gì không tự làm được thì **nói ra**, đừng bịa trạng thái.
