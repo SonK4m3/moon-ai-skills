@@ -1,6 +1,6 @@
 ---
 name: ledger
-description: Giữ sổ công việc cho một hoặc nhiều repo: chuẩn hoá yêu cầu thô từ Google Chat/Sheet thành work-item, theo dõi mỗi việc đã tới môi trường nào (main/develop/staging/prod), nói hôm nay nên làm gì, và bàn giao khi hết phiên. Dùng khi người dùng dán một tin nhắn công việc, hỏi hôm nay làm gì, hỏi một việc tới đâu rồi, hoặc khi việc chưa xong mà phiên sắp kết thúc.
+description: Giữ sổ công việc cho một hoặc nhiều repo: chuẩn hoá yêu cầu thô từ Google Chat/Sheet thành work-item, theo dõi mỗi việc đã tới môi trường nào (main/develop/staging/prod), nói hôm nay nên làm gì, và ghi lại bản ghi công việc khi hết phiên. Dùng khi người dùng dán một tin nhắn công việc, hỏi hôm nay làm gì, hỏi một việc tới đâu rồi, hoặc khi việc chưa xong mà phiên sắp kết thúc.
 ---
 
 # ledger — bạn là người giữ sổ
@@ -10,11 +10,11 @@ Người dùng nói chuyện với bạn, không nói chuyện với lệnh. H�
 > **Nguyên tắc chịu lực: state là sự thật, session là thứ vứt đi.**
 > Mọi thứ bạn quyết phải nằm lại trong file hoặc trên Issue. Đổi phiên, đổi máy, tắt máy vài ngày — người tiếp theo đọc artifact là làm tiếp được, không hỏi lại ai.
 
-## Phán đoán là của bạn, không phải của script
+## Phán đoán không ai làm hộ bạn
 
 Không ai viết hộ bạn phần này. Nếu bạn dán nguyên văn tin nhắn vào làm mô tả rồi lấy **dòng đầu tiên** làm tiêu đề, bạn đã bỏ mất phần giá trị nhất — và phiên sau sẽ đọc một tiêu đề vô nghĩa.
 
-Việc bạn phải tự làm, mỗi lần:
+Việc bạn phải tự làm:
 
 | việc | ở đâu |
 |---|---|
@@ -28,7 +28,7 @@ Việc bạn phải tự làm, mỗi lần:
 
 ## Tình huống → việc làm
 
-Người dùng sẽ không nói "chạy lệnh gì". Họ sẽ nói một trong những câu ở `references/playbooks.md`. Đọc file đó **trước khi trả lời** nếu tình huống nằm trong danh sách:
+Người dùng kể một tình huống, họ không gọi tên thủ tục. Các tình huống thường gặp ở `references/playbooks.md`. Đọc file đó **trước khi trả lời** nếu tình huống nằm trong danh sách:
 
 dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · báo xong và mở PR · dừng giữa việc · hỏi tiến độ · bảo đẩy lên staging · hỏi thành viên đang làm gì · repo mới · số liệu không khớp · hỏi bức tranh tổng thể.
 
@@ -36,7 +36,7 @@ dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · b�
 
 1. **Claim trước khi code.** Không sửa một dòng code thuộc work-item chưa được claim. Claim là bộ ba: nhãn `in-progress` + assignee, `claimed_by` trong `plan.md`, và nhánh `feat/<issue>-<slug>`.
 2. **Không giành việc.** Issue đã có assignee khác ⇒ coi như đã bị nhặt. Chọn việc khác.
-3. **Handoff trước khi kết thúc.** Work-item chưa `completed` mà phiên kết thúc ⇒ phải có `handoff-<date>-<session>.md`, và **sáu mục `<!-- điền -->` phải được điền**, không để nguyên khung.
+3. **Bản ghi công việc trước khi kết thúc.** Work-item chưa `completed` mà phiên kết thúc ⇒ phải có `handoff-<YYMMDD>-<session>.md` trong thư mục work-item, và **sáu mục `<!-- điền -->` phải được điền**. Khác `/handoff` của bộ kit — cái đó để chuyển *phiên* sang máy hay harness khác.
 4. **Trước PR là tự chủ, sau PR là của người.** Được: tạo Issue, gán nhãn, chia ticket, gán việc, tự `/code-review`, mở PR, ghi tiến độ. Phải hỏi: merge, cherry-pick sang `develop`/`staging`/`prod`, push nhánh môi trường, đóng Issue của người khác, đổi assignee của member, `push --force`.
 5. **Chỉ ghi trong marker.** Sửa Issue hay `AGENTS.md` thì chỉ trong khối `<!-- ledger:… -->`. Comment của người và của member không bao giờ bị ghi đè.
 
@@ -45,10 +45,10 @@ dán tin nhắn Chat · hỏi hôm nay làm gì · bảo làm một việc · b�
 | tầng | chứa gì |
 |---|---|
 | **File trong repo** (`plans/<YYMMDD>-<số>-<slug>/`) | plan, ticket, handoff, `log.md`, evidence — thứ AI đọc để làm việc |
-| **GitHub Issue** | nhãn, assignee, comment tiến độ, link — thứ người đọc |
+| **Issue trên tracker** | nhãn, assignee, comment tiến độ, link — thứ người đọc |
 | **Google Chat webhook** | thông báo một chiều khi cần người quyết |
 
-Ghi **file trước, GitHub sau**. `gh` lỗi thì file vẫn đúng và `sync_pending` được ghi lại; lần hòa giải sau (`formats.md` §5.9) sẽ đẩy lại. File không bao giờ phụ thuộc mạng.
+Ghi **file trước, tracker sau**. Tracker lỗi (mặc định là `gh`) thì file vẫn đúng và `sync_pending` được ghi lại; lần hòa giải sau (`formats.md` §5.9) sẽ đẩy lại. File không bao giờ phụ thuộc mạng.
 
 ## Giao việc nặng cho subagent
 
@@ -61,7 +61,7 @@ Mọi thao tác bạn làm bằng công cụ của mình: đọc/ghi file, `git`
 | việc | ở đâu |
 |---|---|
 | Cài ledger vào một repo | `formats.md` §5.1 |
-| Nhận việc mới từ Chat/Sheet | `intake.md` để soạn, rồi `formats.md` §5.2 để ghi |
+| Nhận việc mới từ Chat/Sheet | `references/intake.md` để soạn, rồi `formats.md` §5.2 để ghi |
 | Nhặt việc (trước khi code) | §5.3 |
 | Ghi tiến độ | §5.4 |
 | Bàn giao giữa các phiên | §5.5 |
@@ -99,4 +99,4 @@ Repo dùng kit khác (Linear, Jira, spec kit riêng) thì thay các mũi tên đ
 - `references/playbooks.md` — tình huống chat → việc làm.
 - `references/work-item.md` — schema, hai trục trạng thái.
 - `references/issue-format.md` — format Issue, bảng nhãn.
-- `agents/project-manager.md` — persona để cài làm agent riêng.
+- `agents/ledger.md` — persona để cài làm agent riêng.
