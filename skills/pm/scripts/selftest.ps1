@@ -78,7 +78,7 @@ git -C $fx -c user.email=pm@local -c user.name=pm commit -qm "fixture" *> $null
 git -C $fx branch feat/142-note-detail-quota *> $null
 (Get-Item (Join-Path $fx 'plans\260101-142-note-detail-quota\plan.md')).LastWriteTime = (Get-Date).AddDays(-10)
 
-$out = node $pm doctor --repo $fx --json
+$out = node $pm doctor --repo $fx --json --no-net
 $data = $out | ConvertFrom-Json
 
 # Bám vào các mốc ASCII, không bám vào tiếng Việt: console Windows có thể đổi
@@ -136,7 +136,7 @@ Step 'claim'           { node $pm claim L-1 --repo $fx2 }
 Step 'note'            { node $pm note L-1 "tien do 1" --repo $fx2 }
 Step 'handoff'         { node $pm handoff L-1 --repo $fx2 }
 Step 'env main'        { node $pm env L-1 main merged --pr 1 --sha abc1234 --repo $fx2 }
-Step 'doctor sach'     { node $pm doctor --repo $fx2 }
+Step 'doctor sach'     { node $pm doctor --repo $fx2 --no-net }
 Step 'hook stop sau handoff (phai im)' { Push-Location $fx2; node $pm hook stop; Pop-Location }
 
 $itemDir = Get-ChildItem (Join-Path $fx2 'plans') -Directory | Select-Object -First 1

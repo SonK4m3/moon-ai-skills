@@ -257,6 +257,8 @@ function repoWorkItemsDir(repoPath, config) {
 
 // ─────────────────────────────────────────────────────────── thu thập kết quả
 
+let NO_NET = false;
+
 const R = [];
 const add = (level, scope, msg, fix) => R.push({ level, scope, msg, ...(fix ? { fix } : {}) });
 const ok = (s, m) => add('ok', s, m);
@@ -270,6 +272,7 @@ function cmdDoctor(args) {
   const json = !!opts.flags.json;
   const doAll = !!opts.flags.all;
   const wantRepo = lastFlag(opts, 'repo');
+  NO_NET = !!opts.flags['no-net'];
 
   R.length = 0;
 
@@ -427,6 +430,35 @@ function inspectRepo(repoPath, label = toPosix(repoPath), bulk = false) {
         warn(label, 'prod_policy=merge-from-main nhưng env_branches không có prod');
       }
     } catch (e) { fail(label, `.pm/flow.yml lỗi — ${e.message}`); }
+  }
+
+  // Quyền ghi + nhãn trên GitHub. Chỉ chạy khi soi MỘT repo cụ thể (tốn mạng).
+  // Bài học từ lần test thật: tài khoản gh không có quyền ghi vẫn TẠO ĐƯỢC Issue trên
+  // repo công khai, nhưng không tạo được nhãn và không gán được assignee — nên nếu chỉ
+  // thử tạo Issue thì tưởng mọi thứ ổn.
+  if (!bulk && !NO_NET && config?.repo) {
+    let canPush = null;
+    const perm = gh('api', `repos/${config.repo}`, '--jq', '.permissions.push');
+    if (perm.ok) canPush = perm.out.trim() === 'true';
+    else warn(label, `không đọc được quyền trên ${config.repo}`, ghHint(perm.err) || null);
+
+    const wantLabels = Object.values(config.labels || {});
+    const listed = gh('label', 'list', '--repo', config.repo, '--limit', '100', '--json', 'name');
+    if (!listed.ok) {
+      warn(label, `không đọc được nhãn của ${config.repo}`, ghHint(listed.err) || null);
+    } else {
+      let have = new Set();
+      try { have = new Set(JSON.parse(listed.out).map((x) => x.name)); } catch { have = new Set(toLines(listed.out)); }
+      const missing = wantLabels.filter((n) => !have.has(n));
+      if (!missing.length) ok(label, `đủ ${wantLabels.length} nhãn pm trên GitHub`);
+      else if (canPush === false) {
+        fail(label, `thiếu ${missing.length}/${wantLabels.length} nhãn pm, và tài khoản gh không có quyền ghi lên ${config.repo}`,
+          'gh auth switch -u <tài khoản có quyền> rồi pm sync (nó tạo nhãn). Hiện chỉ tạo được Issue — không gán được nhãn hay assignee.');
+      } else {
+        warn(label, `thiếu ${missing.length} nhãn pm trên GitHub: ${missing.slice(0, 4).join(', ')}${missing.length > 4 ? ' …' : ''}`,
+          `pm sync (tự tạo), hoặc: gh label create "${missing[0]}" --repo ${config.repo}`);
+      }
+    }
   }
 
   const itemsDir = repoWorkItemsDir(repoPath, config);
@@ -867,21 +899,43 @@ function writeLog(item, line) {
   fs.writeFileSync(f, `${head.replace(/\s*$/, '')}\n- ${line}\n`, 'utf8');
 }
 
+// Dịch lỗi gh thành việc cần làm. Lỗi 404 khi GHI lên repo public hầu như luôn là
+// thiếu quyền, không phải repo không tồn tại — và triệu chứng rất dễ chẩn đoán sai.
+function ghHint(err) {
+  const e = String(err || '');
+  if (/Could not resolve to a Repository/i.test(e)) return 'không thấy repo — kiểm tra remote origin và quyền của tài khoản gh đang đăng nhập';
+  if (/does not have the correct permissions|not accessible by|must have admin|Forbidden|HTTP 403/i.test(e)) {
+    return 'tài khoản gh hiện tại không có quyền làm việc này trên repo — `gh auth status`, rồi `gh auth switch -u <tài khoản có quyền>`';
+  }
+  if (/HTTP 404/.test(e)) return 'tài khoản gh hiện tại KHÔNG có quyền ghi lên repo này (404 khi ghi = thiếu quyền). Kiểm tra `gh auth status`, rồi `gh auth switch -u <tài khoản có quyền>`';
+  if (/not found/i.test(e) && /label/i.test(e)) return 'nhãn chưa tồn tại và không tạo được — thường do thiếu quyền ghi';
+  return null;
+}
+
 function ghLabelsEnsure(ctx) {
-  if (!ctx.remote) return { ok: false, err: 'không xác định được repo GitHub (thiếu remote origin)' };
+  const none = { created: [], failed: [], have: [] };
+  if (!ctx.remote) return { ...none, ok: false, err: 'không xác định được repo GitHub (thiếu remote origin)' };
   const want = Object.values(ctx.config.labels || {});
   const listed = gh('label', 'list', '--repo', ctx.remote, '--limit', '100', '--json', 'name');
-  if (!listed.ok) return { ok: false, err: listed.err };
+  if (!listed.ok) return { ...none, ok: false, err: listed.err, hint: ghHint(listed.err) };
   let existing;
   try { existing = new Set(JSON.parse(listed.out).map((l) => l.name)); }
   catch { existing = new Set(toLines(listed.out)); }
   const created = [];
+  const failed = [];
   for (const name of want) {
     if (existing.has(name)) continue;
     const r = gh('label', 'create', name, '--repo', ctx.remote, '--color', LABEL_COLORS[name] || 'ededed');
     if (r.ok) created.push(name);
+    else failed.push({ name, err: String(r.err).split('\n')[0] });
   }
-  return { ok: true, created };
+  return {
+    ok: failed.length === 0,
+    created,
+    failed,
+    have: [...existing],
+    hint: failed.length ? ghHint(failed[0].err) : null,
+  };
 }
 
 function issueNumberFromCreate(out) {
@@ -889,15 +943,16 @@ function issueNumberFromCreate(out) {
   return m ? m[1] : null;
 }
 
-function ghIssueCreate(ctx, item) {
+function ghIssueCreate(ctx, item, { label = null } = {}) {
   const f = path.join(tmpDir(), `issue-${process.pid}-${Date.now()}.md`);
   fs.writeFileSync(f, issueBodyFor(item, ctx), 'utf8');
   try {
     const args = ['issue', 'create', '--repo', ctx.remote, '--title', item.fm.title || item.slug, '--body-file', f];
-    const routing = item.fm.routing || ctx.config.labels?.ready_for_agent;
-    if (routing && !item.fm.id.startsWith('L-')) args.push('--label', routing);
+    if (label) args.push('--label', label);
     const r = gh(...args);
-    return r.ok ? { ok: true, number: issueNumberFromCreate(r.out), url: r.out } : { ok: false, err: r.err };
+    return r.ok
+      ? { ok: true, number: issueNumberFromCreate(r.out), url: r.out }
+      : { ok: false, err: r.err, hint: ghHint(r.err) };
   } finally { try { fs.rmSync(f, { force: true }); } catch { /* bỏ qua */ } }
 }
 
@@ -973,13 +1028,27 @@ function cmdIntake(args) {
   let syncPending = false;
   let id = num ? `${ctx.config.issue_prefix || 'GH-'}${num}` : null;
 
+  // Nhãn phải tồn tại TRƯỚC khi tạo Issue: `gh issue create --label X` thất bại nếu X chưa có.
+  let labelToApply = null;
+  if (ctx.remote) {
+    const lab = ghLabelsEnsure(ctx);
+    if ((lab.created || []).length) console.log(`  tạo nhãn: ${lab.created.join(', ')}`);
+    if (lab.ok) labelToApply = draft.routing;
+    else {
+      const detail = lab.err || (lab.failed || []).map((f) => `${f.name}: ${f.err}`).join(' · ');
+      console.warn(`! Nhãn pm chưa đủ trên GitHub — ${detail}`);
+      if (lab.hint) console.warn(`  → ${lab.hint}`);
+      console.warn('  Issue vẫn tạo được nhưng sẽ THIẾU nhãn, và pm claim sẽ không gán được in-progress.');
+    }
+  }
+
   if (!id) {
     // Chưa có số Issue. Ưu tiên tạo Issue thật; nếu không được thì dùng ID tạm L-<n>.
     const probe = {
       fm: { ...draft, id: 'L-0', status: 'pending', created: stampISO(), tags: [] },
       dir: ctx.itemsDir, slug,
     };
-    const created = ghIssueCreate(ctx, probe);
+    const created = ghIssueCreate(ctx, probe, { label: labelToApply });
     if (created.ok && created.number) {
       issueNo = created.number;
       id = `${ctx.config.issue_prefix || 'GH-'}${issueNo}`;
@@ -989,7 +1058,8 @@ function cmdIntake(args) {
       const localNext = Math.max(0, ...used) + 1;
       issueNo = String(localNext);
       id = `L-${issueNo}`;
-      console.warn(`! Chưa tạo được Issue (${created.err || 'gh lỗi'}) — dùng ID tạm ${id}, pm sync sẽ tạo sau.`);
+      console.warn(`! Chưa tạo được Issue (${String(created.err).split('\n')[0]}) — dùng ID tạm ${id}, pm sync sẽ tạo sau.`);
+      if (created.hint) console.warn(`  → ${created.hint}`);
     }
   }
 
@@ -1036,12 +1106,6 @@ function cmdIntake(args) {
   writeLog({ dir }, `${stampFull()} · intake bởi ${session} · nguồn: ${draft.source}`);
 
   const item = { dir, dirName, file: path.join(dir, 'plan.md'), fm: parseYaml(fm.slice(3, fm.indexOf('\n---', 3))), id, num: String(issueNo), slug };
-
-  if (!syncPending && ctx.remote) {
-    const lab = ghLabelsEnsure(ctx);
-    if (!lab.ok) console.warn(`! Không đồng bộ được nhãn: ${lab.err}`);
-    else if (lab.created.length) console.log(`  tạo nhãn: ${lab.created.join(', ')}`);
-  }
 
   console.log(`\nĐã tạo ${id} — ${draft.title}`);
   console.log(`  thư mục : ${toPosix(path.relative(ctx.repoPath, dir))}/`);
@@ -1136,10 +1200,17 @@ function cmdClaim(args) {
 
   let ghNote = 'chưa đồng bộ GitHub';
   if (ctx.remote && !item.id.startsWith('L-')) {
-    const a = gh('issue', 'edit', item.num, '--repo', ctx.remote, '--add-assignee', '@me',
-      '--add-label', ctx.config.labels?.in_progress || 'in-progress');
-    ghNote = a.ok ? 'đã gán assignee + nhãn in-progress' : `gh lỗi: ${a.err}`;
-    if (!a.ok) editFrontmatter(item.file, { sync_pending: 'true' });
+    // Tách assignee khỏi nhãn: nhãn lỗi thì assignee vẫn phải được gán.
+    const rWho = gh('issue', 'edit', item.num, '--repo', ctx.remote, '--add-assignee', '@me');
+    const rLab = gh('issue', 'edit', item.num, '--repo', ctx.remote, '--add-label', ctx.config.labels?.in_progress || 'in-progress');
+    if (rWho.ok && rLab.ok) ghNote = 'đã gán assignee + nhãn in-progress';
+    else {
+      const bad = !rWho.ok ? rWho.err : rLab.err;
+      ghNote = `gh lỗi: ${String(bad).split('\n')[0]}`;
+      const hint = ghHint(bad);
+      if (hint) ghNote += `\n            → ${hint}`;
+      if (!rWho.ok) editFrontmatter(item.file, { sync_pending: 'true' });
+    }
   } else {
     editFrontmatter(item.file, { sync_pending: 'true' });
   }
@@ -1161,12 +1232,23 @@ function cmdRelease(args) {
   const who = item.fm.claimed_by || '?';
   editFrontmatter(item.file, { status: 'pending', claimed_by: null, claimed_at: null, branch: null });
   writeLog(item.dir, `${stampFull()} · nhả việc (trước đó: ${who})${lastFlag(o, 'reason') ? ` · lý do: ${lastFlag(o, 'reason')}` : ''}`);
+  let ghNote = 'chỉ ghi file';
   if (ctx.remote && !item.id.startsWith('L-')) {
-    gh('issue', 'edit', item.num, '--repo', ctx.remote, '--remove-assignee', '@me',
+    const rWho = gh('issue', 'edit', item.num, '--repo', ctx.remote, '--remove-assignee', '@me');
+    const rLab = gh('issue', 'edit', item.num, '--repo', ctx.remote,
       '--remove-label', ctx.config.labels?.in_progress || 'in-progress',
       '--add-label', item.fm.routing || 'ready-for-agent');
+    if (rWho.ok && rLab.ok) ghNote = 'đã gỡ assignee + nhãn';
+    else {
+      const bad = !rWho.ok ? rWho.err : rLab.err;
+      ghNote = `gh lỗi: ${String(bad).split('\n')[0]}`;
+      const hint = ghHint(bad);
+      if (hint) ghNote += `\n            → ${hint}`;
+      editFrontmatter(item.file, { sync_pending: 'true' });
+    }
   }
   console.log(`✓ Đã nhả ${item.id} về hàng đợi (trước đó: ${who})`);
+  console.log(`  github: ${ghNote}`);
   return 0;
 }
 
@@ -1693,8 +1775,9 @@ CÀI ĐẶT
              Quét thư mục gốc tìm git repo, sinh ~/.pm/worlds.yml
   pm setup   [--repo <đường-dẫn>] [--force] [--no-hooks]
              Cài .pm/flow.yml + .pm/config.json + khối pm trong AGENTS.md + hook Claude Code
-  pm doctor  [--repo <đường-dẫn>] [--all] [--json]
-             Kiểm tra framework, worlds.yml, tài khoản gh, flow, từng work-item
+  pm doctor  [--repo <đường-dẫn>] [--all] [--json] [--no-net]
+             Kiểm tra framework, worlds, remote, tài khoản gh, quyền ghi, nhãn, flow, từng work-item
+             (--no-net: bỏ qua các lần gọi GitHub, chạy nhanh và không cần mạng)
 
 CÔNG VIỆC
   pm intake  "<text>" [--source <url>] [--title …] [--priority P1|P2|P3]

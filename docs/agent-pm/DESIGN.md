@@ -524,3 +524,32 @@ pm adopt --all                  # thêm frontmatter, GIỮ NGUYÊN phần thân 
 4. Tuỳ chọn: `pm adopt --all` cho các plan cũ.
 
 > Phần chi tiết môi trường cụ thể của máy người dùng — đường dẫn, tài khoản, quy trình nội bộ của repo công việc — **không nằm trong repo công khai này**. Bản đầy đủ để ở `~/.pm/ENVIRONMENT.md` trên máy.
+
+---
+
+## 18. Đổi hình dạng: skill dẫn dắt, script thành tay
+
+Người dùng đặt câu hỏi đúng: *"tôi làm việc với AI chat, sao phải dùng CLI?"* Đánh giá lại thì thấy **chỗ chia sai nằm ở `intake`**: script đang làm việc phán đoán, và làm dở — tiêu đề lấy từ dòng đầu tin nhắn, slug cắt 5 từ, không có tiêu chí nghiệm thu, không có phạm vi, không có quyết định routing. Đó đúng là phần người dùng cần nhất.
+
+### Đã đổi
+
+| thay đổi | nội dung |
+|---|---|
+| Thêm `references/intake.md` | toàn bộ phần phán đoán: phân loại yêu cầu, viết tiêu chí nghiệm thu đo được, thang P1–P3, quyết routing, khi nào chia ticket, hỏi gì vs tự quyết, 4 ví dụ |
+| Thêm `references/playbooks.md` | 11 tình huống chat → việc làm, kèm prompt mẫu giao subagent |
+| Viết lại `SKILL.md` | mở bằng **vai** và **phán đoán**; bảng lệnh xuống cuối và đổi nhãn thành "bộ tay, không phải giao diện" |
+| Viết lại `agents/project-manager.md` | persona nói rõ phần nào là của agent, phần nào của script |
+| Thêm `conventions.md` §11 | bảng phân chia phán đoán ↔ tay máy, và **ba lý do duy nhất** script tồn tại |
+
+### Đã cân nhắc và **không** làm
+
+Trong đề xuất ban đầu tôi nói sẽ gỡ 5 lệnh (`next`, `note`, `release`, `archive`, `status`) khỏi script. Khi làm thì thấy không nên:
+
+- `next` phải cho **cùng câu trả lời** với `hook session-start`. Hai đường cài đặt cùng một luật là hai nguồn sự thật.
+- `status` và `init` là vòng lặp qua 33 repo — đúng loại việc script giỏi hơn agent.
+- `archive` là nhiều bước ghi (đổi status, đóng Issue, chuyển thư mục); làm tay dễ sai thứ tự.
+- `note` và `release` chỉ 20 dòng, nhưng chúng ghi vào đúng những chỗ (`log.md`, nhãn, assignee) mà format phải khớp.
+
+Thay vào đó chúng bị **hạ cấp trong tài liệu**: skill mô tả hành vi và format, lệnh chỉ là cách làm nhanh. Nếu agent tự làm, nó phải theo đúng format trong `references/` — không có format thứ hai.
+
+> Bản chất: **sản phẩm thật là `references/conventions.md`** — tập quy ước. Script và skill chỉ là hai cách giao cùng tập quy ước đó cho máy. Vứt `pm.mjs` đi thì quy ước vẫn còn nguyên giá trị.

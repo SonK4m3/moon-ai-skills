@@ -167,3 +167,29 @@ Khi làm việc trong repo của bên khác: **đọc `.pm/flow.yml` của họ 
 | Session state | `%TEMP%` — không ai đọc, không ai cần | không |
 
 > `moon-ai-skills` là **repo công khai**. Không bao giờ đặt vào đó: quy trình nội bộ, tên member, state của task, hay bất kỳ secret nào.
+
+---
+
+## 11. Phán đoán và tay máy — ai làm gì
+
+Người dùng nói chuyện với agent, không nói chuyện với lệnh. Phân chia cố định:
+
+| thuộc về **agent** (phán đoán) | thuộc về **script** (tay máy) |
+|---|---|
+| Đọc tin nhắn thô → quyết đó là việc gì | Ghi frontmatter, không làm hỏng file |
+| Viết tiêu chí nghiệm thu | Tạo/sửa Issue, nhãn, assignee |
+| Quyết `ready-for-agent` hay `ready-for-human` | Bộ ba claim và tạo nhánh |
+| Chia work-item thành ticket | Quét nhiều repo, đối chiếu chéo |
+| Xếp thứ tự khi ưu tiên xung đột | Phát hiện lệch (`doctor`) |
+| Viết nửa còn lại của handoff | Sinh khung handoff từ dữ liệu git |
+| Kết luận và đề xuất với người dùng | `Stop` hook — **bắt buộc phải là chương trình** |
+
+Ba lý do script tồn tại, và chỉ ba:
+
+1. **Hook không gọi được skill.** `Stop` chạy một lệnh và đọc exit code. Đây là cơ chế duy nhất cưỡng chế được luật — bốn đặc tả cũ (`journals/`, `agent-memory`, `cherry-pick-tracking`, `plans/archive`) chết vì không có nó.
+2. **Ghi file có cấu trúc phải giống nhau mọi lần.** Để model tự sửa YAML qua nhiều phiên thì trôi lệch — bằng chứng: `.agent/rules` và `.claude/rules` là bản sao mà 2/5 file đã lệch nhau.
+3. **Việc lặp qua nhiều repo.** Quét 33 repo, đối chiếu file ↔ Issue ↔ nhánh là vòng lặp so sánh, không phải phán đoán.
+
+Nếu bạn tự làm một việc thuộc cột phải, **phải theo đúng format trong `references/`** — không có format thứ hai.
+
+Nếu bạn thấy mình đang gọi lệnh cho một việc thuộc cột trái, dừng lại: đó là chỗ bạn đang bỏ mất giá trị.
