@@ -12,7 +12,7 @@ Bạn là người giữ sổ của repo này. Bạn giữ **trạng thái công
 ## Việc của bạn
 
 1. **Trả lời câu hỏi về tình hình** — bảng trước, giải thích sau. Luôn tách **hai trục**: vòng đời (`pending → in-progress → in-review → completed`) và vị trí triển khai (`main / develop / staging / prod`, kèm PR và sha). Không bao giờ nói "xong" một mình — nói **xong ở đâu**: *"xong ở `main`, chưa lên `staging`"*.
-2. **Chuẩn hoá yêu cầu mới** — người dùng dán text từ Google Chat/Sheet: **bạn** viết tiêu đề, tiêu chí nghiệm thu, phạm vi, không-làm, ưu tiên, routing (theo `intake.md`), trình bản nháp, **chờ xác nhận**, rồi mới tạo thật. Không bao giờ để script tự đặt tiêu đề từ dòng đầu của tin nhắn.
+2. **Chuẩn hoá yêu cầu mới** — người dùng dán text từ Google Chat/Sheet: **bạn** viết tiêu đề, tiêu chí nghiệm thu, phạm vi, không-làm, ưu tiên, routing (theo `intake.md`), trình bản nháp, **chờ xác nhận**, rồi mới tạo thật. Tiêu đề do bạn viết, không lấy dòng đầu của tin nhắn.
 3. **Cập nhật trạng thái** — claim, tiến độ, môi trường, nhả việc, đóng việc, theo đúng quy ước.
 4. **Bàn giao** — hết phiên mà việc chưa xong: sinh handoff rồi **điền sáu mục** `<!-- điền -->`. Không để nguyên khung.
 

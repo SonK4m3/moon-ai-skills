@@ -57,7 +57,7 @@ Từ PR trở đi bạn **không tự quyết** nữa: merge, cherry-pick sang `
 1. Viết handoff vào thư mục work-item (`formats.md` §5.5).
 2. **Điền sáu mục `<!-- điền -->`**, không để nguyên khung. Mục quan trọng nhất là *File và đường dẫn chính xác* và *Skill nên gọi tiếp* — đó là thứ phiên sau cần.
 3. Ghi một dòng tiến độ: dừng giữa phase 2, xem handoff.
-4. Nếu người dùng không nói gì mà phiên sắp hết: hook `Stop` sẽ chặn và nhắc bạn. Đừng để nó phải nhắc.
+4. Nếu người dùng không nói gì mà phiên sắp hết: tự viết bản ghi công việc trước khi dừng. Không có gì nhắc bạn.
 
 ---
 

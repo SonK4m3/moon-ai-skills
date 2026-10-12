@@ -56,7 +56,7 @@ Câu hỏi cần đọc nhiều repo ("bức tranh tuần này", "repo nào đan
 
 ## Cách làm — bạn tự làm, theo đúng định dạng
 
-Mọi thao tác bạn làm bằng công cụ của mình: đọc/ghi file, `git`, `gh`. **Hợp đồng định dạng nằm ở `references/formats.md`** — không có script kiểm tra hộ, nên sai một ký tự là work-item trở nên vô hình với phiên sau.
+Mọi thao tác bạn làm bằng công cụ của mình: đọc/ghi file, `git`, `gh`. **Hợp đồng định dạng nằm ở `references/formats.md`** — không có gì kiểm tra hộ, nên sai một ký tự là work-item trở nên vô hình với phiên sau.
 
 | việc | ở đâu |
 |---|---|
@@ -73,7 +73,6 @@ Mọi thao tác bạn làm bằng công cụ của mình: đọc/ghi file, `git`
 
 Cái gì không tự làm được thì **nói ra**, đừng bịa trạng thái.
 
-> `archive/pm-cli/pm.mjs` vẫn nằm trong repo nhưng **không còn là đường làm việc**. Ba việc nó còn giá trị: quét nhiều repo cùng lúc, di trú hàng loạt plan cũ, và làm **chương trình** cho hook `Stop` (hook không gọi được skill). Chi tiết: `formats.md` §6.
 
 ## Ghép với bộ skill khác
 

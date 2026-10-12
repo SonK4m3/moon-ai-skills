@@ -1,6 +1,6 @@
 # Định dạng và thủ tục
 
-Bạn làm mọi việc bằng công cụ của mình: đọc/ghi file, `git`, `gh`. File này là **hợp đồng định dạng** — không có script nào kiểm tra hộ, nên sai một ký tự là work-item trở nên vô hình với phiên sau. Không có "format thứ hai".
+Bạn làm mọi việc bằng công cụ của mình: đọc/ghi file, `git`, `gh`. File này là **hợp đồng định dạng** — không có gì kiểm tra hộ, nên sai một ký tự là work-item trở nên vô hình với phiên sau. Không có "format thứ hai".
 
 > Đọc `conventions.md` trước để biết luật. File này chỉ nói **viết cái gì, viết thế nào**.
 
@@ -144,16 +144,16 @@ Tracker không phải GitHub thì tạo nhãn tương đương theo cách của 
 
 ## 5. Thủ tục
 
-Mỗi thủ tục: **làm gì → kiểm tra gì**. Kiểm tra là bắt buộc — không có script nhắc bạn.
+Mỗi thủ tục: **làm gì → kiểm tra gì**. Kiểm tra là bắt buộc — không có gì nhắc bạn.
 
 ### 5.1 `setup` — cài vào một repo
 
 1. Tạo `.ledger/flow.yml` (copy `templates/flow.yml`, sửa `profile` cho đúng repo).
 2. Tạo `.ledger/config.json` (copy `templates/config.json`, điền `repo` = `<org>/<name>` từ `git remote -v`).
 3. Thêm khối `<!-- ledger:start -->…<!-- ledger:end -->` vào cuối `AGENTS.md` (tạo file nếu chưa có).
-4. Thêm `.ledger/.hook-state.json` vào `.gitignore`.
-5. Tạo thư mục `plans/`.
-6. **Kiểm tra**: `cat .ledger/config.json`, `git status --short` — và nói cho người dùng biết file nào được git theo dõi.
+
+4. Tạo thư mục `plans/`.
+5. **Kiểm tra**: `cat .ledger/config.json`, `git status --short` — và nói cho người dùng biết file nào được git theo dõi.
 
 ### 5.2 `intake` — nhận việc mới
 
@@ -258,15 +258,3 @@ Chạy khi `sync_pending: true`, hoặc khi nghi ngờ lệch. Với mỗi work-
 Với nhiều repo: đọc `~/.ledger/worlds.yml` để biết repo nào thuộc thế giới nào, rồi **giao subagent** (`playbooks.md` §11) — đừng tự quét hết trong context này.
 
 ---
-
-## 6. Khi nào vẫn nên dùng script
-
-Làm tay được hết, nhưng ba loại việc này tốn kém nếu làm tay:
-
-| việc | vì sao |
-|---|---|
-| Quét **nhiều repo** (hàng chục) cùng lúc | vòng lặp đọc file + gọi `gh`, dễ sai và tốn token |
-| **Di trú hàng loạt** plan cũ sang schema | sửa frontmatter của 16 file — làm tay dễ hỏng format |
-| **Hook** `Stop` chặn kết thúc phiên thiếu handoff | hook chỉ gọi được **chương trình**, không gọi được skill |
-
-Ba việc đó là toàn bộ lý do `archive/pm-cli/pm.mjs` còn tồn tại. Không có nó thì mất lớp cưỡng chế — và nhớ rằng bốn đặc tả cũ trong repo công việc (`journals/`, `agent-memory`, `cherry-pick-tracking`, `plans/archive`) đã chết vì không có gì cưỡng chế.

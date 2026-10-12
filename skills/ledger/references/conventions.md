@@ -157,7 +157,7 @@ Khi làm việc trong repo của bên khác: **đọc `.ledger/flow.yml` của h
 
 | file | ở đâu | commit? |
 |---|---|---|
-| Skill, template, script, DESIGN.md | `moon-ai-skills` (public) | có |
+| Skill, template, DESIGN.md | `moon-ai-skills` (public) | có |
 | `.ledger/flow.yml`, `.ledger/config.json` | repo đích | có |
 | ~/.ledger/worlds.yml — danh sách repo theo thế giới | cấp máy | **không** |
 | Work-item, handoff, evidence | `plans/<…>/` trong repo đích | có |
@@ -167,32 +167,14 @@ Khi làm việc trong repo của bên khác: **đọc `.ledger/flow.yml` của h
 
 ---
 
-## 11. Phán đoán và tay máy — ai làm gì
+## 11. Phán đoán và định dạng
 
-Người dùng nói chuyện với agent, không nói chuyện với lệnh. Phân chia cố định:
+Hai thứ khác nhau, và **không có gì kiểm tra hộ bạn**:
 
-| bạn tự làm (phán đoán) | script làm nhanh hơn — tuỳ chọn |
-|---|---|
-| Đọc tin nhắn thô → quyết đó là việc gì | Ghi frontmatter, không làm hỏng file |
-| Viết tiêu chí nghiệm thu | Tạo/sửa Issue, nhãn, assignee |
-| Quyết `ready-for-agent` hay `ready-for-human` | Bộ ba claim và tạo nhánh |
-| Chia work-item thành ticket | Quét nhiều repo, đối chiếu chéo |
-| Xếp thứ tự khi ưu tiên xung đột | Phát hiện lệch (`doctor`) |
-| Viết nửa còn lại của handoff | Sinh khung handoff từ dữ liệu git |
-| Kết luận và đề xuất với người dùng | `Stop` hook — **bắt buộc phải là chương trình** |
+- **Phán đoán** — việc này là việc gì, tiêu chí nghiệm thu nào, routing nào, làm gì tiếp. Của bạn. `intake.md` dạy cách nghĩ, không nghĩ hộ.
+- **Định dạng** — `plan.md` viết ra sao, thêm một dòng vào `log.md` thế nào, thân Issue có mấy marker. Cố định. `formats.md` là hợp đồng, **không có bản thứ hai**.
 
-Ba việc mà script làm tốt hơn bạn, và chỉ ba. Ngoài ba việc này, **bạn tự làm theo `formats.md`**:
-
-1. **Hook không gọi được skill.** `Stop` chạy một lệnh và đọc exit code. Đây là cơ chế duy nhất cưỡng chế được luật — bốn đặc tả cũ (`journals/`, `agent-memory`, `cherry-pick-tracking`, `plans/archive`) chết vì không có nó.
-2. **Ghi file có cấu trúc phải giống nhau mọi lần.** Để model tự sửa YAML qua nhiều phiên thì trôi lệch — bằng chứng: `.agent/rules` và `.claude/rules` là bản sao mà 2/5 file đã lệch nhau.
-3. **Việc lặp qua nhiều repo.** Quét 33 repo, đối chiếu file ↔ Issue ↔ nhánh là vòng lặp so sánh, không phải phán đoán.
-
-Làm tay thì **phải theo đúng `formats.md`** — không có format thứ hai.
-
-Nếu bạn thấy mình đang gọi lệnh cho một việc thuộc cột trái, dừng lại: đó là chỗ bạn đang bỏ mất giá trị.
-
----
-
+Làm một thủ tục bằng công cụ của bạn thay vì theo `formats.md` §5 thì kết quả phải **giống hệt**: cùng tên file, cùng khoá frontmatter, cùng marker. Sai một ký tự là phiên sau đọc không ra.
 ## 12. `ledger` độc lập với bộ skill ghép cùng
 
 `ledger` **không phụ thuộc** bộ skill nào. Nó cần đúng hai thứ: biết **tracker ở đâu**, và biết **ai chia ticket**. Cả hai đến từ `.ledger/config.json`, cả hai đều có mặc định.

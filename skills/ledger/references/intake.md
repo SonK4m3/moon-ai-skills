@@ -1,6 +1,6 @@
 # Chuẩn hoá yêu cầu thô thành work-item
 
-Đây là **việc phán đoán của agent**. Không có script nào làm hộ bạn phần này. Nếu bạn dán nguyên văn tin nhắn vào làm mô tả rồi lấy dòng đầu làm tiêu đề, bạn đã bỏ mất phần giá trị nhất.
+Đây là **việc phán đoán của agent**. Không ai làm hộ bạn phần này. Nếu bạn dán nguyên văn tin nhắn vào làm mô tả rồi lấy dòng đầu làm tiêu đề, bạn đã bỏ mất phần giá trị nhất.
 
 Mục tiêu: một agent **khác** đọc work-item này vào ngày mai, không hỏi lại câu nào, và làm được.
 

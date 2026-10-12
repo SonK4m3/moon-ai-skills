@@ -1,7 +1,7 @@
 # ~/.ledger/worlds.yml — danh sách repo theo từng "thế giới" của BẠN.
 #
 # File cấp MÁY, không nằm trong repo nào, không commit.
-# Không có script nào đọc nó: CHÍNH BẠN đọc nó khi cần nhìn ngang nhiều repo
+# CHÍNH BẠN đọc nó khi cần nhìn ngang nhiều repo
 # ("hôm nay làm gì" trên hàng chục repo). Sửa bằng tay.
 #
 # Mỗi world là một thế giới tách biệt: thư mục gốc, tài khoản GitHub, SSH alias.

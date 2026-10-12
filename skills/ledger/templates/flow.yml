@@ -1,7 +1,7 @@
 # .pm/flow.yml — flow của repo này.
 #
 # Đây là DỮ LIỆU, không phải code. Đổi profile là đổi hành vi của pm,
-# không phải sửa script. Repo của bên khác thì dùng flow của họ.
+# không phải sửa code. Repo của bên khác thì dùng flow của họ.
 #
 # profile:
 #   cherry-pick-4-env — PR vào main, cherry-pick sang develop/staging để test,
