@@ -9,7 +9,6 @@ Works with Claude Code, OpenCode, Kiro, Antigravity, Codex, and any agent that s
 | Skill | Domain | Description |
 |-------|--------|-------------|
 | [`ledger`](./skills/ledger) | Workflow | Giữ sổ công việc: chuẩn hoá yêu cầu từ Chat thành work-item, theo dõi mỗi việc đã tới môi trường nào, nói hôm nay nên làm gì |
-| [`astra-orchestrator`](./skills/astra-luna-orchestrator) | Orchestration | Orchestrate complex Codex work with root planner/integrator, Luna subagents, and an Astra reviewer |
 | [`tech-team-chat-communication`](./skills/tech-team-chat-communication) | Workflow | Viết message/reply trên Google Chat theo vai trò Lead hoặc Member |
 | [`feature-design`](./skills/engineering/feature-design) | Engineering | Design software features from requirements |
 | [`feature-layer-pattern`](./skills/engineering/feature-layer-pattern) | Engineering | 5-layer feature module pattern (types→api→keys→queries→mutations→store) |
