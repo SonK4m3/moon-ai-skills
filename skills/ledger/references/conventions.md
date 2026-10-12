@@ -160,7 +160,6 @@ Khi làm việc trong repo của bên khác: **đọc `.ledger/flow.yml` của h
 | Skill, template, script, DESIGN.md | `moon-ai-skills` (public) | có |
 | `.ledger/flow.yml`, `.ledger/config.json` | repo đích | có |
 | Work-item, handoff, evidence | `plans/<…>/` trong repo đích | có |
-| `worlds.yml`, webhook URL | `~/.ledger/` (cấp máy) | **không** |
 | Session state | `%TEMP%` — không ai đọc, không ai cần | không |
 
 > `moon-ai-skills` là **repo công khai**. Không bao giờ đặt vào đó: quy trình nội bộ, tên member, state của task, hay bất kỳ secret nào.
