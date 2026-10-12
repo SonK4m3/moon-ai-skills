@@ -204,7 +204,7 @@ Làm một thủ tục bằng công cụ của bạn thay vì theo `formats.md` 
 | Việc thô từ người ngoài | kit của repo (`/triage`) | không triage |
 | Triển khai song song nhiều ticket | kit của repo (`/implement-spec`, worktree) | không dựng cơ chế song song |
 | Bàn giao giữa **phiên** | kit của repo (`/handoff`) | ghi **bản ghi công việc** trong repo, không thay `/handoff` |
-| Thân PR · chẩn đoán bug | kit của repo (`/pr`, `/diagnosing-bugs`) | không viết lại |
+| Thân PR | quy ước của repo — `docs/agents/pr-format.md` nếu có, không thì skill `write-pr-description`; skill `pr` dùng template `Summary/Evidence/Merge Danger` cho review kỹ thuật | không viết lại |
 
 **Ba việc chỉ `ledger` làm, và đó là toàn bộ lý do nó tồn tại:**
 

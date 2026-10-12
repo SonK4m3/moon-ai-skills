@@ -17,8 +17,9 @@ Works with Claude Code, OpenCode, Kiro, Antigravity, Codex, and any agent that s
 | [`react-composition-architect`](./skills/engineering/react-composition-architect) | Engineering | Progressive composition patterns for React components |
 | [`conversation-visualizer`](./skills/engineering/conversation-visualizer) | Engineering | Summarize long conversations into interactive HTML decision briefs |
 | [`write-pr-description`](./skills/engineering/write-pr-description) | Engineering | Tạo PR và mô tả thay đổi theo template chuẩn |
+| [`notex-fe-gitflow`](./skills/engineering/notex-fe-gitflow) | Engineering | Git flow 4 môi trường: cherry-pick để test trước, PR luôn target `main`, cách resolve conflict |
 
-Thiết kế của `pm`: [`docs/agent-ledger/DESIGN.md`](./docs/agent-ledger/DESIGN.md) · Quy ước: [`skills/ledger/references/conventions.md`](./skills/ledger/references/conventions.md)
+Thiết kế của `ledger`: [`docs/agent-ledger/DESIGN.md`](./docs/agent-ledger/DESIGN.md) · Quy ước: [`skills/ledger/references/conventions.md`](./skills/ledger/references/conventions.md)
 
 ## Install
 
