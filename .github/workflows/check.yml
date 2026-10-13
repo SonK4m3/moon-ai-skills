@@ -1,0 +1,58 @@
+name: check
+
+# Guardrail cho frontmatter plan.md.
+#
+# Chi kiem cac plan.md THAY DOI, khong kiem toan bo: hai work-item thoi pm
+# (plans/261012-1-*, plans/261012-2-*) sai hop dong tu truoc va dang cho L-4
+# quyet so phan. Kiem toan bo se do CI tren main vi mot mon no da biet, va cach
+# do nhanh nhat de nguoi ta hoc cach bo qua CI.
+#
+# Quet toan bo (bao gom no cu) la lenh tay: npm run check:fm
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontmatter:
+    name: plan.md frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Pick the base to diff against
+        id: base
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "sha=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate changed plan.md
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHA='${{ steps.base.outputs.sha }}'
+          if [ -z "$SHA" ] || [ "$SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "khong co base (push dau tien cua nhanh) -- khong co gi de kiem."
+            echo "PR se kiem khi duoc mo."
+            exit 0
+          fi
+          node scripts/check-fm.mjs --base "$SHA"

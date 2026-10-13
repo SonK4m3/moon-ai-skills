@@ -1,0 +1,24 @@
+#!/bin/sh
+# Kiem frontmatter cua cac plan.md dang stage.
+#
+# Hook nay KHONG tu chay. Bat bang:
+#     git config core.hooksPath .githooks
+# Tat lai bang:
+#     git config --unset core.hooksPath
+#
+# No khong thay the CI: chi chay khi da bat, va bo qua duoc bang --no-verify.
+# CI la guardrail that; cai nay chi de bat loi som hon mot nhip.
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "check-fm: node khong co tren PATH -- bo qua kiem frontmatter"
+  exit 0
+fi
+
+if node scripts/check-fm.mjs --staged; then
+  exit 0
+fi
+
+echo ""
+echo "Commit bi chan: frontmatter plan.md sai hop dong."
+echo "Sua roi stage lai, hoac bo qua bang: git commit --no-verify"
+exit 1
