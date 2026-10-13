@@ -154,6 +154,28 @@ Tracker không phải GitHub thì tạo nhãn tương đương theo cách của 
 
 Mỗi thủ tục: **làm gì → kiểm tra gì**. Kiểm tra là bắt buộc — không có gì nhắc bạn.
 
+### 5.0 Ghi `plan.md` — dùng `wm.mjs`
+
+Các thủ tục dưới đây đều sửa `plan.md`. **Đừng tự chế cách sửa.** `scripts/wm.mjs` trong skill này làm đúng việc đó và **không phá file**: nó chỉ thay những dòng cần thay, phần còn lại giữ nguyên từng byte — thứ tự khoá, dòng trống, kiểu xuống dòng.
+
+Mọi đường dẫn dưới đây tính **từ thư mục của skill `ledger`**, không phải từ gốc repo — giống `templates/flow.yml` ở §5.1. Trong chính repo `moon-ai-skills` thì nó nằm ở `skills/ledger/scripts/wm.mjs`.
+
+```
+node scripts/wm.mjs read <plan.md>                        # frontmatter ra JSON
+node scripts/wm.mjs set <plan.md> <key> --text <giá trị>  # một scalar
+node scripts/wm.mjs set <plan.md> <key> --delete          # xoá cả dòng (luật 6)
+node scripts/wm.mjs accept <plan.md> --json-file <f>      # danh sách {text, verify}
+node scripts/wm.mjs env <plan.md> <env> <state> [--pr N] [--sha S]
+node scripts/wm.mjs log <plan.md> --text "<một dòng>"
+node scripts/wm.mjs validate <plan.md>
+```
+
+Thêm `--dry-run` để xem trước mà không ghi. `accept` nhận JSON từ **file**, không phải từ dòng lệnh: soạn nội dung bằng công cụ ghi file của bạn, rồi để `wm.mjs` lo phần YAML. Đó chính là chỗ hai lần hỏng trước đây sinh ra.
+
+**Vì sao có nó.** Bản `pm` trước có CLI; khi đổi tên sang `ledger` thì CLI bị gỡ (`e9c4a75`) và thay bằng "agent tự làm bằng công cụ của mình". Đo lại trên log một phiên thật: **185 lệnh pwsh**, **87** trong đó phải tự gọi API encoding .NET để ghi UTF-8, và **5 commit `fix(plans)`** chỉ để sửa hậu quả — một file phình lên 22 735 dòng.
+
+Tự làm vẫn được, hợp đồng không đổi. Nhưng tự làm bằng PowerShell trên Windows thì bốn kiểu hỏng sau là **mặc định**, không phải ngoại lệ: mảng lồng nhau bị làm phẳng, `[regex]::Replace` ăn dấu `$`, ghi UTF-8 sai (BOM hoặc mojibake), và nháy YAML lệch. `wm.mjs` tồn tại để phiên sau không phải là người thứ N học lại điều đó.
+
 ### 5.1 `setup` — cài vào một repo
 
 **Trước khi tạo gì, tìm quy ước repo đang có.** Repo có thể đã có `plans/`, `docs/plans/`, `tasks/`, hoặc cấu trúc riêng. Đọc trước, **dùng cái đang có**, ghi đường dẫn vào `.ledger/config.json` → `work_items_dir`. Repo có **hai** cấu trúc song song thì **chọn một mặc định, ghi rõ lý do, RỒI hỏi** — đừng tạo cái thứ ba, và **đừng dừng lại mà để repo trống**. Không ghi được gì vào repo thì phiên sau không biết việc này từng tồn tại; thà chọn sai rồi sửa còn hơn không chọn gì. Nêu cả phương án bạn đã loại và vì sao.

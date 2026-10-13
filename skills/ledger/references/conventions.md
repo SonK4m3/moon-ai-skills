@@ -183,12 +183,15 @@ Khi làm việc trong repo của bên khác: **đọc `.ledger/flow.yml` của h
 
 ## 11. Phán đoán và định dạng
 
-Hai thứ khác nhau, và **không có gì kiểm tra hộ bạn**:
+Hai thứ khác nhau, và chỉ **một** trong hai có máy kiểm:
 
-- **Phán đoán** — việc này là việc gì, tiêu chí nghiệm thu nào, routing nào, làm gì tiếp. Của bạn. `intake.md` dạy cách nghĩ, không nghĩ hộ.
-- **Định dạng** — `plan.md` viết ra sao, thêm một dòng vào `log.md` thế nào, thân Issue có mấy marker. Cố định. `formats.md` là hợp đồng, **không có bản thứ hai**.
+- **Phán đoán** — việc này là việc gì, tiêu chí nghiệm thu nào, routing nào, làm gì tiếp. Của bạn, và **không có gì kiểm hộ**. `intake.md` dạy cách nghĩ, không nghĩ hộ.
+- **Định dạng** — `plan.md` viết ra sao, thêm một dòng vào `log.md` thế nào, thân Issue có mấy marker. Cố định. `formats.md` là hợp đồng, **không có bản thứ hai** — và `wm.mjs` là chỗ hợp đồng đó được kiểm.
 
-Làm một thủ tục bằng công cụ của bạn thay vì theo `formats.md` §5 thì kết quả phải **giống hệt**: cùng tên file, cùng khoá frontmatter, cùng marker. Sai một ký tự là phiên sau đọc không ra.
+Làm một thủ tục bằng công cụ của bạn thay vì theo `formats.md` §5 thì kết quả phải **giống hệt**: cùng tên file, cùng khoá frontmatter, cùng marker. Sai một ký tự là phiên sau đọc không ra. `formats.md` §5.0 có sẵn `wm.mjs` — dùng nó thay vì tự viết lại phần YAML.
+
+---
+
 ## 12. `ledger` độc lập với bộ skill ghép cùng
 
 `ledger` **không phụ thuộc** bộ skill nào. Nó cần đúng hai thứ: biết **tracker ở đâu**, và biết **ai chia ticket**. Cả hai đến từ `.ledger/config.json`, cả hai đều có mặc định.
