@@ -97,3 +97,24 @@ Repo hiện chỉ có 9 nhãn mặc định của GitHub. Cần tạo 8 nhãn: `
 ## 7. Nối Issue ↔ work-item
 
 `id: L-n` trong file, `#3..#6` trên GitHub — chưa nối được bằng máy. Bước hòa giải (`formats.md` §5.9) là đổi `id` → `GH-<n>` và đổi tên thư mục. Chưa chạy vì bốn nhánh đang mở; làm giữa chừng sẽ rối. Đã ghi `issue: <n>` vào frontmatter của cả ba work-item trên `main` để không mất mối nối.
+
+---
+
+## 8. Đã áp dụng lên tracker (bổ sung sau khi thử quyền)
+
+Thử thật thì ra `gh` với tài khoản work **làm được nhiều hơn tưởng**: đóng issue · comment · sửa thân · đổi tiêu đề đều **được**; chỉ **nhãn** và **assignee** bị chặn.
+
+| việc | kết quả |
+|---|---|
+| Dựng lại thân #3 #4 #5 #6 từ `plan.md` bằng **pyyaml** | ✅ |
+| Viết lại thân + tiêu đề #2 | ✅ |
+| Comment triage cho #2..#6, có câu disclaimer bắt buộc | ✅ |
+| Đóng #1 kèm comment giải thích (`wontfix`, bị thay thế) | ✅ |
+| Đổi tiêu đề #1 bỏ chữ "pm" | ✅ |
+| Gắn nhãn | ❌ `AddLabelsToLabelable` — không đủ quyền |
+| Gán assignee | ❌ `ReplaceActorsForAssignable` — không đủ quyền |
+| Mở PR | ❌ `must be a collaborator` |
+
+**Sự cố nhỏ:** ba comment cuối trả `exit=1` do rate limit, nhưng #4 thực ra **đã đăng** — thử lại thành trùng. Đã xoá bản thừa (`6136777732`).
+
+**Còn lại:** mọi issue vẫn **0 nhãn** vì không tạo được nhãn. Cần 8 nhãn: `needs-triage` · `needs-info` · `ready-for-agent` · `ready-for-human` · `wontfix` · `in-progress` · `in-review` · `blocked`.
