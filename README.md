@@ -18,6 +18,7 @@ Works with Claude Code, OpenCode, Kiro, Antigravity, Codex, and any agent that s
 | [`conversation-visualizer`](./skills/engineering/conversation-visualizer) | Engineering | Summarize long conversations into interactive HTML decision briefs |
 | [`write-pr-description`](./skills/engineering/write-pr-description) | Engineering | Tạo PR và mô tả thay đổi theo template chuẩn |
 | [`notex-fe-gitflow`](./skills/engineering/notex-fe-gitflow) | Engineering | NoteX FE Git workflow v1.0 + Agent Strategy v1.1: 8-step decision loop, Inspect/Prepare/Execute modes, three risk tiers, promotion integrity (manifest, completeness), bug routing, 18 exception use cases, 4-layer release gate, 4 templates |
+| [`notex-ticket-create`](./skills/engineering/notex-ticket-create) | Engineering | Author or upgrade a TOPX Jira ticket (Bug/Task/Sub-task/Story) so it is ready to hand off: mandatory `[PRODUCT-ENV][SURFACE]` summary tag, Steps/Expected/Actual/ENV block, Given/When/Then acceptance criteria, `<cần bổ sung tài liệu>` placeholder instead of invented behaviour, plus an 8-check read-only audit for existing tickets |
 
 Thiết kế của `ledger`: [`docs/agent-ledger/DESIGN.md`](./docs/agent-ledger/DESIGN.md) · Quy ước: [`skills/ledger/references/conventions.md`](./skills/ledger/references/conventions.md)
 
